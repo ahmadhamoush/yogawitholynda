@@ -35,7 +35,8 @@
     border-radius: 20px;
 }
 
-.cardContainer:hover .image {
+.cardContainer:hover .image,
+.cardContainer:active .image {
     transform: scale(1.2);
 }
 
@@ -81,9 +82,16 @@
     border-radius: 20px;
 }
 
-@media (max-width:650px) {
+@media (max-width:1000px) {
+    .cards:last-child a:last-child>.cardContainer {
+        width: 70vw;
+        height: 50vh;
+    }
+}
+
+@media (max-width:674px) {
     .cardContainer {
-        width: 80vw;
-        height: 280px;
+        width: 70vw;
+        height: 50vh;
     }
 }

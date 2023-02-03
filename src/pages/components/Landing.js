@@ -5,11 +5,9 @@ import Link from 'next/link'
 function Landing(){
     return (
         <>
-
-
         <div className={style.overlay}>
         <div className={style.container}>
-        <Navbar isLanding={'true'} />
+        <Navbar />
         <div className={style.links}>
             <Link className={style.link} href="/collections/yoga-mats">
                 <p>Yoga Mats</p></Link>
