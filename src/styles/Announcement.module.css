@@ -1,0 +1,9 @@
+.container {
+    padding: 10px;
+    background-color: white;
+}
+
+.container p {
+    text-align: center;
+    color: #001F3D;
+}
