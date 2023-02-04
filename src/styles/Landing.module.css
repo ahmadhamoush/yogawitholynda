@@ -41,7 +41,7 @@
     align-items: center;
     position: absolute;
     bottom: 0;
-    background-color: #DCC295;
+    background-image: linear-gradient(rgba(220, 194, 149, 0.9), rgba(220, 194, 149, 0.9));
     width: 100%;
     padding: 20px;
     border-radius: 20px;

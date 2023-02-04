@@ -1,4 +1,4 @@
-export default `
+const loader = `
 #globalLoader{
     position: fixed;
     z-index: 1700;
@@ -53,3 +53,4 @@ export default `
   transform: rotate(360deg);
  }
 }`;
+export default loader

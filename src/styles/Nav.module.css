@@ -2,23 +2,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0 70px;
     color: white;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 111;
 }
 
 .nav h3 {
     font-size: 30px;
 }
 
-.logo {
-    /* filter: brightness(0.5);
-    filter: contrast(0.5);
-    filter: grayscale(0.6);
-    border-radius: 20px; */
-}
-
 .icon {
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
 }

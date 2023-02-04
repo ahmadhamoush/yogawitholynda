@@ -1,4 +1,306 @@
 .container {
     min-height: 100vh;
-    background-color: #DCC295;
+    background-color: #ffffff;
+    color: #001f3d;
+}
+
+.collectionDesc {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    row-gap: 20px;
+    padding: 10px;
+    margin: 20px auto;
+}
+
+.collectionDesc h2 {
+    font-weight: 200;
+    position: relative;
+    text-align: center;
+}
+
+.collectionDesc h2::after {
+    content: '';
+    width: 35px;
+    height: 3px;
+    display: flex;
+    flex-direction: column;
+    background-color: #001f3d;
+    margin: 10px auto;
+    animation: heading 0.5s ease-in-out;
+}
+
+@keyframes heading {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 35px;
+    }
+}
+
+.collectionDesc p {
+    line-height: 2;
+}
+
+.products {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    display: grid;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.collectionContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 30px;
+}
+
+.filterFlex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.box label {
+    margin: 5px;
+    color: #001f3d;
+}
+
+.box select {
+    background-color: #dcc295;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    appearance: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='45' viewBox='0 0 24 24' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    border: 1px solid #dfdfdf;
+    padding: 1rem;
+}
+
+.box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+.box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+    padding: 30px;
+}
+
+.availabilityContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.availabilityContainer>* {
+    margin: 10px;
+}
+
+.availabilityContainer hr {
+    width: 100%;
+    background: #001f3d;
+    border: 0.5px solid #001f3d;
+}
+
+.availability {
+    position: relative;
+    width: 100%;
+}
+
+.availability label {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.checkboxes,
+.rangeContainer {
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+}
+
+.checkbox {
+    margin: 10px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input+label {
+    cursor: pointer;
+}
+
+.availability .showFilter+label:before,
+.availability .showFilter+label:after {
+    position: absolute;
+    content: '';
+    width: 16px;
+    background-color: #001f3d;
+    height: 2px;
+    margin: 5px;
+    right: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.availability .showFilter+label:before {
+    transform: rotate(90deg);
+}
+
+.availability .showFilter+label:after {
+    transform: rotate(180deg);
+}
+
+.availability .showFilter:checked+label:before {
+    transform: rotate(45deg);
+}
+
+.availability .showFilter:checked+label:after {
+    transform: rotate(-45deg);
+}
+
+.availability .showFilter:checked~.checkboxes,
+.availability .showFilter:checked~.rangeContainer {
+    padding: 20px;
+    min-height: 90px;
+    height: auto !important;
+    height: 90px;
+}
+
+.checkbox input[type="checkbox"]+label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 5px 10px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.checkbox input[type="checkbox"]:checked+label:before {
+    content: "\2713";
+    background-color: #001f3d;
+    color: #fff;
+}
+
+.responsiveFilter {
+    position: fixed;
+    top: 50%;
+    left: 90%;
+    right: 0;
+    z-index: 111;
+    margin: auto;
+    transform: rotate(-90deg);
+    display: none;
+}
+
+.responsiveFilter button {
+    color: #DCC295;
+    background-color: #001F3D;
+    padding: 10px 30px;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.prices {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.prices input {
+    margin: 10px 0;
+    border: 1px solid #DCC295;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#range-slider-yellow {
+    background: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23555' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E") #DCC295;
+}
+
+#range-slider-yellow .range-slider__range {
+    background: #DCC295;
+    transition: height 0.3s;
+}
+
+#range-slider-yellow .range-slider__thumb {
+    background: #001f3d;
+    transition: transform 0.3s;
+}
+
+#range-slider-yellow .range-slider__thumb[data-active] {
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+#range-slider-yellow .range-slider__range[data-active] {
+    height: 16px;
+}
+
+@media (max-width:692px) {
+    .filterFlex {
+        flex-direction: column;
+    }
+}
+
+@media (max-width:416px) {
+    .collectionDesc {
+        width: 90vw;
+    }
+    .filters {
+        display: none;
+    }
+    .responsiveFilter {
+        display: block;
+    }
 }

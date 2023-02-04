@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Announcement from './components/Announcement'
 import Landing from './components/Landing'
+import Navbar from './components/Navbar'
 import CollectionList from './components/CollectionList'
 import ProductList from './components/ProductList'
 

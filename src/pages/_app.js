@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@/styles/collectionsPage.css'
 import '@/styles/collectionPage.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { useEffect } from 'react';

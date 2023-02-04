@@ -1,6 +1,6 @@
 import style from '@/styles/Landing.module.css'
-import Navbar from './Navbar'
 import Link from 'next/link'
+import Navbar from './Navbar'
 
 function Landing(){
     return (
