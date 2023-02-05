@@ -30,12 +30,12 @@ function ProductList(){
                 <Carousel containerClass={style.carouselContainer}
                 itemClass={style.carouselItem} responsive={responsive}>
                       <div>
-                <Link href="/collections/yoga-mats">
-                <ProductCard name='Non-slip yoga socks' price='15$' image='/product2.png' />
+                <Link href={`/collections/${encodeURIComponent('yoga-mats')}`}>
+                <ProductCard name='Non-slip yoga socks' price='16$' image='/product2.png' />
                 </Link>
                 </div>
                 <div>
-                <Link href="/collections/yoga-mats">
+                <Link href="/collections/yoga-mats@">
                 <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
                 </Link>
                 </div>
@@ -76,8 +76,10 @@ function ProductList(){
                 </Link>
                 </div>
                 </Carousel>
-                
-                
+                <Link href ='/collections/all'>
+                <button className={style.btn}>View All Products</button>  
+                </Link>
+              
         </div>
     )
 }

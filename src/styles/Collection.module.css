@@ -4,11 +4,13 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    margin: 30px;
 }
 
 .listContainer h1 {
     color: #001F3D;
     font-weight: 200;
+    margin: 20px;
 }
 
 .cards {

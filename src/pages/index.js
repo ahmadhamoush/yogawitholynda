@@ -5,6 +5,7 @@ import Landing from './components/Landing'
 import Navbar from './components/Navbar'
 import CollectionList from './components/CollectionList'
 import ProductList from './components/ProductList'
+import PreFooter from './components/PreFooter'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <Landing />
       <CollectionList />
       <ProductList />
+      <PreFooter />
     </>
   )
 }

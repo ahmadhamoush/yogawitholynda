@@ -47,11 +47,10 @@
     position: relative;
     width: 100%;
     padding: 30px;
-    display: grid;
     margin: 0 auto;
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .collectionContainer {
@@ -125,29 +124,37 @@
     padding: 30px;
 }
 
-.availabilityContainer {
+input[type="checkbox"] {
+    display: none;
+}
+
+input+label {
+    cursor: pointer;
+}
+
+.filterContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
 
-.availabilityContainer>* {
+.filterContainer>* {
     margin: 10px;
 }
 
-.availabilityContainer hr {
+.filterContainer hr {
     width: 100%;
     background: #001f3d;
     border: 0.5px solid #001f3d;
 }
 
-.availability {
+.filterHeading {
     position: relative;
     width: 100%;
 }
 
-.availability label {
+.filterHeading label {
     cursor: pointer;
     display: flex;
     justify-content: flex-start;
@@ -165,16 +172,8 @@
     margin: 10px;
 }
 
-input[type="checkbox"] {
-    display: none;
-}
-
-input+label {
-    cursor: pointer;
-}
-
-.availability .showFilter+label:before,
-.availability .showFilter+label:after {
+.filterHeading .showFilter+label:before,
+.filterHeading .showFilter+label:after {
     position: absolute;
     content: '';
     width: 16px;
@@ -185,24 +184,24 @@ input+label {
     transition: all 0.5s ease-in-out;
 }
 
-.availability .showFilter+label:before {
+.filterHeading .showFilter+label:before {
     transform: rotate(90deg);
 }
 
-.availability .showFilter+label:after {
+.filterHeading .showFilter+label:after {
     transform: rotate(180deg);
 }
 
-.availability .showFilter:checked+label:before {
+.filterHeading .showFilter:checked+label:before {
     transform: rotate(45deg);
 }
 
-.availability .showFilter:checked+label:after {
+.filterHeading .showFilter:checked+label:after {
     transform: rotate(-45deg);
 }
 
-.availability .showFilter:checked~.checkboxes,
-.availability .showFilter:checked~.rangeContainer {
+.filterHeading .showFilter:checked~.checkboxes,
+.filterHeading .showFilter:checked~.rangeContainer {
     padding: 20px;
     min-height: 90px;
     height: auto !important;

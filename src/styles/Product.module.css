@@ -61,4 +61,17 @@
 .listContainer h1 {
     color: #001F3D;
     font-weight: 200;
+    margin: 20px;
+}
+
+.btn {
+    background-color: #DCC295;
+    color: #001F3D;
+    padding: 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 10px;
+    margin: 50px;
+    cursor: pointer;
 }
