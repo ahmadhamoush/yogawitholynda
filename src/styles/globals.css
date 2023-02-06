@@ -2,9 +2,36 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+    font-family: "roboto", sans-serif;
 }
 
 a {
     text-decoration: none;
+}
+
+h2 {
+    font-weight: 200;
+    position: relative;
+    text-align: center;
+    font-size: 30px;
+}
+
+h2::after {
+    content: '';
+    width: 35px;
+    height: 3px;
+    display: flex;
+    flex-direction: column;
+    background-color: #001f3d;
+    margin: 10px auto;
+    animation: heading 0.5s ease-in-out;
+}
+
+h3 {
+    color: white;
+    font-weight: 400;
+    position: relative;
+    text-align: center;
+    font-size: 25px;
+    margin: 5px;
 }

@@ -1,9 +1,13 @@
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar"
-import ProductCard from "../components/ProductCard";
-import Filters from '../components/Filters';
+import Announcement from "../../components/Announcement";
+import Navbar from "../../components/Navbar"
+import ProductCard from "../../components/ProductCard";
+import Filters from '../../components/Filters';
+import Footer from "../../components/Footer";
+import { initMongoose } from "lib/mongoose";
+import { findAllProducts,listCollection } from "../api/products";
+import {findAllCollections } from "../api/collections";
 
-function Collection ({title, isProducts}){
+function Collection ({title, isProducts,products}){
 
     return (
         <div className="container">
@@ -17,6 +21,8 @@ function Collection ({title, isProducts}){
              <div className="responsiveFilter">
                 <button>Filters</button>
              </div>
+            <div className="sortFlex">
+            <span>Home / Collections / Yoga Mats </span>
             <div className="box filters">
             <label htmlFor="select">Sort By:</label>
             <select id='select'>
@@ -26,6 +32,7 @@ function Collection ({title, isProducts}){
                 <option>Option 4</option>
                 <option>Option 5</option>
             </select>
+            </div>
             </div>
                <div className="filterFlex">
                <Filters>
@@ -64,59 +71,51 @@ function Collection ({title, isProducts}){
       
                </Filters>
                   <div className="products">
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
+                {products.map(product=>{
+                  return <ProductCard key={product._id} name={product.name} price={product.price} image={product.image} />
+                })}
                 </div>
                </div>
             </div>
+            <Footer />
         </div>
     )
 }
 export default Collection
 
 export  async function getServerSideProps(context){
+  await initMongoose()
 const {query} = context;
 const collectionName = query.collectionName
-let title = '';
+let products;
+ products  = await listCollection(collectionName)
+if(collectionName === 'all-products'){
+   products  = await findAllProducts()
+}
 let isProducts = false;
 console.log(query)
- const collections = ['yoga-mats', 'yoga-socks', 'yoga-incense', 'all']
 
- switch(collectionName){
-    case 'yoga-mats':
-    title = 'Yoga Mats'
-    break;
-    case 'yoga-socks':
-        title = 'Yoga Socks'
-        break;
+//  const collections = ['yoga-mats-bags', 'yoga-socks', 'yoga-incense', 'all-products']
+  const collections = await findAllCollections()
 
-        case 'yoga-incense':
-            title = 'Yoga Incense'
-            break;
-            case 'all':
-                title = 'All Products'
-                isProducts = true;
-                break;
- }
- console.log(title)
- console.log(isProducts)
- if(!collections.includes(collectionName)){
+  let paths =['all-products']
+  collections.forEach(collection => {
+    let pathName = collection.href.split('/')
+    paths.push(pathName[pathName.length-1])
+  });
+  if(!paths.includes(collectionName)){
     return {
         notFound:true
     }
  }
 
+
 return {
     props:{
-        title:title,
-        isProducts: isProducts
+        title:collectionName.toUpperCase().replace('-',' '),
+        isProducts: isProducts,
+        products:JSON.parse(JSON.stringify(products))
+
     }
 }
 }

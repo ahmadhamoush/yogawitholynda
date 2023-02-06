@@ -1,0 +1,76 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.linksContainer {
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #001F3D;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.linksContainer div:not(.credits) {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container div ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 13px;
+    font-weight: 200;
+}
+
+.container div ul li {
+    margin: 5px 5px 5px 0;
+    list-style: none;
+}
+
+.container div h3 {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.credits {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #dcc295;
+    padding: 10px;
+    font-size: 12px;
+    width: inherit;
+}
+
+.credits p span {
+    font-weight: bold;
+}
+
+.contact ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px 10px 10px 0;
+}

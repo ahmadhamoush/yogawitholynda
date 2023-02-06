@@ -13,23 +13,6 @@
     margin: 20px auto;
 }
 
-.collectionDesc h2 {
-    font-weight: 200;
-    position: relative;
-    text-align: center;
-}
-
-.collectionDesc h2::after {
-    content: '';
-    width: 35px;
-    height: 3px;
-    display: flex;
-    flex-direction: column;
-    background-color: #001f3d;
-    margin: 10px auto;
-    animation: heading 0.5s ease-in-out;
-}
-
 @keyframes heading {
     0% {
         width: 0;
@@ -46,7 +29,6 @@
 .products {
     position: relative;
     width: 100%;
-    padding: 30px;
     margin: 0 auto;
     display: grid;
     gap: 1rem;
@@ -57,7 +39,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
     padding: 30px;
 }
 
@@ -66,6 +49,23 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+}
+
+.filters {
+    margin-right: 20px;
+}
+
+.sortFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.sortFlex span {
+    font-weight: 200;
+    font-size: 12px;
 }
 
 .box {

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Image from 'next/image';
-import logo from '../../../public/logo.png'
+import logo from '../../public/logo.png'
 import Link from 'next/link';
  
 

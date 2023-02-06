@@ -19,7 +19,9 @@ function Landing(){
     <div className={style.bannerContainer}>
         <div className={style.banner}>
             <h1>Enhance Your Yoga Journey</h1>
-            <button>Shop Now</button>
+            <Link className={style.link} href="/collections">
+            <button>Shop Now</button></Link>
+            
         </div>
   </div>
 

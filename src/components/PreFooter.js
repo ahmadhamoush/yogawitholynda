@@ -1,8 +1,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import style from '@/styles/PreFooter.module.css'
-import img1 from '../../../public/about.png'
-import img2 from '../../../public/benefits.png'
+import img1 from '../../public/about.png'
+import img2 from '../../public/benefits.png'
 function PreFooter(){
     return (
         <div className={style.container}>
