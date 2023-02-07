@@ -6,7 +6,8 @@ const ProductSchema = new Schema({
     color: String,
     image: String,
     price: Number,
-    category: String
+    category: String,
+    featured:Boolean,    
 })
 const Product = models ?.Product || model('Product', ProductSchema)
 

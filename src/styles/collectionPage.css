@@ -30,9 +30,13 @@
     position: relative;
     width: 100%;
     margin: 0 auto;
-    display: grid;
+    /* display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .collectionContainer {
@@ -66,6 +70,13 @@
 .sortFlex span {
     font-weight: 200;
     font-size: 12px;
+}
+
+.collectionFlex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .box {

@@ -21,7 +21,8 @@ function Collection ({title, isProducts,products}){
              <div className="responsiveFilter">
                 <button>Filters</button>
              </div>
-            <div className="sortFlex">
+             <div className="collectionFlex">
+             <div className="sortFlex">
             <span>Home / Collections / Yoga Mats </span>
             <div className="box filters">
             <label htmlFor="select">Sort By:</label>
@@ -76,6 +77,8 @@ function Collection ({title, isProducts,products}){
                 })}
                 </div>
                </div>
+             </div>
+      
             </div>
             <Footer />
         </div>

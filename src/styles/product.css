@@ -1,15 +1,14 @@
-.imagesContainer {
+.productContainer {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    padding: 10px;
+    background-color: #eee;
+    padding: 20px;
 }
 
-.flexImages {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.productImage {
+    flex: 1;
+    object-fit: contain;
 }
 
 .productBtns {
@@ -27,7 +26,7 @@
     border: none;
     font-weight: bold;
     font-size: 15px;
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 5px;
     cursor: pointer;
 }
@@ -48,9 +47,12 @@
     justify-content: space-around;
     align-items: flex-start;
     padding: 30px;
-    background-color: #dcc295;
-    height: 50vh;
-    border-radius: 20px;
+    flex: 1;
+    border-radius: 10px;
+}
+
+.productDetails>* {
+    margin: 5px;
 }
 
 .productDetails div:first-child {
@@ -93,7 +95,7 @@
 
 .quantity button {
     color: #001F3D;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 30px;
     outline: none;
     border: none;
@@ -106,4 +108,26 @@
 .quantity button:hover {
     padding: 0 20px;
     background-color: #DCC295;
+}
+
+.productDesc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    line-height: 2;
+}
+
+.productDesc ul {
+    padding: 10px;
+}
+
+.productDesc ul li {
+    color: #001F3D;
+}
+
+@media (max-width:674px) {
+    .productContainer {
+        flex-direction: column;
+    }
 }

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import Announcement from '../components/Announcement'
 import Landing from '../components/Landing'
 import Navbar from '../components/Navbar'
@@ -12,9 +13,10 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { findAllCollections } from './api/collections'
+import { findAllProducts } from './api/products'
 
 
-export default function Home({collections}) {
+export default function Home({collections,products}) {
   return (
     <>
       <Head>
@@ -25,9 +27,14 @@ export default function Home({collections}) {
     
       </Head>
       <Announcement />
+      <Navbar />
       <Landing />
       <CollectionList all={false} collections={collections} />
-      <ProductList />
+      <ProductList featured={true}  products={products} />
+      <Link href ='/collections/all-products'>
+                <button className='viewAll'>View All Products</button>  
+                </Link>
+              
       <PreFooter />
       <Footer />
     </>
@@ -35,10 +42,13 @@ export default function Home({collections}) {
 }
 export async function getServerSideProps(){
   const collections = await findAllCollections()
+  const products = await findAllProducts()
+ 
 
   return{
     props:{
-      collections: JSON.parse(JSON.stringify(collections))
+      collections: JSON.parse(JSON.stringify(collections)),
+      products: JSON.parse(JSON.stringify(products))
     }
   }
 }

@@ -79,23 +79,13 @@ function Footer(){
                   
                 </ul>
             </div>
-            <div className={style.attributions}>
-            <h3>Attribution</h3>
-                <ul>
-                    <li>
-                        Link 1 
-                    </li>
-                    <li>
-                        Link 2 
-                    </li>
-                </ul>
-            </div>
-
+   
           </div>
             <div className={style.credits}>
-            <p>Designed & Developed By <span>Hamoush</span></p>
+        
             <p>100% MONEY BACK GUARANTEE</p>
             <p>© 2023, Yoga With Olynda</p>
+            <p>Designed & Developed By <span>Hamoush</span></p>
             </div>
            
         </div>

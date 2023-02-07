@@ -21,50 +21,28 @@ const responsive = {
     }
   };
 
-function ProductList(){
+function ProductList({products,featured}){
     return(
         
         <div className={style.listContainer}>
-            <h2>Featured Products</h2>
+            <h2>{featured ? 'Featured' : 'Similar'} Products</h2>
           
-                <Carousel  containerClass={style.carouselContainer}
-                itemClass={style.carouselItem} responsive={responsive}>
+              <div className={style.productsSnapping}>
                       
-               
-                <ProductCard category={'Yoga Socks'} name='Non-slip yoga socks' price='16$' image='/product2.png' />
-             
-        
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-        
-        
-       <ProductCard name='Natural Bamboo Incense Stick Holder' price='20$' image='/product3.png' />
-              
-                 
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-           
-               
-               
-                <ProductCard name='Natural Bamboo Incense Stick Holder' price='20$' image='/product3.png' />
-               
-                <ProductCard name='Non-slip yoga socks' price='15$' image='/product2.png' />
-           
+                {
+                  products.map(product=>{
+                    if(featured){
+                      return product.featured &&  <ProductCard key={product._id} category={product.category} name={product.name} price={product.price} image={product.image} />
+                    }
+                    else{
+                      return  <ProductCard key={product._id} category={product.category} name={product.name} price={product.price} image={product.image} />
+                    }
                 
-                <ProductCard name='CHIN MUDRA - YOGA MAT BAG' price='40$' image='/product1.png' />
-              
-                 
-                
-                <ProductCard name='Non-slip yoga socks' price='15$' image='/product2.png' />
-              
-                 
-           
-                <ProductCard name='Natural Bamboo Incense Stick Holder' price='20$' image='/product3.png' />
+                  })
+                }
+                               
+            </div>
                
-                
-                </Carousel>
-                <Link href ='/collections/all-products'>
-                <button className={style.btn}>View All Products</button>  
-                </Link>
-              
         </div>
     )
 }

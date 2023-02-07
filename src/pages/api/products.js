@@ -8,6 +8,9 @@ export async function findAllProducts() {
 export async function listCollection(collection) {
     return Product.find({ category: collection }).exec()
 }
+export async function findProduct(productId) {
+    return Product.findOne({ _id: productId }).exec()
+}
 export default async function handler(req, res) {
 
     await initMongoose()

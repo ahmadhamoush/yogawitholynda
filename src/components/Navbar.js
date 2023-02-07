@@ -8,7 +8,7 @@ import logo from '../../public/logo.png'
 import Link from 'next/link';
  
 
-function Navbar({isCollection}){
+function Navbar(){
 
     const [navScrolled, setNavScrolled] = useState(false)
 
@@ -28,15 +28,26 @@ useEffect(() => {
 }, []);
 
     return (
-        <nav className={style.nav} style={{background: navScrolled || isCollection ? '#001f3d' : 'transparent'}}>
+        <nav className={style.nav}>
       
            <FontAwesomeIcon icon={faSearch} className={style.icon}  />
         
-            {/* <h3>YOGAWITHOLYNDA</h3> */}
-            <Link href='/'>
-            <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/>
+       
+            <div className={style.navFlex}>
+              <Link href='/'>
+            {/* <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/> */}
+            <h3>YOGAWITHOLYNDA</h3>
             </Link>
+            <div className={style.links}>
+            <Link className={style.link} href="/collections/yoga-mats">
+                <p>Yoga Mats</p></Link>
+                <Link className={style.link} href="/collections/yoga-socks">
+                <p>Yoga Socks</p></Link>
+                <Link className={style.link} href="/collections/yoga-incense">
+                <p>Yoga Incense</p></Link>
+        </div>
             
+            </div>
        
     
            <FontAwesomeIcon icon={faCartShopping} className={style.icon}  />

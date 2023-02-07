@@ -2,20 +2,45 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 70px;
+    padding: 10px 20px;
     color: white;
     position: sticky;
     width: 100%;
     top: 0;
     z-index: 111;
+    background-color: white;
+}
+
+.navFlex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav h3 {
     font-size: 30px;
+    color: #001F3D;
 }
 
 .icon {
-    color: white;
     font-size: 20px;
     cursor: pointer;
+    color: #001F3D;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.links p {
+    color: #001F3D;
+}
+
+.link {
+    text-decoration: none;
+    margin: 0 10px;
 }

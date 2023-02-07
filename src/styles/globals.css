@@ -2,8 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "roboto", sans-serif;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
+
+body {}
 
 a {
     text-decoration: none;
@@ -34,4 +36,23 @@ h3 {
     text-align: center;
     font-size: 25px;
     margin: 5px;
+}
+
+.viewAll {
+    background-color: white;
+    padding: 20px;
+    border: none;
+    color: #DCC295;
+    border: 2px dashed #DCC295;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.viewAll:hover,
+.viewAll:active {
+    background-color: #DCC295;
+    color: white;
 }

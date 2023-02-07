@@ -7,16 +7,16 @@ function ProductCard (props){
        
         <div className={style.cardContainer}>
            <div style={{position:'relative'}}>
-           <Link href={`/product/${encodeURIComponent('1')}`}>
+           <Link href={`/product/${encodeURIComponent(props.name)}`}>
              <div className={style.imgContainer}>
-                <Image src={props.image} alt={`${props.name}`} fill sizes='100vw' className={style.image}  />
+                <Image src={props.image} alt={`${props.name}`} fill sizes='100vw'  className={style.image}  />
             </div>
             </Link>    
             <button className={style.add}>+</button>
            </div>
           
             <div className={style.details}>
-            <p>{props.name}</p>
+            <p>{props.name.toUpperCase()}</p>
             <p>${props.price}</p>
             </div>   
         </div>
