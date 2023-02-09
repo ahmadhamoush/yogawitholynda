@@ -6,7 +6,7 @@
     text-align: center;
     transition: all 0.5s ease-in-out;
     margin: 50px 20px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     width: 250px;
     height: 250px;
 }
@@ -33,6 +33,12 @@
     border-radius: 20px;
     width: 250px;
     height: 250px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.imgContainer:hover>.image {
+    transform: scale(1.1);
 }
 
 .add {
@@ -40,14 +46,18 @@
     right: 0;
     bottom: 0;
     font-size: 30px;
-    color: white;
-    padding: 5px 15px;
+    color: aliceblue;
+    text-align: center;
     outline: none;
     border: none;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     background-color: #001F3D;
     border-radius: 20px;
     cursor: pointer;
     margin: 10px;
+    z-index: 2;
 }
 
 
@@ -59,6 +69,7 @@
 .image {
     object-fit: contain;
     border-radius: 20px;
+    transition: transform 0.5s, visibility 0.5s ease-in-out;
 }
 
 .details {
@@ -66,7 +77,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 10px;
     margin: 10px auto;
 }
 
@@ -95,12 +105,12 @@
 }
 
 @media (max-width:674px) {
-    .productsSnapping .cardContainer {
-        width: 200px;
-        height: 200px;
+    .imgContainer {
+        width: 180px;
+        height: 180px;
     }
-    .productsSnapping .imgContainer {
-        width: 200px;
-        height: 200px;
+    .cardContainer {
+        width: 180px;
+        height: 180px;
     }
 }

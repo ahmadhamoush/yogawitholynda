@@ -5,7 +5,9 @@
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-body {}
+body {
+    background-color: aliceblue;
+}
 
 a {
     text-decoration: none;
@@ -30,7 +32,7 @@ h2::after {
 }
 
 h3 {
-    color: white;
+    color: aliceblue;
     font-weight: 400;
     position: relative;
     text-align: center;
@@ -39,11 +41,11 @@ h3 {
 }
 
 .viewAll {
-    background-color: white;
+    background-color: aliceblue;
     padding: 20px;
     border: none;
     color: #DCC295;
-    border: 2px dashed #DCC295;
+    border: 2px solid #DCC295;
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
@@ -54,5 +56,5 @@ h3 {
 .viewAll:hover,
 .viewAll:active {
     background-color: #DCC295;
-    color: white;
+    color: aliceblue;
 }

@@ -14,7 +14,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: #001F3D;
-    color: white;
+    color: aliceblue;
     flex-wrap: wrap;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .icon {
-    color: white;
+    color: aliceblue;
     font-size: 20px;
     cursor: pointer;
     margin: 10px 10px 10px 0;

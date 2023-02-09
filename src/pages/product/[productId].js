@@ -2,29 +2,37 @@ import Navbar from "../../components/Navbar"
 import Image from "next/image"
 import ProductList from "../../components/ProductList"
 import Footer from "../../components/Footer"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { findAllProducts } from "../api/products"
+import Announcement from "@/components/Announcement"
 
-function Product({products, product,similarProducts}){
+function Product({product,similarProducts}){
     const [quantity, setQuantity] = useState(1);
-    const [price, setPrice] = useState(40);
+    const [price, setPrice] = useState(product.price);
+
+    useEffect(()=>{
+        setQuantity(1)
+        setPrice(product.price)
+    },[product])
+
     return(
         <>
+          <Announcement  />
        <Navbar /> 
         <div className="productContainer">
-        <Image className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
-            <div className="productDetails">
+        <Image data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
+            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productDetails">
         <div>
         <h2>{product.name}</h2>
         <span>Yoga Mats</span>
         <p>${price}</p>
         </div>
-        <div className="quantityContainr">
+        <div className="quantityContainer">
         <p>Quantity:</p>
         <div className="quantity">  
-        <button  onClick={(e)=>{setQuantity(prev=>prev>1 ? prev-1 : 1);setPrice(price*quantity)}}>-</button>    
+        <button  onClick={(e)=>{setQuantity(prev=>prev>1 ? prev-1 : 1);setPrice(prev=> prev>product.price ? prev-product.price : product.price)}}>-</button>    
            <p> {quantity}</p>
-            <button onClick={(e)=>{setQuantity(prev=>prev+1);setPrice(price*quantity)}}>+</button>
+            <button onClick={(e)=>{setQuantity(prev=>prev+1);setPrice(prev=>prev+product.price)}}>+</button>
         </div>
         </div>
        <div className="productBtns">
@@ -33,7 +41,7 @@ function Product({products, product,similarProducts}){
        </div>
         </div>
         </div>
-        <div className="productDesc">
+        <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productDesc">
             <h2>Product Description</h2>
             {
                 product.description.map((desc,index)=>{
@@ -65,4 +73,6 @@ export async function getServerSideProps(context){
         similarProducts: JSON.parse(JSON.stringify(similarProducts))
       }
     }
+
   }
+

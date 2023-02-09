@@ -12,11 +12,11 @@ function Footer(){
            
           <div className={style.linksContainer}>
                   
-          <Link href='/'>
+          <Link data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  href='/'>
             <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/>
             </Link>
             
-          <div className={style.links}>
+          <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.links}>
                 <h3>Links</h3>
                 <ul>
                     <li>
@@ -39,7 +39,7 @@ function Footer(){
                     </li>
                 </ul>
             </div>
-            <div className={style.policies}>
+            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.policies}>
             <h3>Policies</h3>
                 <ul>
                     <li>
@@ -56,7 +56,7 @@ function Footer(){
                     </li>
                 </ul>
             </div>
-            <div className={style.contact}>
+            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.contact}>
             <h3>Contact</h3>
                 <ul>
                     <li>
@@ -81,7 +81,7 @@ function Footer(){
             </div>
    
           </div>
-            <div className={style.credits}>
+            <div  className={style.credits}>
         
             <p>100% MONEY BACK GUARANTEE</p>
             <p>© 2023, Yoga With Olynda</p>

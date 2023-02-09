@@ -1,6 +1,6 @@
 .container {
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: aliceblue;
     color: #001f3d;
 }
 
@@ -67,9 +67,10 @@
     padding: 10px;
 }
 
-.sortFlex span {
+.sortFlex p {
     font-weight: 200;
     font-size: 12px;
+    height: 50px;
 }
 
 .collectionFlex {
@@ -93,7 +94,7 @@
 
 .box select {
     background-color: #dcc295;
-    color: white;
+    color: aliceblue;
     padding: 12px;
     width: 250px;
     border: none;
@@ -103,7 +104,7 @@
     outline: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='45' viewBox='0 0 24 24' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg fill='aliceblue' height='45' viewBox='0 0 24 24' width='45' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     background-repeat: no-repeat;
     background-position-x: 100%;
     background-position-y: 50%;
@@ -300,6 +301,9 @@ input+label {
 @media (max-width:692px) {
     .filterFlex {
         flex-direction: column;
+    }
+    .listContainer {
+        margin: 0;
     }
 }
 

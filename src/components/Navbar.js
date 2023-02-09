@@ -3,7 +3,6 @@ import style from '@/styles/Nav.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import Image from 'next/image';
 import logo from '../../public/logo.png'
 import Link from 'next/link';
  
@@ -28,7 +27,7 @@ useEffect(() => {
 }, []);
 
     return (
-        <nav className={style.nav}>
+        <nav data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
       
            <FontAwesomeIcon icon={faSearch} className={style.icon}  />
         
@@ -49,8 +48,12 @@ useEffect(() => {
             
             </div>
        
-    
-           <FontAwesomeIcon icon={faCartShopping} className={style.icon}  />
+            
+           <div className={style.cartContainer}>
+            <div className={style.badge}>0</div>
+           <FontAwesomeIcon icon={faCartShopping} className={style.icon}  /> 
+           </div>
+         
    
         </nav>
     )

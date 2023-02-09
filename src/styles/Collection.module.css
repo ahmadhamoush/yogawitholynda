@@ -6,6 +6,10 @@
     margin: 10px;
 }
 
+.listContainer h2 {
+    margin: 20px;
+}
+
 .cards {
     display: flex;
     flex-direction: row;
@@ -31,7 +35,7 @@
 
 .cardContainer:hover .image,
 .cardContainer:active .image {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .overlay {
@@ -53,7 +57,7 @@
 }
 
 .content h2 {
-    color: white;
+    color: aliceblue;
     font-size: 30px;
 }
 
@@ -72,7 +76,7 @@
 .image {
     object-fit: cover;
     transform-origin: 0 0;
-    transition: transform .25s, visibility .25s ease-in;
+    transition: transform 0.5s, visibility 0.5s ease-in-out;
     border-radius: 20px;
 }
 
@@ -91,8 +95,6 @@
     }
     .listContainer {
         padding: 0;
-    }
-    .listContainer h2 {
-        margin: 20px;
+        margin: 0;
     }
 }

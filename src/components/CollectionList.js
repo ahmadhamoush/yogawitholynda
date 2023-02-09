@@ -4,7 +4,7 @@ import Link from "next/link"
 function CollectionList({collections,all}){
     return(     
         <div className={style.listContainer}>
-            <h2>Collection List</h2>
+            <h2 data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600">Collection List</h2>
             <div className={style.cards}>
                 {collections.map(collection=>{
                     return(

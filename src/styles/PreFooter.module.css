@@ -2,6 +2,7 @@
     margin: 20px;
     padding: 20px;
     display: flex;
+    gap: 10px;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -13,7 +14,6 @@
 
 .image {
     object-fit: cover;
-    width: 40vw !important;
     position: relative !important;
     transition: transform .25s, visibility .25s ease-in;
     border-radius: 7px;
@@ -24,6 +24,8 @@
     display: flex;
     cursor: pointer;
     border-radius: 7px;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .aboutUs:hover .image,
@@ -50,19 +52,16 @@
 }
 
 .content h2 {
-    color: white;
+    color: aliceblue;
     font-size: 30px;
 }
 
 .content h2:after {
-    background-color: white !important;
+    background-color: aliceblue !important;
 }
 
 @media (max-width:674px) {
     .container {
         flex-direction: column-reverse;
-    }
-    .image {
-        width: 90vw !important;
     }
 }

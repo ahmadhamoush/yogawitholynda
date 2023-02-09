@@ -3,8 +3,12 @@ import { findAllCollections } from "../api/collections"
 import CollectionList from "../../components/CollectionList"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
+
 function Collections ({collections}){
+
+
     return <>
+
     <Navbar isCollection={true} />
   <CollectionList all={true}collections={collections} />
   <Footer />
