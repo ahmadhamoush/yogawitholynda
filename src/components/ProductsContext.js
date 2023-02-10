@@ -2,9 +2,9 @@ import { createContext, useState } from "react";
 
 export const ProductsContext = createContext({ })
 
-export function ProductsContextProvider(){
+export function ProductsContextProvider({children}){
     const [selectedProducts, setSelectedProducts] = useState([])
     return(
-       <ProductsContext.Provider value={{selectedProducts}}></ProductsContext.Provider>
+       <ProductsContext.Provider value={{selectedProducts, setSelectedProducts}}>{children}</ProductsContext.Provider>
     )
 }

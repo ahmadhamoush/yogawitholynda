@@ -1,33 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import style from '@/styles/Nav.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import logo from '../../public/logo.png'
 import Link from 'next/link';
+import { ProductsContext } from './ProductsContext';
  
 
 function Navbar(){
 
-    const [navScrolled, setNavScrolled] = useState(false)
+    const {selectedProducts} = useContext(ProductsContext)
 
-const listenScrollEvent = (event) => {
-  if (window.scrollY < 73) {
-    return setNavScrolled(false)
-  } else if (window.scrollY > 100) {
-    return setNavScrolled(true)
-  } 
-}
-
-useEffect(() => {
-  window.addEventListener('scroll', listenScrollEvent);
-
-  return () =>
-    window.removeEventListener('scroll', listenScrollEvent);
-}, []);
 
     return (
-        <nav data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
+        <nav data-aos="fade-down" data-aos-once={true} data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
       
            <FontAwesomeIcon icon={faSearch} className={style.icon}  />
         
@@ -50,7 +36,7 @@ useEffect(() => {
        
             
            <div className={style.cartContainer}>
-            <div className={style.badge}>0</div>
+            <div className={style.badge}>{selectedProducts.length}</div>
            <FontAwesomeIcon icon={faCartShopping} className={style.icon}  /> 
            </div>
          

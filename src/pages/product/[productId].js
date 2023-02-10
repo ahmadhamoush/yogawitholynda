@@ -20,8 +20,8 @@ function Product({product,similarProducts}){
           <Announcement  />
        <Navbar /> 
         <div className="productContainer">
-        <Image data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
-            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productDetails">
+        <Image data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
+            <div className="productDetails">
         <div>
         <h2>{product.name}</h2>
         <span>Yoga Mats</span>
