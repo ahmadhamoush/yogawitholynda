@@ -12,6 +12,7 @@ function Collection ({title, isProducts,products}){
     return (
         <div className="container">
             <Announcement  />
+        
              <Navbar isCollection={true} />
             <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionDesc">
             <h2>{title}</h2>

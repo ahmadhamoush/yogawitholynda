@@ -14,6 +14,9 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { findAllCollections } from './api/collections'
 import { findAllProducts } from './api/products'
+import Search from '../components/Search'
+import ResponsiveNav from '../components/ResponsiveNav'
+
 
 
 export default function Home({collections,products}) {
@@ -24,10 +27,12 @@ export default function Home({collections,products}) {
         <meta name="description" content="Yoga Shop" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.jpg" />
-    
       </Head>
       <Announcement />
       <Navbar />
+ 
+      <Search products={products} />
+      <ResponsiveNav />
       <Landing />
       <CollectionList all={false} collections={collections} />
       <ProductList featured={true}  products={products} />
@@ -37,7 +42,7 @@ export default function Home({collections,products}) {
               
       <PreFooter />
       <Footer />
-    </>
+    </>   
   )
 }
 export async function getServerSideProps(){

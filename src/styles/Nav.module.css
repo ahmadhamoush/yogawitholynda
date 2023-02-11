@@ -1,12 +1,12 @@
 .nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     position: sticky;
+    justify-content: space-between;
     width: 100%;
     top: 0;
-    z-index: 111;
+    z-index: 113;
     background-color: aliceblue;
 }
 
@@ -15,10 +15,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-basis: 100%;
 }
 
 .nav h3 {
     font-size: 30px;
+    color: #001F3D;
+}
+
+.searchIcon {
+    font-size: 22px;
+    cursor: pointer;
     color: #001F3D;
 }
 
@@ -61,4 +68,68 @@
     color: #fff;
     text-align: center;
     background-color: #DCC295;
+}
+
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.responsiveNav {
+    position: fixed;
+    height: 100vh;
+}
+
+.hamburgerMenu {
+    position: relative;
+    cursor: pointer;
+    display: none;
+    cursor: pointer;
+    float: right;
+    padding: 10px 20px;
+}
+
+.lines {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #001F3D;
+    height: 2px;
+    width: 24px;
+    position: absolute;
+}
+
+.lines::before,
+.lines::after {
+    content: '';
+    display: block;
+    position: absolute;
+    transition: all .2s ease-out;
+    background-color: #001F3D;
+    height: 2px;
+    width: 24px;
+}
+
+.lines::before {
+    top: 7px
+}
+
+.lines::after {
+    top: -7px
+}
+
+@media (max-width:674px) {
+    .links {
+        display: none;
+    }
+    .nav h3 {
+        font-size: 27px;
+    }
+    .search {
+        display: none;
+    }
+    .hamburgerMenu {
+        display: block;
+    }
 }

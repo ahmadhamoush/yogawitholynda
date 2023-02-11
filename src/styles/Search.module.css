@@ -1,0 +1,66 @@
+.container {
+    position: fixed;
+    bottom: 0;
+    height: 100%;
+    background: aliceblue;
+    margin: auto;
+    z-index: 114;
+    overflow-y: scroll;
+    transition: .5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.message {
+    color: #001F3D;
+    font-size: 20px;
+    margin: auto;
+    padding: 20px;
+}
+
+.search {
+    position: relative;
+    padding: 20px;
+}
+
+.search input {
+    font-size: 25px;
+    width: 100%;
+    border: 1px solid #001F3D;
+    outline: none;
+    color: #001F3D;
+    background: transparent;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.search input ::placeholder {
+    color: #001F3D;
+}
+
+.searchIcon {
+    font-size: 22px;
+    cursor: pointer;
+    color: #001F3D;
+    position: absolute;
+    right: 30px;
+    top: 35px;
+}
+
+.closeIcon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #001F3D;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}

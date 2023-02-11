@@ -1,8 +1,7 @@
 import style from '@/styles/Product.module.css'
 import Image from "next/image"
 import Link from 'next/link';
-import AOS from 'aos';
-import { useContext, useEffect } from 'react';
+import { useContext} from 'react';
 import { ProductsContext } from './ProductsContext';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,8 +19,8 @@ function ProductCard (props){
         productAddedNoti()
   }
     return(
-    
-    <div data-aos="zoom-in"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.cardContainer}>
+        // data-aos="zoom-in"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"
+    <div  className={style.cardContainer}>
            <div style={{position:'relative'}}>
            <Link href='/product/[productId]' as={`/product/${encodeURIComponent(props.name)}`}>
              <div className={style.imgContainer}>

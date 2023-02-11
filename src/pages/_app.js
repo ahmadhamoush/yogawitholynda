@@ -5,13 +5,11 @@ import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'aos/dist/aos.css';
 import AOS from 'aos'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
-
 export default function App({ Component, pageProps }) {
 
-  
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const loader = document.getElementById('globalLoader');
@@ -23,8 +21,7 @@ export default function App({ Component, pageProps }) {
 
     return  <ProductsContextProvider>
         <Component {...pageProps }  />
-        <ToastContainer theme="dark" autoClose= {2000} hideProgressBar={true}toastStyle={{ backgroundColor: "#001F3D" }} />
+        <ToastContainer theme="dark"  autoClose= {2000} hideProgressBar={true}toastStyle={{ backgroundColor: "#001F3D" }} />
     </ProductsContextProvider> 
   
-
 }

@@ -302,9 +302,6 @@ input+label {
     .filterFlex {
         flex-direction: column;
     }
-    .listContainer {
-        margin: 0;
-    }
 }
 
 @media (max-width:416px) {
