@@ -60,3 +60,12 @@
     right: 10px;
     top: 15px;
 }
+
+.closeIcon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #001F3D;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}

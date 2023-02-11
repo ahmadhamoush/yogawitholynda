@@ -3,20 +3,22 @@ import { ProductsContext } from "./ProductsContext"
 import Link from "next/link"
 import style from '@/styles/ResponsiveNav.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import Navbar from "./Navbar"
+import { faClose, faSearch } from "@fortawesome/free-solid-svg-icons"
 function ResponsiveNav(){
-const {isMenuChecked} = useContext(ProductsContext)
-const {isSearchChecked, setIsSearchChecked, setSearchedProducts} = useContext(ProductsContext)
+const {isMenuChecked,setIsMenuChecked} = useContext(ProductsContext)
+const {isSearchChecked, setIsSearchChecked, setSearchText} = useContext(ProductsContext)
+
 function handleSearch(e){
-    setSearchedProducts(e.target.value)
+    setSearchText(e.target.value)
     setIsSearchChecked(true)
+    
   }
+  
 return (
   <div>
    
     {<div className={style.container} style={{width: isMenuChecked ? '100%': '0'}}>
-    <Navbar />
+    <FontAwesomeIcon onClick={()=>{setIsMenuChecked(false)}} icon={faClose} className={style.closeIcon}  />
 
         <ul>
             <li>
