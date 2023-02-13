@@ -238,28 +238,6 @@ input+label {
     color: #fff;
 }
 
-.responsiveFilter {
-    position: fixed;
-    top: 50%;
-    left: 90%;
-    right: 0;
-    z-index: 111;
-    margin: auto;
-    transform: rotate(-90deg);
-    display: none;
-}
-
-.responsiveFilter button {
-    color: #DCC295;
-    background-color: #001F3D;
-    padding: 10px 30px;
-    border: none;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
 .prices {
     display: flex;
     margin-bottom: 15px;
@@ -302,16 +280,13 @@ input+label {
     .filterFlex {
         flex-direction: column;
     }
+    .sortFlex {
+        flex-direction: column;
+    }
 }
 
 @media (max-width:416px) {
     .collectionDesc {
         width: 90vw;
-    }
-    .filters {
-        display: none;
-    }
-    .responsiveFilter {
-        display: block;
     }
 }

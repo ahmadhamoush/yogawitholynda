@@ -2,13 +2,24 @@ import Navbar from "../../components/Navbar"
 import Image from "next/image"
 import ProductList from "../../components/ProductList"
 import Footer from "../../components/Footer"
-import { useEffect, useState } from "react"
-import { findAllProducts } from "../api/products"
+import { useContext, useEffect, useState } from "react"
+import { findAllProducts, findProduct } from "../api/products"
 import Announcement from "@/components/Announcement"
+import { ProductsContext } from "@/components/ProductsContext"
+import { toast } from "react-toastify"
 
 function Product({product,similarProducts}){
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(product.price);
+    const {setSelectedProducts} = useContext(ProductsContext)
+    const addedNotif = ()=>  toast(`${product.name} added to cart! x${quantity}`)
+
+    function addProduct(){
+        for(let i =0; i<quantity;i++){
+            setSelectedProducts(prev=>[...prev, product._id])
+        }
+        addedNotif()
+    }
 
     useEffect(()=>{
         setQuantity(1)
@@ -36,7 +47,7 @@ function Product({product,similarProducts}){
         </div>
         </div>
        <div className="productBtns">
-       <button>Add to Cart</button>
+       <button onClick={addProduct}>Add to Cart</button>
         <button>Buy Now</button>
        </div>
         </div>
@@ -60,11 +71,9 @@ export async function getServerSideProps(context){
     const {query} = context;
     const productId = query.productId
     const products = await findAllProducts()
-    const queriedProduct = products.find((product=>
-        product.name === productId
-    ))
+    const queriedProduct = await findProduct(productId)
     const similarProducts = products.filter((product=>
-        product.category === queriedProduct.category &&  product.name !== queriedProduct.name
+        product.category === queriedProduct.category && product.name !== queriedProduct.name
     ))
     return{
       props:{

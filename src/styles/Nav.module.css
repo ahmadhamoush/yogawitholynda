@@ -43,7 +43,25 @@
 }
 
 .links p {
+    position: relative;
     color: #001F3D;
+}
+
+.links p::after {
+    content: '';
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #001F3D;
+    width: 0;
+    height: 2px;
+    transition: 0.5s ease-in-out;
+}
+
+.links p:hover::after {
+    width: 100%;
 }
 
 .link {
@@ -64,7 +82,7 @@
     height: 22px;
     line-height: 22px;
     border-radius: 50%;
-    font-size: 17px;
+    font-size: 15px;
     color: #fff;
     text-align: center;
     background-color: #DCC295;
@@ -124,7 +142,7 @@
         display: none;
     }
     .nav h3 {
-        font-size: 27px;
+        font-size: 22px;
     }
     .search {
         display: none;

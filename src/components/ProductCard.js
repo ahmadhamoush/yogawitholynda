@@ -6,13 +6,12 @@ import { ProductsContext } from './ProductsContext';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 function ProductCard (props){
  
   const  {setSelectedProducts} = useContext(ProductsContext)
-    const productAddedNoti = () => toast(`${props.name} added to cart!`)
+const productAddedNoti = () => toast(`${props.name} added to cart!`)
 
   function addProduct (){
         setSelectedProducts(prev=> [...prev,props.id])

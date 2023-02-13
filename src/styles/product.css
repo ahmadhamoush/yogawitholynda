@@ -1,6 +1,6 @@
 .productContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #dcc2958f;
     width: 100%;

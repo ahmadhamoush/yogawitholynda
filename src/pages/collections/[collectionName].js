@@ -19,9 +19,6 @@ function Collection ({title, isProducts,products}){
              <p>Transform your yoga practice with our premium collection of yoga mats. Designed with the modern yogi in mind, each mat offers unparalleled comfort and stability to help you achieve your best poses. Our mats are made with high-quality, non-slip materials that provide a safe and supportive surface, so you can focus on your breath and movement. Choose from a range of thicknesses, sizes, and colors to find the perfect mat that matches your personal style and needs. Whether you are a beginner or a seasoned pro, investing in a quality yoga mat is the key to unlocking your full potential on the mat. Elevate your yoga journey today with our collection of yoga mats.</p>
             </div>
             <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionContainer">
-             <div className="responsiveFilter">
-                <button>Filters</button>
-             </div>
              <div className="collectionFlex">
              <div className="sortFlex">
             <p>Home / Collections / Yoga Mats </p>
@@ -91,11 +88,13 @@ export  async function getServerSideProps(context){
 const {query} = context;
 const collectionName = query.collectionName
 let products;
+let isProducts = false;
  products  = await listCollection(collectionName)
 if(collectionName === 'all-products'){
    products  = await findAllProducts()
+   isProducts  = true
 }
-let isProducts = false;
+
 console.log(query)
 
 //  const collections = ['yoga-mats-bags', 'yoga-socks', 'yoga-incense', 'all-products']

@@ -15,8 +15,6 @@ import '@fontsource/roboto/700.css';
 import { findAllCollections } from './api/collections'
 import { findAllProducts } from './api/products'
 import Search from '../components/Search'
-import ResponsiveNav from '../components/ResponsiveNav'
-
 
 
 export default function Home({collections,products}) {
@@ -30,16 +28,11 @@ export default function Home({collections,products}) {
       </Head>
       <Announcement />
       <Navbar />
- 
       <Search products={products} />
-      <ResponsiveNav />
       <Landing />
       <CollectionList all={false} collections={collections} />
       <ProductList featured={true}  products={products} />
-      <Link href ='/collections/all-products'>
-                <button className='viewAll'>View All Products</button>  
-                </Link>
-              
+      <Link href ='/collections/all-products'><button className='viewAll'>View All Products</button></Link>        
       <PreFooter />
       <Footer />
     </>   

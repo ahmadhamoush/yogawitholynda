@@ -19,9 +19,12 @@ function Footer(){
           <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.links}>
                 <h3>Links</h3>
                 <ul>
+                <Link href={'/about'}>
                     <li>
-                        About Us
+                      
+                       About Us
                     </li>
+                    </Link>
                     <li>
                         Yoga Mats
                     </li>

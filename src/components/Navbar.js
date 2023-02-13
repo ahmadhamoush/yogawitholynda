@@ -10,6 +10,7 @@ import { ProductsContext } from './ProductsContext';
 
 function Navbar(){
 
+
     const {selectedProducts} = useContext(ProductsContext)
 
     const {isMenuChecked,setIsMenuChecked} = useContext(ProductsContext)
@@ -46,10 +47,11 @@ function Navbar(){
    </div>
        
        </div>
-      <div className={style.cartContainer}>
+   <Link href="/cart">
+   <div className={style.cartContainer}>
        <div className={style.badge}>{selectedProducts.length}</div>
       <FontAwesomeIcon icon={faCartShopping} className={style.icon}  /> 
-      </div>
+      </div></Link>
    </nav>
   
       

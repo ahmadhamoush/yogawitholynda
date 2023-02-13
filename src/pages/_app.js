@@ -3,11 +3,13 @@ import '@/styles/collectionsPage.css'
 import '@/styles/collectionPage.css'
 import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import 'react-toastify/dist/ReactToastify.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos'
 import { useEffect, useState } from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
+import ResponsiveNav from '@/components/ResponsiveNav'
 export default function App({ Component, pageProps }) {
 
     useEffect(() => {
@@ -19,8 +21,9 @@ export default function App({ Component, pageProps }) {
         }
     }, []);
 
-    return  <ProductsContextProvider>
+    return  <ProductsContextProvider >
         <Component {...pageProps }  />
+        <ResponsiveNav  />
         <ToastContainer theme="dark"  autoClose= {2000} hideProgressBar={true}toastStyle={{ backgroundColor: "#001F3D" }} />
     </ProductsContextProvider> 
   
