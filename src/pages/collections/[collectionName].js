@@ -6,14 +6,15 @@ import Footer from "../../components/Footer";
 import { initMongoose } from "lib/mongoose";
 import { findAllProducts,listCollection } from "../api/products";
 import {findAllCollections } from "../api/collections";
+import Search from "@/components/Search";
 
 function Collection ({title, isProducts,products}){
 
     return (
         <div className="container">
             <Announcement  />
-        
              <Navbar isCollection={true} />
+             <Search products={products} />
             <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionDesc">
             <h2>{title}</h2>
              <p>Transform your yoga practice with our premium collection of yoga mats. Designed with the modern yogi in mind, each mat offers unparalleled comfort and stability to help you achieve your best poses. Our mats are made with high-quality, non-slip materials that provide a safe and supportive surface, so you can focus on your breath and movement. Choose from a range of thicknesses, sizes, and colors to find the perfect mat that matches your personal style and needs. Whether you are a beginner or a seasoned pro, investing in a quality yoga mat is the key to unlocking your full potential on the mat. Elevate your yoga journey today with our collection of yoga mats.</p>
@@ -25,7 +26,7 @@ function Collection ({title, isProducts,products}){
             <div className="box filters">
             <label htmlFor="select">Sort By:</label>
             <select id='select'>
-                <option>Option 1</option>
+                <option>A-Z</option>
                 <option>Option 2</option>
                 <option>Option 3</option>
                 <option>Option 4</option>

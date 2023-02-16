@@ -7,8 +7,9 @@ import { findAllProducts, findProduct } from "../api/products"
 import Announcement from "@/components/Announcement"
 import { ProductsContext } from "@/components/ProductsContext"
 import { toast } from "react-toastify"
+import Search from "@/components/Search"
 
-function Product({product,similarProducts}){
+function Product({products,product,similarProducts}){
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(product.price);
     const {setSelectedProducts} = useContext(ProductsContext)
@@ -30,6 +31,7 @@ function Product({product,similarProducts}){
         <>
           <Announcement  />
        <Navbar /> 
+       <Search products={products} />
         <div className="productContainer">
         <Image data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
             <div className="productDetails">

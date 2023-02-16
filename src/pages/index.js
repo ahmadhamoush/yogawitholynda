@@ -19,7 +19,7 @@ import Search from '../components/Search'
 
 export default function Home({collections,products}) {
   return (
-    <>
+    <>  
       <Head>
         <title>YOGAWITHOLYNDA</title>
         <meta name="description" content="Yoga Shop" />

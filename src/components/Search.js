@@ -41,7 +41,7 @@ function Search ({products}){
                 {state.foundProducts.length>0 && searchText.length>1 ?
                  <div className={style.results}> 
                  {state.foundProducts.map((product,index)=>{
-                    return <ProductCard key={index} id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} />
+                    return <div key={index} onClick={()=>setIsSearchChecked(prev=>!prev)}><ProductCard  id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} /></div>
                  })}
                  </div> :<p className={style.message}>No Products Found</p>}
             </div>

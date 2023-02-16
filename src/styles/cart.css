@@ -1,0 +1,150 @@
+.cart {
+    padding: 50px;
+    background-color: #001f3d;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.cartContainer {
+    background-color: white;
+    padding: 50px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1;
+}
+
+.cartHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.cartItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+.cartItem>* {
+    margin: 5px;
+}
+
+.cartQuantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001f3d;
+    max-width: 100%;
+    font-size: 20px;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.cartQuantity button {
+    color: #001f3d;
+    background-color: #eee;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.cartQuantity button:hover {
+    color: #DCC295
+}
+
+.cartQuantity button:active {
+    font-size: 25px;
+}
+
+.summary {
+    padding: 50px;
+    flex: 0.5;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.summary div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.summary h1 {
+    margin-bottom: 30px;
+}
+
+.summary button {
+    text-transform: uppercase;
+    padding: 12px 0;
+    color: #DCC295;
+    background-color: #1e1e1e;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.summary button:hover {
+    background-color: #DCC295;
+    color: #1e1e1e
+}
+
+.back {
+    text-decoration: underline;
+    border: none;
+    outline: none;
+    width: 50%;
+    margin-top: 50px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.noProducts {
+    font-weight: bold;
+    color: #001f3d;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+@media (max-width:674px) {
+    .cart {
+        padding: 0;
+        flex-direction: column;
+    }
+    .cartItem {
+        flex-direction: column;
+    }
+    .cartContainer {
+        /* border-radius: 10px 10px 0 0; */
+        border-radius: 0;
+    }
+    .summary {
+        /* border-radius: 0 0 10px 10px; */
+        border-radius: 0;
+    }
+}

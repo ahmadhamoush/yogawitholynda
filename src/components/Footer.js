@@ -12,11 +12,11 @@ function Footer(){
            
           <div className={style.linksContainer}>
                   
-          <Link data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  href='/'>
+          <Link  href='/'>
             <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/>
             </Link>
             
-          <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.links}>
+          <div className={style.links}>
                 <h3>Links</h3>
                 <ul>
                 <Link href={'/about'}>
@@ -42,7 +42,7 @@ function Footer(){
                     </li>
                 </ul>
             </div>
-            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.policies}>
+            <div className={style.policies}>
             <h3>Policies</h3>
                 <ul>
                     <li>
@@ -59,7 +59,7 @@ function Footer(){
                     </li>
                 </ul>
             </div>
-            <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className={style.contact}>
+            <div className={style.contact}>
             <h3>Contact</h3>
                 <ul>
                     <li>

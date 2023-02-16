@@ -52,12 +52,12 @@
 }
 
 .content h2 {
-    color: aliceblue;
+    color: white;
     font-size: 30px;
 }
 
 .content h2:after {
-    background-color: aliceblue !important;
+    background-color: white !important;
 }
 
 @media (max-width:674px) {

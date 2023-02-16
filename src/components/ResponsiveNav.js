@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ProductsContext } from "./ProductsContext"
 import Link from "next/link"
 import style from '@/styles/ResponsiveNav.module.css'
@@ -11,7 +11,6 @@ const {isSearchChecked, setIsSearchChecked, setSearchText} = useContext(Products
 function handleSearch(e){
     setSearchText(e.target.value)
     setIsSearchChecked(true)
-    
   }
   
 return (
@@ -21,15 +20,15 @@ return (
     <FontAwesomeIcon onClick={()=>{setIsMenuChecked(false)}} icon={faClose} className={style.closeIcon}  />
 
         <ul>
-            <li>
+            <li  onClick={()=>setIsMenuChecked(prev=>!prev)}>
             <Link className={style.link} href="/collections/yoga-mats">
            <p>Yoga Mats</p></Link>
            </li>
-           <li>
+           <li  onClick={()=>setIsMenuChecked(prev=>!prev)}>
            <Link className={style.link} href="/collections/yoga-socks">
            <p>Yoga Socks</p></Link>
            </li>
-           <li>
+           <li onClick={()=>setIsMenuChecked(prev=>!prev)}>
            <Link className={style.link} href="/collections/yoga-incense">
            <p>Yoga Incense</p></Link>
            </li>

@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import '@/styles/collectionsPage.css'
 import '@/styles/collectionPage.css'
+import '@/styles/cart.css'
 import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +11,10 @@ import { useEffect, useState } from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
 import ResponsiveNav from '@/components/ResponsiveNav'
-export default function App({ Component, pageProps }) {
+// import Search from '@/components/Search'
+// import { findAllProducts } from './api/products'
+export default function App({ Component, pageProps, products }) {
+
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -24,7 +28,9 @@ export default function App({ Component, pageProps }) {
     return  <ProductsContextProvider >
         <Component {...pageProps }  />
         <ResponsiveNav  />
+        {/* <Search products={products} /> */}
         <ToastContainer theme="dark"  autoClose= {2000} hideProgressBar={true}toastStyle={{ backgroundColor: "#001F3D" }} />
     </ProductsContextProvider> 
   
 }
+ 

@@ -2,11 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: sans-serif;
 }
 
 body {
-    background-color: aliceblue;
+    background-color: white;
+    overflow-x: hidden;
 }
 
 a {
@@ -32,7 +33,7 @@ h2::after {
 }
 
 h3 {
-    color: aliceblue;
+    color: white;
     font-weight: 400;
     position: relative;
     text-align: center;
@@ -41,7 +42,7 @@ h3 {
 }
 
 .viewAll {
-    background-color: aliceblue;
+    background-color: white;
     padding: 20px;
     border: none;
     color: #DCC295;
@@ -56,5 +57,17 @@ h3 {
 .viewAll:hover,
 .viewAll:active {
     background-color: #DCC295;
-    color: aliceblue;
+    color: white;
+}
+
+hr {
+    border-top: 1px solid #001f3d;
+}
+
+button {
+    transition: 0.5s ease;
+}
+
+button:active {
+    transform: scale(1.1);
 }
