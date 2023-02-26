@@ -34,7 +34,7 @@ function Cart({products}){
     const router = useRouter()
     useEffect(()=>{
         const uniqueIds = [... new Set(selectedProducts)]
-        fetch('/api/cart?ids=' + uniqueIds.join(','))
+        fetch('/api/cart/' + uniqueIds.join('-'))
         .then(response=> response.json())
         .then(json=> setCartInfo(json))
     },[selectedProducts])
@@ -87,7 +87,7 @@ function Cart({products}){
             if(amount ===0) return
                 return (
              <>
-                   <div className="cartItem" key={product.name}>
+                   <div className="cartItem" key={product._id}>
                     <FontAwesomeIcon onClick={()=>{setSelectedProducts(selectedProducts.filter(id=> id!== product._id))}} className="close" icon={faClose} />
                      <Image className="summaryImg" alt={product.name} src={product.image} width={100} height={100}/>
                         <p>{product.name}</p>
