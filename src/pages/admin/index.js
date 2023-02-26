@@ -9,7 +9,7 @@ function Admin(){
        <h1>Admin</h1>
        <input type="text" placeholder="username"/>
         <input type="password" placeholder="placeholder"/>
-        <button onClick={()=>router.push('/admin/dashboard')}>Login</button>
+        <button onClick={()=>router.push('/admin/dashboard')}>Login </button>
        </form>
     </div>
       
