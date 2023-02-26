@@ -1,0 +1,279 @@
+.admiinContainer h1 {
+    color: #1e1e1e;
+}
+
+.admiinContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1e1e1e;
+}
+
+.admiinContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    padding: 50px;
+}
+
+.admiinContainer form input {
+    margin: 10px;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.admiinContainer form button {
+    font-size: 16px;
+    padding: 7px 20px;
+    border: none;
+    outline: none;
+    background-color: #1e1e1e;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    color: #d1d1d1;
+}
+
+.dashboard {
+    /* color: white; */
+    background-color: #1e1e1e;
+    position: relative;
+    color: white;
+}
+
+.dashboard ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dashboard ul li {
+    list-style: none;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.dashboardHeader {
+    display: flex;
+}
+
+.selected {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.notSelected {
+    opacity: 0.5;
+    font-weight: 300;
+}
+
+.overview,
+.tableContainer {
+    padding: 30px;
+    width: 100%;
+    min-height: 85vh;
+}
+
+.overviewFlex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #eee;
+    color: #001F3D;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    transition: .5s ease-in-out;
+    border: 10px ridge #001F3D;
+}
+
+.overview h4 {
+    font-size: 25px;
+}
+
+.overview p {
+    font-size: 20px;
+}
+
+.card:hover {
+    width: 210px;
+    height: 210px;
+}
+
+.tableContainer table {
+    margin: 30px;
+    border-radius: 10px;
+    margin: auto;
+    border: 10px ridge #001F3D;
+}
+
+.tableContainer tr th {
+    background-color: #001F3D;
+    color: white;
+    padding: 10px;
+}
+
+.tableContainer tr td {
+    background-color: #eee;
+    padding: 10px;
+    color: #001F3D;
+}
+
+.productsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.productCard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    border: 10px ridge #001F3D;
+    color: #eee
+}
+
+.productImg {
+    border-radius: 10px;
+    background-color: #eee;
+    object-fit: contain;
+}
+
+.productCard input {
+    margin: 10px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #eee;
+    color: #1e1e1e;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.edit {
+    color: #eee;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.trash {
+    color: rgb(255, 92, 100);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputContainer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editContainer {
+    position: relative;
+    background-color: #eee;
+    border-radius: 10px;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: 70%;
+    height: 70%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 10px ridge #001F3D;
+    color: #1e1e1e;
+}
+
+.editContainer div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.editContainer div input {
+    margin: 10px;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.editContainer button {
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+}
+
+.id {
+    font-size: 12px;
+    margin: 10px;
+}

@@ -2,7 +2,8 @@
 const nextConfig = {
     reactStrictMode: true,
     env: {
-        MONGODB_URL: 'mongodb+srv://hamoush:hmtGSXL1qPtgLijl@cluster0.evplv1k.mongodb.net/yogawitholynda?retryWrites=true&w=majority'
+        MONGODB_URL: 'mongodb+srv://hamoush:hmtGSXL1qPtgLijl@cluster0.evplv1k.mongodb.net/yogawitholynda?retryWrites=true&w=majority',
+        NEXTAUTH_SECRET: 'oLyNdA213$'
     },
     images: {
         domains: [

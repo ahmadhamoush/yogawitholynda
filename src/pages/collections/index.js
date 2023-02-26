@@ -4,18 +4,15 @@ import CollectionList from "../../components/CollectionList"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
 import { findAllProducts } from "../api/products"
-import Search from "@/components/Search"
+import Layout from "@/components/Layout"
 
-function Collections ({collections,products}){
+function Collections ({products,collections}){
 
 
-    return <>
-
-    <Navbar isCollection={true} />
-    <Search products={products} />
-  <CollectionList all={true}collections={collections} />
-  <Footer />
- </>
+    return <Layout products={products}>
+    <CollectionList all={true}collections={collections} />
+    </Layout>
+ 
 }
 export default Collections
 export async function getServerSideProps(){
@@ -23,7 +20,7 @@ export async function getServerSideProps(){
   return {
     props:{
      collections: JSON.parse(JSON.stringify(await findAllCollections())),
-     products: JSON.parse(JSON.stringify(await findAllProducts()))
+     products: JSON.parse(JSON.stringify(await findAllProducts())),
     }
   }
 }

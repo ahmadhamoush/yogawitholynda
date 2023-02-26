@@ -5,8 +5,6 @@ import style from '@/styles/Search.module.css'
 import { faClose, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-
-
 function Search ({products}){
 
     const {isSearchChecked,setIsSearchChecked, setIsMenuChecked,setSearchText,searchText} = useContext(ProductsContext)

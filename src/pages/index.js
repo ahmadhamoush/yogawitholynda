@@ -14,27 +14,20 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { findAllCollections } from './api/collections'
 import { findAllProducts } from './api/products'
-import Search from '../components/Search'
+import Layout from '@/components/Layout'
 
 
 export default function Home({collections,products}) {
   return (
     <>  
-      <Head>
-        <title>YOGAWITHOLYNDA</title>
-        <meta name="description" content="Yoga Shop" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/logo.jpg" />
-      </Head>
-      <Announcement />
-      <Navbar />
-      <Search products={products} />
+     <Layout products={products}>
       <Landing />
       <CollectionList all={false} collections={collections} />
       <ProductList featured={true}  products={products} />
       <Link href ='/collections/all-products'><button className='viewAll'>View All Products</button></Link>        
       <PreFooter />
-      <Footer />
+     </Layout>
+
     </>   
   )
 }

@@ -4,16 +4,17 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    color: #001f3d;
 }
 
 .cartContainer {
     background-color: white;
     padding: 50px;
+    width: 50%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: stretch;
     flex: 1;
 }
@@ -27,11 +28,15 @@
 }
 
 .cartItem {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     margin: 20px;
+    /* scroll-snap-align: center;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; */
 }
 
 .cartItem>* {
@@ -69,45 +74,130 @@
     font-size: 25px;
 }
 
-.summary {
+.summary,
+.billing {
     padding: 50px;
-    flex: 0.5;
-    background-color: #eee;
     display: flex;
+    flex: 0.5;
+    width: 50%;
     flex-direction: column;
     justify-content: flex-start;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
-.summary div {
+.summary {
+    background-color: #eee;
+}
+
+.billing {
+    background-color: white;
+}
+
+.itemSummary {
+    position: relative;
+}
+
+.summaryImg {
+    background-color: #001e3d24;
+    border-radius: 10px;
+}
+
+.summaryQnty {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #DCC295;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.summary div:not(.productsSummary) {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     padding: 20px;
+    scroll-snap-align: start;
+}
+
+.summary h1,
+.billing h1 {
+    margin-bottom: 30px;
+    color: #001f3d;
+}
+
+
+/* .cartDetails {
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    height: 35%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.cartDetails::-webkit-scrollbar {
+    display: none;
+} */
+
+.productsSummary {
+    padding: 0 10px;
+    font-size: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     width: 100%;
 }
 
-.summary h1 {
-    margin-bottom: 30px;
+.productsSummary::-webkit-scrollbar {
+    display: none;
 }
 
-.summary button {
+.summary button,
+.billing button:not(.back) {
     text-transform: uppercase;
     padding: 12px 0;
     color: #DCC295;
     background-color: #1e1e1e;
     outline: none;
     border: none;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
-.summary button:hover {
+.summary button:hover,
+.billing button:not(.back):hover {
     background-color: #DCC295;
-    color: #1e1e1e
+    color: #1e1e1e;
+}
+
+.billing div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.billing input {
+    margin: 10px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #eee;
 }
 
 .back {
@@ -115,12 +205,20 @@
     border: none;
     outline: none;
     width: 50%;
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 10px;
     font-size: 15px;
     background-color: white;
     text-align: left;
     cursor: pointer;
+    color: #001f3d;
+}
+
+.billing p {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 0;
 }
 
 .noProducts {
@@ -131,6 +229,13 @@
     margin-top: 10px;
 }
 
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
 @media (max-width:674px) {
     .cart {
         padding: 0;
@@ -139,12 +244,13 @@
     .cartItem {
         flex-direction: column;
     }
+    .summary,
+    .billing,
     .cartContainer {
-        /* border-radius: 10px 10px 0 0; */
-        border-radius: 0;
+        border-radius: 0 !important;
+        width: 100%;
     }
-    .summary {
-        /* border-radius: 0 0 10px 10px; */
-        border-radius: 0;
+    .back {
+        width: 70%;
     }
 }

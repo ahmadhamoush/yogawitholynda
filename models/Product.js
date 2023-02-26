@@ -7,7 +7,8 @@ const ProductSchema = new Schema({
     image: String,
     price: Number,
     category: String,
-    featured:Boolean,    
+    featured:Boolean, 
+    stock: Number   
 })
 const Product = models ?.Product || model('Product', ProductSchema)
 

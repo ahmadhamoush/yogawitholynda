@@ -1,0 +1,74 @@
+.container {
+    position: fixed;
+    inset: 0;
+    z-index: 113;
+    background-color: white;
+    margin: auto;
+    width: 60%;
+    height: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -webkit-animation: scaleIn .5s ease-in-out;
+    -moz-animation: scaleIn .5s ease-in-out;
+    -o-animation: scaleIn .5s ease-in-out;
+    -ms-transition: scaleIn .5s ease-in-out;
+    animation: .5s scaleIn ease-in-out;
+}
+
+.container h1 {
+    margin: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form input {
+    margin: 10px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #eee;
+}
+
+
+/* .form input:not(input[type='submit']) {
+    width: 30vw;
+} */
+
+.icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #001F3D;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width:400px) {
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+}

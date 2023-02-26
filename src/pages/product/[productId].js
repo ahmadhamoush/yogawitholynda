@@ -7,12 +7,14 @@ import { findAllProducts, findProduct } from "../api/products"
 import Announcement from "@/components/Announcement"
 import { ProductsContext } from "@/components/ProductsContext"
 import { toast } from "react-toastify"
-import Search from "@/components/Search"
+import Layout from "@/components/Layout"
+import { useRouter } from "next/router"
 
 function Product({products,product,similarProducts}){
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(product.price);
     const {setSelectedProducts} = useContext(ProductsContext)
+    const router = useRouter()
     const addedNotif = ()=>  toast(`${product.name} added to cart! x${quantity}`)
 
     function addProduct(){
@@ -20,6 +22,7 @@ function Product({products,product,similarProducts}){
             setSelectedProducts(prev=>[...prev, product._id])
         }
         addedNotif()
+        router.push('/cart')
     }
 
     useEffect(()=>{
@@ -27,20 +30,19 @@ function Product({products,product,similarProducts}){
         setPrice(product.price)
     },[product])
 
-    return(
-        <>
-          <Announcement  />
-       <Navbar /> 
-       <Search products={products} />
-        <div className="productContainer">
+    return(     
+        <Layout products={products}>
+             <div className="productContainer">
         <Image data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
             <div className="productDetails">
         <div>
         <h2>{product.name}</h2>
         <span>Yoga Mats</span>
+     
         <p>${price}</p>
         </div>
         <div className="quantityContainer">
+        <p>Color: {product.color}</p>
         <p>Quantity:</p>
         <div className="quantity">  
         <button  onClick={(e)=>{setQuantity(prev=>prev>1 ? prev-1 : 1);setPrice(prev=> prev>product.price ? prev-product.price : product.price)}}>-</button>    
@@ -63,9 +65,7 @@ function Product({products,product,similarProducts}){
             }
         </div>
        <ProductList featured={false} products={similarProducts} />
-       <Footer />
-        
-      </>
+        </Layout>
     )
 }
 export default Product
@@ -79,9 +79,9 @@ export async function getServerSideProps(context){
     ))
     return{
       props:{
-        products: JSON.parse(JSON.stringify(products)),
         product: JSON.parse(JSON.stringify(queriedProduct)),
-        similarProducts: JSON.parse(JSON.stringify(similarProducts))
+        similarProducts: JSON.parse(JSON.stringify(similarProducts)),
+        products: JSON.parse(JSON.stringify(products))
       }
     }
 

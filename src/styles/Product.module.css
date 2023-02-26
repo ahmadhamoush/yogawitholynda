@@ -7,8 +7,8 @@
     transition: all 0.5s ease-in-out;
     margin: 50px 20px;
     scroll-snap-align: center;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
 }
 
 .productsSnapping {
@@ -31,8 +31,8 @@
     position: relative;
     background-image: linear-gradient(rgba(4, 42, 80, 0.5), rgba(220, 194, 149, 0.5));
     border-radius: 20px;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     z-index: 1;
 }
@@ -52,7 +52,6 @@
     border: none;
     width: 40px;
     height: 40px;
-    line-height: 40px;
     background-color: #001F3D;
     border-radius: 20px;
     cursor: pointer;

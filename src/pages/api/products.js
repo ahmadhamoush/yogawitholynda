@@ -12,8 +12,18 @@ export async function findProduct(productName) {
     return Product.findOne({ name: productName }).exec()
 }
 
+export async function editProduct(productId, newProduct) {
+    return Product.updateOne({ _id: productId }, newProduct).exec()
+}
+
 export default async function handler(req, res) {
     await initMongoose()
-    res.json(await findAllProducts())
+
+    if (req.method === 'POST') {
+        await editProduct(req.body._id, req.body)
+        res.json({ updated: true, productUpdated: req.body })
+    } else {
+        res.json(await findAllProducts())
+    }
 
 }
