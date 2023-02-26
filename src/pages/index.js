@@ -11,6 +11,7 @@ import '@fontsource/roboto/700.css';
 import { findAllCollections } from './api/collections'
 import { findAllProducts } from './api/products'
 import Layout from '@/components/Layout'
+import { initMongoose } from 'lib/mongoose'
 
 
 export default function Home({collections,products}) {
@@ -28,9 +29,9 @@ export default function Home({collections,products}) {
   )
 }
 export async function getServerSideProps(){
+  await initMongoose()
   const collections = await findAllCollections()
   const products = await findAllProducts()
- 
 
   return{
     props:{

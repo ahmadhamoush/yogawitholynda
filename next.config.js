@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+    trailingSlash: true,
+    assetPrefix: 'http://localhost:3000',
     env: {
         MONGODB_URL: 'mongodb+srv://hamoush:hmtGSXL1qPtgLijl@cluster0.jy0bral.mongodb.net/yogawitholynda?retryWrites=true&w=majority',
         NEXTAUTH_SECRET: 'oLyNdA213$'
@@ -15,5 +17,3 @@ const nextConfig = {
     },
 
 }
-
-module.exports = nextConfig

@@ -1,8 +1,6 @@
 import { initMongoose } from "lib/mongoose"
 import { findAllCollections } from "../api/collections"
 import CollectionList from "../../components/CollectionList"
-import Footer from "../../components/Footer"
-import Navbar from "../../components/Navbar"
 import { findAllProducts } from "../api/products"
 import Layout from "@/components/Layout"
 
