@@ -1,4 +1,4 @@
-import { faClose, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faFileInvoice, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -150,7 +150,7 @@ function Dashboard(){
 
          {isCustomers && 
          <div className="tableContainer">
-               <h1>Customers</h1>
+               <h1>Customers ({customers.length})</h1>
          
                   <table>
                    <tr>
@@ -299,11 +299,14 @@ function Dashboard(){
 
             {isOrders && 
          <div className="tableContainer">
-               <h1>Orders</h1>
+               <h1>Orders ({orders.length})</h1>
          
                   <table>
                     <tbody>
                    <tr>
+                   <th>
+                       Order ID
+                    </th>
                     <th>
                        Name
                     </th>
@@ -331,37 +334,51 @@ function Dashboard(){
                     <th>
                    Total
                     </th>
+                    <th>
+                   Invoice
+                    </th>
                    </tr>
                    {orders.map(order=>{
                 return <tr key={order._id}>
+                    <td>{order._id}</td>
                     <td>{order.name}</td>
-                    <td><button onClick={()=>{setViewProducts({orderId: order._id, clicked:true});console.log(viewProducts)}}>View Products</button></td>
+                    <td><button className="orderBtn"  onClick={()=>setViewProducts({orderId: order._id, clicked:true})}>View Products</button></td>
                     <td>{order.email}</td>
                     <td>{order.number}</td>
                     <td>{order.address}</td>
                     <td>{order.city}</td>
-                    <td>{order.paid ? 'Yes' : 'No'}</td>
+                    <td>{order.paid ? 'Yes' : 'No'} <button className="orderBtn">Mark as paid</button></td>
                     <td>{order.createdAt}</td>
                     <td>${order.total}</td>
-                   
+                    <td><FontAwesomeIcon icon={faFileInvoice} className='invoice'/></td>
                 </tr>
                 
                      })}
                      </tbody>
                   </table>
-    
-                     {viewProducts.clicked && orders.filter(order=>
+                  {viewProducts.clicked &&
+                   <div className="orderedProductsContainer">
+                    <FontAwesomeIcon onClick={()=>setViewProducts({clicked:false})} icon={faClose} className='closeIcon' />
+                    <h2>Ordered Products</h2>
+                {orders.filter(order=>
                         order._id === viewProducts.orderId).map(orderDetails=> 
                             orderDetails.products.map(product=>{
-                                return <div key={product.name}>
-                                <p>{product.name}</p>
-                                <p>${product.price}</p>
-                                <p>{product.quantity}</p>
-                                 <Image src={product.image} alt={product.name} width={100} height={100} />
+                                return <div className="orderedProducts" key={product.name}>
+                               <div>
+                               <div><p>Product Name:</p>
+                               <span> {product.name}</span></div>
+                               <div><p>Product Price:</p>
+                               <span> ${product.price}</span></div>
+                               
+                               <div><p>Product Quantitiy:</p>
+                               <span> {product.quantity}</span></div>
+                               
+                               </div>
+                                 <Image className="orderedImg" src={product.image} alt={product.name} width={100} height={100} />
                                </div>
                             })             
                         )
-                      }               
+                      }   </div>    }        
                 </div>
                 }
       </div>

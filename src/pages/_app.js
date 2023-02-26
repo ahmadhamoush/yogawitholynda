@@ -12,8 +12,11 @@ import { useEffect, useState } from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
 import Login from '@/components/Login'
-// import Search from '@/components/Search'
-// import { findAllProducts } from './api/products'
+
+export function reportWebVitals(metric) {
+    console.log(metric)
+  }
+  
 export default function App({ Component, pageProps, products }) {
 
 

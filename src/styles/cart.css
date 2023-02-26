@@ -236,7 +236,7 @@
     cursor: pointer;
 }
 
-@media (max-width:674px) {
+@media (max-width:800px) {
     .cart {
         padding: 0;
         flex-direction: column;
