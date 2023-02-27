@@ -6,10 +6,12 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import {signIn} from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 
 
 function Login (){
+    const session = useSession()
     const {isProfileChecked, setIsProfileChecked} = useContext(ProductsContext)
     const { register, handleSubmit } = useForm();
     const[isLogin,setIsLogin] = useState(true)
@@ -26,6 +28,7 @@ function Login (){
                 email: loginData.email,
                 password: loginData.password  
             })
+            setIsProfileChecked(prev=>!prev)
             console.log(data)
         } catch (err) {
             console.log(err)
@@ -33,7 +36,7 @@ function Login (){
     }
 
     return(
-        isProfileChecked &&
+        isProfileChecked && session.status==='unauthenticated' &&
         <div className={style.container}>
             <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
           {isLogin && <form className={style.form} onSubmit={handleSubmit(onSubmitLogin,onError)}>

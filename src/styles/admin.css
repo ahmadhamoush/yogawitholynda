@@ -84,6 +84,7 @@
     width: 100%;
     min-height: 90vh;
     text-align: center;
+    overflow-x: scroll;
 }
 
 .overviewFlex {
@@ -181,6 +182,7 @@
     border-radius: 10px;
     background-color: #eee;
     object-fit: contain;
+    margin: 10px 0;
 }
 
 .productCard input {
@@ -192,6 +194,18 @@
     font-size: 16px;
     background-color: #eee;
     color: #1e1e1e;
+}
+
+.searchProduct {
+    border: none;
+    padding: 15px 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    background-color: #eee;
+    color: #1e1e1e;
+    width: 30%;
+    margin: 20px auto;
 }
 
 .icons {
@@ -386,5 +400,20 @@
     }
     100% {
         transform: translate(-50%, 0);
+    }
+}
+
+@media (max-width:674px) {
+    .dashboardHeader {
+        flex-direction: column;
+    }
+    .dashboard ul {
+        flex-direction: column;
+    }
+    .dashboard ul li {
+        margin: 10px 0;
+    }
+    .searchProduct {
+        width: 100%;
     }
 }

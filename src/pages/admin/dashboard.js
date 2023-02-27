@@ -25,6 +25,7 @@ function Dashboard(){
    const[selectedInput,setSelectedInput] = useState('')
    const[productId,setProductId] = useState('')
    const[viewProducts,setViewProducts]= useState({orderId : '', clicked:false})
+   const[search,setSearch] = useState('')
    
    function showOverview(){
     setIsOverview(true)
@@ -185,8 +186,8 @@ function Dashboard(){
 
             {isProducts && 
          <div className="productsContainer">
-               <h1>Products ({products.length})</h1>
-         
+               <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
+                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="searchProduct" placeholder="Search"/>
             {productId &&  <div className="editContainer">
                 <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setProductId('')}/>
                 <h1>edit</h1>
@@ -244,10 +245,11 @@ function Dashboard(){
              </div>}
 
              <div className="products">
-             {products.map(product=>{
+             {products.filter(product=>product.name.toLowerCase().includes(search)).map(product=>{
                 return <div className="productCard" id={product._id}  key={product._id}>
                    <div className="icons">  <FontAwesomeIcon icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
+                   <Image className="productImg" src={product.image} alt={product.name} width={120} height={120} />
                     <div className="inputContainer">
                         <label htmlFor={product._id}>Product Name</label>
                    <div>
@@ -290,7 +292,7 @@ function Dashboard(){
                     <FontAwesomeIcon onClick={edit} icon={faPenToSquare} className='edit' />
                    </div>
                     </div>
-                    <Image className="productImg" src={product.image} alt={product.name} width={120} height={120} />
+                  
                 </div>
                      })}
              </div>

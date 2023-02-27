@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import style from '@/styles/Nav.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faCaretUp, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { ProductsContext } from './ProductsContext';
 import { useRouter } from 'next/router';
 import ResponsiveNav from './ResponsiveNav';
 import Search from './Search';
+import { useSession, signOut } from 'next-auth/react';
 
 function Navbar({products}){
 
@@ -17,6 +18,8 @@ function Navbar({products}){
     const {isSearchChecked,setIsSearchChecked} = useContext(ProductsContext)
     const {isProfileChecked,setIsProfileChecked} = useContext(ProductsContext)
     const router = useRouter()
+    const session = useSession()
+    console.log(session)
 
     return (
       
@@ -59,7 +62,15 @@ function Navbar({products}){
 <FontAwesomeIcon icon={faCartShopping} className={style.icon}  /> 
 </div></Link>
 
+
+<div className={style.dropdown}>
 <FontAwesomeIcon onClick={()=>setIsProfileChecked(!isProfileChecked)} icon={faUser} className={style.icon}  />
+ {isProfileChecked && session.status === 'authenticated' && <div className={style.dropdownContent}>
+  <FontAwesomeIcon icon={faCaretUp} className={style.arrow}/>
+ <p>View Orders</p>
+  <p onClick={()=>signOut()}>Logout</p>
+ </div>}
+</div>
 </div>
 
 </nav>
