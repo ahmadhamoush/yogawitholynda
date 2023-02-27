@@ -133,3 +133,75 @@
         padding: 0;
     }
 }
+
+.productsCarouselContainer {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    margin: 20px 0;
+    width: 100%;
+    height: 100%;
+}
+
+.productsCarouselContainer h1 {
+    margin: 10px 0;
+}
+
+.productsCarousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.box {
+    margin: 50px 0;
+    position: relative;
+    height: 250px;
+    width: 250px;
+    transform-style: preserve-3d;
+    animation: animate 20s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: perspective(2000px) rotateY(0);
+    }
+    100% {
+        transform: perspective(2000px) rotateY(360deg);
+    }
+}
+
+.box span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: right;
+    transform-style: preserve-3d;
+    transition: 0.5s ease;
+    transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
+    -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
+    cursor: pointer;
+}
+
+.box span:hover {
+    width: 110%;
+    height: 110%;
+}
+
+.carouselImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-45deg);
+    object-fit: contain;
+}

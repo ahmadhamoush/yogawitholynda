@@ -12,6 +12,7 @@ import { findAllCollections } from './api/collections'
 import { findAllProducts } from './api/products'
 import Layout from '@/components/Layout'
 import { initMongoose } from 'lib/mongoose'
+import ProductsCarousel from '@/components/ProductsCarousel'
 
 
 export default function Home({collections,products}) {
@@ -20,6 +21,7 @@ export default function Home({collections,products}) {
      <Layout products={products}>
       <Landing />
       <CollectionList all={false} collections={collections} />
+      <ProductsCarousel products={products} />
       <ProductList featured={true}  products={products} />
       <Link href ='/collections/all-products'><button className='viewAll'>View All Products</button></Link>        
       <PreFooter />
