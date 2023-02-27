@@ -163,22 +163,25 @@
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
-    transition: .5s ease-in-out;
+    -ms-transform-style: preserve-3d;
+    /* transition: .5s ease-in-out;
     -webkit-transition: .5s ease-in-out;
     -moz-transition: .5s ease-in-out;
+    -ms-transition: .5s ease-in-out; */
+    animation: animate 20s linear infinite;
     -webkit-animation: animate 20s linear infinite;
     -moz-animation: animate 20s linear infinite;
     -o-animation: animate 20s linear infinite;
-    -ms-transition: .5s ease-in-out;
-    animation: animate 20s linear infinite;
 }
 
 @keyframes animate {
     0% {
         transform: perspective(2000px) rotateY(0);
+        -webkit-transform: perspective(2000px) rotateY(0);
     }
     100% {
         transform: perspective(2000px) rotateY(360deg);
+        -webkit-transform: perspective(2000px) rotateY(360deg);
     }
 }
 
@@ -190,8 +193,11 @@
     height: 100%;
     transform-origin: center;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform-origin: center;
     transition: 0.5s ease;
     transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
+    -webkit-transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
     -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
     cursor: pointer;
 }
