@@ -11,6 +11,7 @@ function Layout({children,products}){
         <title>YOGAWITHOLYNDA</title>
         <meta name="description" content="Yoga Shop" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light only" />
         <link rel="icon" href="/logo.jpg" />
       </Head>
       <Announcement />

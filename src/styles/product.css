@@ -161,6 +161,15 @@
     height: 300px;
     width: 300px;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -webkit-animation: animate 20s linear infinite;
+    -moz-animation: animate 20s linear infinite;
+    -o-animation: animate 20s linear infinite;
+    -ms-transition: .5s ease-in-out;
     animation: animate 20s linear infinite;
 }
 
