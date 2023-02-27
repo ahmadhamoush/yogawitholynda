@@ -213,6 +213,9 @@
     .icon {
         font-size: 20px;
     }
+    .hamburgerMenu {
+        padding-left: 0;
+    }
 }
 
 @media (max-width:320px) {
