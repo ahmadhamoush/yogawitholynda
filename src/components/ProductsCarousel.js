@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 function ProductsCarousel ({products}){
 
@@ -7,15 +8,16 @@ function ProductsCarousel ({products}){
         <div className="productsCarousel">
         <div  className="box">
         {products.filter(product=>product.category==='yoga-mats-bags').map((product,i)=>{
-            return  <span key={product._id}style={{ "--i": i+1 }}>
+            return  <Link href={`/product/${product.name}`}>
+            <span key={product._id}style={{ "--i": i+1 }}>
                 <Image className="carouselImg" alt={product.name} src={product.image} width={300} height={300}/>
-                </span>
+                </span></Link>
        
         })}
              </div>
             
        </div>
-        <h1>Select A Yoga Bag!</h1>
+        <h2>Select A Yoga Bag!</h2>
        </div>
     )
 }
