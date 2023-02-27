@@ -36,10 +36,12 @@ function Navbar({products}){
 </div>
 
  <div className={style.navFlex}>
+   <div>
    <Link href='/'>
  {/* <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/> */}
  <h3>YOGAWITHOLYNDA</h3>
  </Link>
+   </div>
  <ul className={style.links}>
  <Link href="/collections/yoga-mats">
      <li className={ router.asPath ==='/collections/yoga-mats' ? style.selected :style.link}  >Yoga Mats</li></Link>
@@ -50,12 +52,16 @@ function Navbar({products}){
 </ul>
  
  </div>
+<div className={style.iconsContainer}>
 <Link href="/cart">
 <div className={style.cartContainer}>
  <div className={style.badge}>{selectedProducts.length}</div>
 <FontAwesomeIcon icon={faCartShopping} className={style.icon}  /> 
 </div></Link>
+
 <FontAwesomeIcon onClick={()=>setIsProfileChecked(!isProfileChecked)} icon={faUser} className={style.icon}  />
+</div>
+
 </nav>
       
   

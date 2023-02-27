@@ -21,6 +21,8 @@
 .nav h3 {
     font-size: 30px;
     color: #001F3D;
+    text-align: center;
+    margin: auto;
 }
 
 .searchIcon {
@@ -113,6 +115,12 @@
     flex-direction: column;
 }
 
+.iconsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .responsiveNav {
     position: fixed;
     height: 100vh;
@@ -124,7 +132,7 @@
     display: none;
     cursor: pointer;
     float: right;
-    padding: 10px 20px;
+    padding: 10px 30px;
 }
 
 .menuContainer input:checked~.hamburgerMenu .lines {
@@ -186,5 +194,45 @@
     }
     .searchIcon {
         display: none;
+    }
+}
+
+@media (max-width:375px) {
+    .nav h3 {
+        font-size: 18px;
+    }
+    .lines {
+        height: 2px;
+        width: 20px;
+    }
+    .lines::before,
+    .lines::after {
+        height: 2px;
+        width: 20px;
+    }
+    .icon {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:320px) {
+    .nav h3 {
+        font-size: 15px;
+        padding-left: 40px;
+    }
+    .lines {
+        height: 2px;
+        width: 20px;
+    }
+    .lines::before,
+    .lines::after {
+        height: 2px;
+        width: 20px;
+    }
+    .icon {
+        font-size: 18px;
+    }
+    .hamburgerMenu {
+        padding: 0;
     }
 }

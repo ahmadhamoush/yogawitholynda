@@ -7,3 +7,9 @@
     background-color: #001F3D;
     padding: 10px;
 }
+
+@media (max-width:320px) {
+    .container p {
+        font-size: 12px;
+    }
+}
