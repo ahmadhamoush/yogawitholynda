@@ -1,7 +1,5 @@
 import { initMongoose } from "lib/mongoose";
 import Order from "models/Order";
-import mongoose from "mongoose";
-
 
 export default async function handler(req, res) {
 
@@ -22,5 +20,4 @@ export default async function handler(req, res) {
         total: req.body.total,
         subtotal: req.body.subTotal
     }))
-    await mongoose.disconnect()
 }
