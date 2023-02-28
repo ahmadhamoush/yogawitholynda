@@ -74,9 +74,19 @@
     font-size: 25px;
 }
 
+.showSummary {
+    background: transparent;
+    color: #001f3d;
+    font-size: 16px;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+}
+
 .summary,
 .billing {
-    padding: 50px;
+    padding: 20px 50px;
     display: flex;
     flex: 0.5;
     width: 50%;
@@ -116,7 +126,7 @@
     margin: 10px;
 }
 
-.summary div:not(.productsSummary) {
+.displaySummary div:not(.productsSummary) {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,8 +174,8 @@
     display: none;
 }
 
-.summary button,
-.billing button:not(.back) {
+.summary .btn,
+.billing .btn {
     text-transform: uppercase;
     padding: 12px 0;
     color: #DCC295;
@@ -178,8 +188,8 @@
     margin: 20px 0;
 }
 
-.summary button:hover,
-.billing button:not(.back):hover {
+.summary .btn:hover,
+.billing .btn:hover {
     background-color: #DCC295;
     color: #1e1e1e;
 }

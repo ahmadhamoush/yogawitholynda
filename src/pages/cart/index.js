@@ -6,12 +6,14 @@ import { useRouter } from "next/router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose } from "@fortawesome/free-solid-svg-icons"
 import { findAllProducts } from "../api/products"
-
+import { useSession } from "next-auth/react"
 function Cart({products}){
-
-    const {selectedProducts,setSelectedProducts} = useContext(ProductsContext)
+    const session = useSession()
+    const {selectedProducts,setSelectedProducts,setIsProfileChecked} = useContext(ProductsContext)
     const [cartInfo, setCartInfo] = useState([])
+    const [user, setUser] = useState([])
     const [checkoutClicked, setCheckoutClicked] = useState(false)
+    const [showSummary, setShowSummary] = useState(true)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
@@ -19,8 +21,10 @@ function Cart({products}){
     const [optionalAddress, setOptionalAddress] = useState('')
     const [city, setCity] = useState('')
 
+
     async function checkout(){
-      const request = await fetch('/api/checkout', {
+     if(session.status === 'authenticated'){
+        const request = await fetch('/api/checkout', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -29,6 +33,25 @@ function Cart({products}){
           })
     const response = await request.json()
     console.log(response)
+     }
+    }
+
+    async function handleViewCheckout(){
+      if(session.status === 'authenticated'){
+        const req = await fetch(`/api/users?email=${session.data.user.email}`);
+        const user = await req.json()
+        setUser(await user)
+          if(await user){
+            setName(user.fName + " " + user.lName)
+            setEmail(user.email)
+          }       
+          setCheckoutClicked(prev=>!prev)
+          setShowSummary(false)
+      }
+      else{
+        setIsProfileChecked(prev=>!prev)
+      }
+      
     }
 
     const router = useRouter()
@@ -38,7 +61,6 @@ function Cart({products}){
         .then(response=> response.json())
         .then(json=> setCartInfo(json))
     },[selectedProducts])
-
 
     function addProduct(id){
         setSelectedProducts(prev=>[...prev, id])
@@ -74,7 +96,7 @@ function Cart({products}){
    
     return(
        <Layout products={products}>
-       <div className="cart">
+       <div  className="cart">
             <div style={{display: checkoutClicked && "none"}} className="cartContainer">
             <div className="cartHeader">
             <h1>Cart</h1>
@@ -110,10 +132,12 @@ function Cart({products}){
             <button className="back" type="button" onClick={()=>router.push('/collections/all-products')}>Back To Shop</button>
         </div>
        
-       {cartInfo.length && <div style={{borderRadius : checkoutClicked ? '10px 0 0 10px' : '0 10px 10px 0'}} className="summary">
+       {cartInfo.length && showSummary && <div style={{borderRadius : checkoutClicked ? '10px 0 0 10px' : '0 10px 10px 0'}} className="summary">
                     <h1>Summary</h1>
                     <hr />
-                    <div>
+             
+              <div className="displaySummary">
+                  <div>
                     <p>{cartInfo.length ? cartInfo.length : '0'} items</p>
                     <p>{cartInfo.length ? "$" + subTotal : 'N/A'}</p>
                     </div>
@@ -142,12 +166,19 @@ function Cart({products}){
                 <p>total: </p> 
                 <p>{cartInfo.length ? "$" + total : 'N/A'}</p> 
                 </div>
-                <button style={{display: checkoutClicked && 'none'}} onClick={()=>setCheckoutClicked(prev=>!prev)} type="button">CHECKOUT</button>
+                  </div>
+               {!checkoutClicked && <div>
+                <p style={{margin:'10px 0'}}>To prevent automated purchases, please log in to proceed with checkout.</p>
+                <p>Authenticated: </p> 
+                <p style={{color:session.status ==='authenticated' ? 'green' : 'red'}}>{session.status ==='authenticated' ? 'Yes' : 'No'}</p> 
+                </div>}
+                <button className="btn" style={{display: checkoutClicked && 'none'}} onClick={handleViewCheckout} type="button">CHECKOUT</button>
                  </div>}
 
 
-                 <div style={{display: !checkoutClicked && "none"}} className="billing">
-                    <h1>Billing Details</h1>
+                 <div style={{display: !checkoutClicked && "none", borderRadius:!showSummary &&"10px",flex:!showSummary &&"1"}} className="billing">
+                    <h1>Billing Details {checkoutClicked && <button className="showSummary" onClick={()=>setShowSummary(prev=>!prev)}>({showSummary ? 'Hide' : 'Show'} Summary)</button>}</h1>
+
                     <hr />
                     <div>
                    
@@ -157,12 +188,13 @@ function Cart({products}){
                 
                     </div>
                    <div>
+                   <div>
                    <label htmlFor="name">Name:</label>
-                    <input onChange={(e)=>setName(e.target.value)} type="text" id="name"  placeholder="Name"  />
+                    <input disabled value={name} type="text" id="name"  placeholder="Name"  />
                    </div>
                    <div>
                    <label htmlFor="email">Email:</label>
-                    <input onChange={(e)=>setEmail(e.target.value)} type="email" id="email"  placeholder="Email"  />
+                    <input disabled value={email} type="email" id="email"  placeholder="Email"  />
                    </div>
                     <div>
                     <label htmlFor="number">Phone Number:</label>
@@ -177,10 +209,11 @@ function Cart({products}){
                     <label htmlFor="city">Town / City</label>
                     <input onChange={(e)=>setCity(e.target.value)} type="text" placeholder="eg: Beirut"  id="city" />
                     </div>
+                   </div>
                     <hr />
-                <button onClick={checkout} type="button">ORDER</button>
+                <button className="btn" onClick={checkout} type="button">ORDER</button>
 
-                <button className="back" type="button" onClick={()=>setCheckoutClicked(prev=>!prev)}>BACK TO CART DETAILS</button>
+                <button className="back" type="button" onClick={()=>{setCheckoutClicked(prev=>!prev);setShowSummary(true)}}>BACK TO CART DETAILS</button>
                  </div>
        </div>
   

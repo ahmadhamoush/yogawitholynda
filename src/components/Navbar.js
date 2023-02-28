@@ -19,7 +19,6 @@ function Navbar({products}){
     const {isProfileChecked,setIsProfileChecked} = useContext(ProductsContext)
     const router = useRouter()
     const session = useSession()
-    console.log(session)
 
     return (
       
