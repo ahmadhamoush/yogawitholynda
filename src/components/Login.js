@@ -15,10 +15,11 @@ function Login (){
     const {isProfileChecked, setIsProfileChecked} = useContext(ProductsContext)
     const { register, handleSubmit } = useForm();
     const[isLogin,setIsLogin] = useState(true)
+    const[err,setErr] = useState({})
     const onSubmitSignUp = data=> fetch('/api/register',{method:'POST', headers:{
         'Content-Type': 'application/json'
     },body: JSON.stringify(data)}).then(res=>res.json()).then(json=>console.log(json))  
-    const onError = errors => console.log(errors);
+    const onError = errors => {setErr(errors); console.log(err)};
 
     const onSubmitLogin = async loginData => {
 
@@ -28,8 +29,14 @@ function Login (){
                 email: loginData.email,
                 password: loginData.password  
             })
-            setIsProfileChecked(prev=>!prev)
+            if(!data.error){
+                setIsProfileChecked(prev=>!prev)
+            }
+             else{
+                setErr(data)
+             }
             console.log(data)
+            console.log(err)
         } catch (err) {
             console.log(err)
         }
@@ -40,15 +47,16 @@ function Login (){
         <div className={style.container}>
             <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
           {isLogin && <form className={style.form} onSubmit={handleSubmit(onSubmitLogin,onError)}>
-            <input type='email'  placeholder='Email' {...register('email', {required:true})} />
-            <input type='password' placeholder='Password' {...register("password", { required: true })}/>
+            <input style={{border : err.email || err.error && '1px solid red'}} type='email'  placeholder='Email' {...register('email', {required:true})} />
+            <input style={{border : err.password || err.error && '1px solid red'}}type='password' placeholder='Password' {...register("password", { required: true })}/>
             <input type="submit" placeholder='Login'/>
+            <p className={style.err}>{err?.error && err.error}</p>
             </form>}
             {!isLogin && <form className={style.form} onSubmit={handleSubmit(onSubmitSignUp,onError)}>
-            <input type='text'  placeholder='First Name' {...register('fName', {required:true})} />
-            <input type='text'  placeholder='Last Name' {...register('lName', {required:true})} />
-            <input type='email'  placeholder='Email' {...register('email', {required:true})} />
-            <input type='password' placeholder='Password' {...register("password", { required: true })}/>
+            <input style={{border : err.fName && '1px solid red'}} type='text'  placeholder='First Name' {...register('fName', {required:true})} />
+            <input style={{border : err.lName && '1px solid red'}}type='text'  placeholder='Last Name' {...register('lName', {required:true})} />
+            <input style={{border : err.email && '1px solid red'}} type='email'  placeholder='Email' {...register('email', {required:true})} />
+            <input style={{border : err.password && '1px solid red'}} type='password' placeholder='Password' {...register("password", { required: true })}/>
             <input type='password' placeholder='Password' {...register("confirmPassword", { required: true })}/>
             <input type="submit" placeholder='Signup'/>
             </form>}

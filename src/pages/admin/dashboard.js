@@ -26,6 +26,7 @@ function Dashboard(){
    const[productId,setProductId] = useState('')
    const[viewProducts,setViewProducts]= useState({orderId : '', clicked:false})
    const[search,setSearch] = useState('')
+   const[editProduct,setEditProduct] = useState('')
    
    function showOverview(){
     setIsOverview(true)
@@ -128,7 +129,7 @@ function Dashboard(){
           <li  onClick={showOrders} className={isOrders ? 'selected' :'notSelected'}>Orders</li>
           </ul>
         </div>
-        <hr />
+    
         
         {isOverview && 
         <div className="overview"> 
@@ -154,7 +155,8 @@ function Dashboard(){
                <h1>Customers ({customers.length})</h1>
          
                   <table>
-                   <tr>
+                 <thead>
+                 <tr>
                     <th>
                         First Name
                     </th>
@@ -171,13 +173,17 @@ function Dashboard(){
                         City
                     </th>
                    </tr>
+                 </thead>
+                 <tbody>
                    {customers.map(customer=>{
-                return <tr key={customer.fName}>
+                return  <tr key={customer.fName}>
                     <td>{customer.fName}</td>
                     <td>{customer.lName}</td>
                     <td>{customer.email}</td>
                 </tr>
+                
                      })}
+                     </tbody>
                   </table>
     
                 
@@ -186,8 +192,10 @@ function Dashboard(){
 
             {isProducts && 
          <div className="productsContainer">
-               <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
-                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="searchProduct" placeholder="Search"/>
+         <div className="tableHeader">
+         <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
+                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+         </div>
             {productId &&  <div className="editContainer">
                 <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setProductId('')}/>
                 <h1>edit</h1>
@@ -249,8 +257,10 @@ function Dashboard(){
                 return <div className="productCard" id={product._id}  key={product._id}>
                    <div className="icons">  <FontAwesomeIcon icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
-                   <Image className="productImg" src={product.image} alt={product.name} width={120} height={120} />
-                    <div className="inputContainer">
+                   <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
+          {product._id===editProduct.id && <div>
+            <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setEditProduct('')}/>
+                  <div className="inputContainer">
                         <label htmlFor={product._id}>Product Name</label>
                    <div>
                    <input className={product._id} name='name' disabled type="text" value={product.name} />
@@ -292,6 +302,7 @@ function Dashboard(){
                     <FontAwesomeIcon onClick={edit} icon={faPenToSquare} className='edit' />
                    </div>
                     </div>
+                  </div>}
                   
                 </div>
                      })}
@@ -301,31 +312,21 @@ function Dashboard(){
 
             {isOrders && 
          <div className="tableContainer">
-               <h1>Orders ({orders.length})</h1>
-         
+            <div className="tableHeader">
+            <h1>Orders ({orders.length})</h1>
+               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+            </div>
                   <table>
-                    <tbody>
-                   <tr>
+                    <thead>
+                    <tr>
                    <th>
                        Order ID
                     </th>
                     <th>
-                       Name
+                       User
                     </th>
                     <th>
                         Products
-                    </th>
-                    <th>
-                    Email
-                    </th>
-                    <th>
-                    Number
-                    </th>
-                    <th>
-                     Address
-                    </th>
-                    <th>
-                    City
                     </th>
                     <th>
                     Paid
@@ -339,20 +340,23 @@ function Dashboard(){
                     <th>
                    Invoice
                     </th>
+                    <th>
+                   Mark as Paid
+                    </th>
                    </tr>
+                    </thead>
+                    <tbody>
+                
                    {orders.map(order=>{
                 return <tr key={order._id}>
                     <td>{order._id}</td>
-                    <td>{order.name}</td>
+                    <td>User</td>
                     <td><button className="orderBtn"  onClick={()=>setViewProducts({orderId: order._id, clicked:true})}>View Products</button></td>
-                    <td>{order.email}</td>
-                    <td>{order.number}</td>
-                    <td>{order.address}</td>
-                    <td>{order.city}</td>
-                    <td>{order.paid ? 'Yes' : 'No'} <button className="orderBtn">Mark as paid</button></td>
+                    <td style={{color:order.paid?'green' : 'red'} }>{order.paid ? 'Yes' : 'No'}</td>
                     <td>{order.createdAt}</td>
                     <td>${order.total}</td>
                     <td><FontAwesomeIcon icon={faFileInvoice} className='invoice'/></td>
+                    <td> <button className="orderBtn">{order.paid ? 'Mark as unpaid' : 'Mark as paid'}</button></td>
                 </tr>
                 
                      })}
@@ -362,16 +366,16 @@ function Dashboard(){
                    <div className="orderedProductsContainer">
                     <FontAwesomeIcon onClick={()=>setViewProducts({clicked:false})} icon={faClose} className='closeIcon' />
                     <h2>Ordered Products</h2>
+                <div className="orderedProducts">
                 {orders.filter(order=>
                         order._id === viewProducts.orderId).map(orderDetails=> 
                             orderDetails.products.map(product=>{
-                                return <div className="orderedProducts" key={product.name}>
+                                return <div className="orderedProduct" key={product.name}>
                                <div>
                                <div><p>Product Name:</p>
                                <span> {product.name}</span></div>
                                <div><p>Product Price:</p>
-                               <span> ${product.price}</span></div>
-                               
+                               <span> ${product.price}</span></div>  
                                <div><p>Product Quantitiy:</p>
                                <span> {product.quantity}</span></div>
                                
@@ -380,7 +384,7 @@ function Dashboard(){
                                </div>
                             })             
                         )
-                      }   </div>    }        
+                      } </div>  </div>    }        
                 </div>
                 }
       </div>

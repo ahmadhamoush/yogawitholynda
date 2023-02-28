@@ -205,7 +205,6 @@
     -webkit-transition: 0.5s ease;
     transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
     -webkit-transform: rotateY(calc(var(--i)*45deg)) translateZ(400px);
-    /* -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004); */
     cursor: pointer;
 }
 
