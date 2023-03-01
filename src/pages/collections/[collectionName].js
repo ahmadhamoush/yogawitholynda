@@ -8,13 +8,13 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 
 
-function Collection ({products,title, isProducts}){
+function Collection ({products,title, isProducts, allProducts}){
 
   const [range,setRage] = useState({min:0, max:100})
-  const filteredProducts = products.filter(product=> product.price<=range.max && product.price>=range.min)
+  const filteredProducts = products.filter(product=>  product.price<=range.max && product.price>=range.min)
 
     return (
-      <Layout products={products}>
+      <Layout products={allProducts}>
   <div className="container">
    <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionDesc">
    <h2>{title}</h2>
@@ -133,9 +133,10 @@ const {query} = context;
 const collectionName = query.collectionName
 let products;
 let isProducts = false;
+const allProducts = await findAllProducts()
  products  = await listCollection(collectionName)
 if(collectionName === 'all-products'){
-  products = await findAllProducts()
+  products = allProducts
    isProducts  = true
 }
 
@@ -157,7 +158,8 @@ return {
     props:{
         title:collectionName.toUpperCase().replace('-',' '),
         isProducts: isProducts,
-        products:JSON.parse(JSON.stringify(products))
+        products:JSON.parse(JSON.stringify(products)),
+        allProducts:JSON.parse(JSON.stringify(allProducts))
 
     }
 }

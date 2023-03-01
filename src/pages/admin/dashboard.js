@@ -25,6 +25,7 @@ function Dashboard(){
    const[selectedInput,setSelectedInput] = useState('')
    const[productId,setProductId] = useState('')
    const[viewProducts,setViewProducts]= useState({orderId : '', clicked:false})
+   const[viewCustomer,setViewCustomer] = useState({orderId : '', clicked:false})
    const[search,setSearch] = useState('')
    const[editProduct,setEditProduct] = useState('')
    
@@ -192,9 +193,9 @@ function Dashboard(){
 
             {isProducts && 
          <div className="productsContainer">
-         <div className="tableHeader">
+         <div style={{opacity: editProduct && '0.5'}}className="tableHeader">
          <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
-                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+                <input type='text' onChange={(e)=>{setSearch(e.target.value);setEditProduct('')}} value={search} className="search" placeholder="Search"/>
          </div>
             {productId &&  <div className="editContainer">
                 <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setProductId('')}/>
@@ -252,14 +253,14 @@ function Dashboard(){
              <button onClick={saveEdit}>Save Edit</button>
              </div>}
 
-             <div className="products">
+             <div className="productsScroll">
              {products.filter(product=>product.name.toLowerCase().includes(search)).map(product=>{
-                return <div className="productCard" id={product._id}  key={product._id}>
+                return <div style={{display: product._id!==editProduct.id && editProduct && 'none' ,width: product._id!==editProduct.id && editProduct && '100%'}} className="productCard" id={product._id}  key={product._id}>
                    <div className="icons">  <FontAwesomeIcon icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
                    <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
           {product._id===editProduct.id && <div>
-            <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setEditProduct('')}/>
+            <FontAwesomeIcon icon={faClose} className='closeIcon' onClick={()=>setEditProduct('')}/>
                   <div className="inputContainer">
                         <label htmlFor={product._id}>Product Name</label>
                    <div>
@@ -323,7 +324,7 @@ function Dashboard(){
                        Order ID
                     </th>
                     <th>
-                       User
+                       Customer
                     </th>
                     <th>
                         Products
@@ -340,20 +341,18 @@ function Dashboard(){
                     <th>
                    Invoice
                     </th>
-                    <th>
-                   Mark as Paid
-                    </th>
+                    
                    </tr>
                     </thead>
                     <tbody>
                 
                    {orders.map(order=>{
                 return <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>User</td>
-                    <td><button className="orderBtn"  onClick={()=>setViewProducts({orderId: order._id, clicked:true})}>View Products</button></td>
+                    <td>{order.orderID}</td>
+                    <td className="tableLink"  onClick={()=>setViewCustomer({orderId: order._id, clicked:true})}>{orders.filter(orderSearch=>orderSearch._id == order._id).map(filteredProduct=>{ return filteredProduct.user.fName + " " +filteredProduct.user.lName})}</td>
+                    <td className="tableLink" onClick={()=>setViewProducts({orderId: order._id, clicked:true})}>View Products</td>
                     <td style={{color:order.paid?'green' : 'red'} }>{order.paid ? 'Yes' : 'No'}</td>
-                    <td>{order.createdAt}</td>
+                    <td>{order.createdAt.split('T')}</td>
                     <td>${order.total}</td>
                     <td><FontAwesomeIcon icon={faFileInvoice} className='invoice'/></td>
                     <td> <button className="orderBtn">{order.paid ? 'Mark as unpaid' : 'Mark as paid'}</button></td>
@@ -361,9 +360,8 @@ function Dashboard(){
                 
                      })}
                      </tbody>
-                  </table>
-                  {viewProducts.clicked &&
-                   <div className="orderedProductsContainer">
+                     {viewProducts.clicked &&
+                   <div style={{height:viewProducts ? "100%" : '0'}} className="orderedProductsContainer">
                     <FontAwesomeIcon onClick={()=>setViewProducts({clicked:false})} icon={faClose} className='closeIcon' />
                     <h2>Ordered Products</h2>
                 <div className="orderedProducts">
@@ -384,7 +382,31 @@ function Dashboard(){
                                </div>
                             })             
                         )
-                      } </div>  </div>    }        
+                      } </div>  </div>    }  
+
+                        {viewCustomer.clicked &&
+                   <div style={{height:viewCustomer ? "100%" : '0'}} className="orderedProductsContainer">
+                    <FontAwesomeIcon onClick={()=>setViewCustomer({clicked:false})} icon={faClose} className='closeIcon' />
+                    <h2>User Details</h2>
+                <div className="orderedProducts">
+                {orders.filter(order=> order._id === viewCustomer.orderId).map(orderDetails=> {
+                  return <div className="orderedProduct" key={orderDetails.user._id}>
+                    <div>
+                    <div><p>Name:</p>
+                    <span> {orderDetails.user.fName + " " +  orderDetails.user.lName}</span></div>
+                    <div><p>Email:</p>
+                    <span> {orderDetails.user.email}</span></div>  
+                    {/* <div><p>Product Quantitiy:</p>
+                    <span> {product.quantity}</span></div> */}
+                    </div>
+                    </div>
+                 })        
+                }
+
+                        
+                      </div>  </div>    }  
+                  </table>
+                      
                 </div>
                 }
       </div>

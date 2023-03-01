@@ -8,10 +8,9 @@ import Link from 'next/link';
 import { ProductsContext } from './ProductsContext';
 import { useRouter } from 'next/router';
 import ResponsiveNav from './ResponsiveNav';
-import Search from './Search';
 import { useSession, signOut } from 'next-auth/react';
 
-function Navbar({products}){
+function Navbar(){
 
     const {selectedProducts} = useContext(ProductsContext)
     const {isMenuChecked,setIsMenuChecked} = useContext(ProductsContext)
@@ -26,8 +25,7 @@ function Navbar({products}){
        
            <nav data-aos="fade-down" data-aos-once={true} data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
              <ResponsiveNav />
-        <Search products={products} />
-
+    
 <FontAwesomeIcon onClick={()=>setIsSearchChecked(!isSearchChecked)} icon={faSearch} className={style.searchIcon}  />
 
 <div className={style.menuContainer}>
@@ -45,8 +43,8 @@ function Navbar({products}){
  </Link>
    </div>
  <ul className={style.links}>
- <Link href="/collections/yoga-mats">
-     <li className={ router.asPath ==='/collections/yoga-mats' ? style.selected :style.link}  >Yoga Mats</li></Link>
+ <Link href="/collections/yoga-mats-bags">
+     <li className={ router.asPath ==='/collections/yoga-mats-bags' ? style.selected :style.link}  >Yoga Bags</li></Link>
      <Link  href="/collections/yoga-socks">
      <li className={ router.asPath ==='/collections/yoga-socks' ? style.selected :style.link} >Yoga Socks</li></Link>
      <Link href="/collections/yoga-incense">

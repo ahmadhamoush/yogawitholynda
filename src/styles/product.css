@@ -10,6 +10,7 @@
 
 .productImage {
     object-fit: contain;
+    pointer-events: none;
 }
 
 .productBtns {
@@ -222,6 +223,7 @@
     transform: rotate(-44deg);
     -webkit-transform: rotate(-45deg);
     object-fit: contain;
+    pointer-events: none;
 }
 
 .carouselImgReflection {

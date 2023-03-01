@@ -10,9 +10,9 @@ export default async function handler(req, res) {
 
     await initMongoose()
     res.status(200).json(await Order.create({
+        orderID: new Date().getFullYear().toString() + Math.floor(100000 + Math.random() * 900000).toString(),
         products: req.body.products,
-        name: req.body.name,
-        email: req.body.email,
+        user: req.body.user,
         number: req.body.number,
         address: req.body.address,
         city: req.body.city,

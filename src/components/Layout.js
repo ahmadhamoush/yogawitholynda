@@ -2,6 +2,7 @@ import Head from "next/head";
 import Announcement from "./Announcement";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Search from "./Search";
 
 function Layout({children,products}){
     return (
@@ -15,7 +16,8 @@ function Layout({children,products}){
         <link rel="icon" href="/logo.jpg" />
       </Head>
       <Announcement />
-        <Navbar products={products}/>
+        <Navbar/>
+        <Search products={products} />
         {children}
         <Footer />
         </>

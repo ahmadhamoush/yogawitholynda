@@ -32,7 +32,6 @@ function Cart({products}){
             body: JSON.stringify(order),
           })
     const response = await request.json()
-    console.log(response)
      }
     }
 
@@ -85,8 +84,7 @@ function Cart({products}){
    const order = {
     products: cartInfo.length && cartInfo.map(item=> {return {name:item.name,
     price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image}}),
-    name,
-    email,
+    user,
     number,
     address: address + " " + optionalAddress,
     city,
