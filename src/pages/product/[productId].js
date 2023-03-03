@@ -6,8 +6,9 @@ import { ProductsContext } from "@/components/ProductsContext"
 import { toast } from "react-toastify"
 import Layout from "@/components/Layout"
 import { useRouter } from "next/router"
+import { findAllCollections } from "../api/collections"
 
-function Product({products,product,similarProducts}){
+function Product({products,product,similarProducts,collections}){
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(product.price);
     const {setSelectedProducts} = useContext(ProductsContext)
@@ -28,7 +29,7 @@ function Product({products,product,similarProducts}){
     },[product])
 
     return(     
-        <Layout products={products}>
+        <Layout products={products} collections={collections}>
              <div className="productContainer">
         <Image data-aos="fade-down"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600"  className="productImage" alt={product.name} src={product.image} width={400} height ={400} />
             <div className="productDetails">
@@ -49,7 +50,6 @@ function Product({products,product,similarProducts}){
         </div>
        <div className="productBtns">
        <button onClick={addProduct}>Add to Cart</button>
-        <button>Buy Now</button>
        </div>
         </div>
         </div>
@@ -71,6 +71,7 @@ export async function getServerSideProps(context){
     const productId = query.productId
     const products = await findAllProducts()
     const queriedProduct = await findProduct(productId)
+    const collections = await findAllCollections()
     const similarProducts = products.filter((product=>
         product.category === queriedProduct.category && product.name !== queriedProduct.name
     ))
@@ -78,7 +79,8 @@ export async function getServerSideProps(context){
       props:{
         product: JSON.parse(JSON.stringify(queriedProduct)),
         similarProducts: JSON.parse(JSON.stringify(similarProducts)),
-        products: JSON.parse(JSON.stringify(products))
+        products: JSON.parse(JSON.stringify(products)),
+        collections: JSON.parse(JSON.stringify(collections))
       }
     }
 

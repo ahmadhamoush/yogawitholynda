@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import ResponsiveNav from './ResponsiveNav';
 import { useSession, signOut } from 'next-auth/react';
 
-function Navbar(){
+function Navbar({collections}){
 
     const {selectedProducts} = useContext(ProductsContext)
     const {isMenuChecked,setIsMenuChecked} = useContext(ProductsContext)
@@ -43,12 +43,10 @@ function Navbar(){
  </Link>
    </div>
  <ul className={style.links}>
- <Link href="/collections/yoga-mats-bags">
-     <li className={ router.asPath ==='/collections/yoga-mats-bags' ? style.selected :style.link}  >Yoga Bags</li></Link>
-     <Link  href="/collections/yoga-socks">
-     <li className={ router.asPath ==='/collections/yoga-socks' ? style.selected :style.link} >Yoga Socks</li></Link>
-     <Link href="/collections/yoga-incense">
-     <li className={ router.asPath ==='/collections/yoga-incense' ? style.selected :style.link} >Yoga Incense</li></Link>
+  {collections?.map(collection=> <Link key={collection._id} href={collection.href}>
+    <li className={ router.asPath === collection.href ? style.selected :style.link}>{collection.name.split('Mats').join(' ')}</li>
+    </Link>
+  )}
 </ul>
  
  </div>
@@ -73,7 +71,6 @@ function Navbar(){
 </nav>
       
   
-      
     )
 }
 export default Navbar

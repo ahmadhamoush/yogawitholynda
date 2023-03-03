@@ -5,7 +5,9 @@ const UserSchema = new Schema({
     fName: String,
     lName:String,
     email:String,
-    password:String
+    password:String,
+    number: Number,
+    address:Object,
 })
 
 UserSchema.pre('save', async function(next){

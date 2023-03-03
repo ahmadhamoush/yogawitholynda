@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    flex: 1;
 }
 
 .cartHeader {
@@ -186,6 +185,12 @@
     cursor: pointer;
     border-radius: 10px;
     margin: 20px 0;
+}
+
+.billing .icon {
+    color: #001f3d;
+    cursor: pointer;
+    margin-left: 5px;
 }
 
 .summary .btn:hover,

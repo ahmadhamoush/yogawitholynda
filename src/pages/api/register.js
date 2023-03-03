@@ -1,3 +1,4 @@
+import e from "express";
 import { initMongoose } from "lib/mongoose";
 import User from "models/User";
 
@@ -13,11 +14,13 @@ export default async function handler(req, res) {
                 fName,
                 lName,
                 email,
-                password
+                password,
             })
             res.status(201).json({ user })
         }
 
+    } else {
+        res.status(405).send({ message: 'Only POST requests allowed' })
     }
-    res.status(405).send({ message: 'Only POST requests allowed' })
+
 }

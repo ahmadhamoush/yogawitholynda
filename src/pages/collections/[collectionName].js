@@ -8,13 +8,13 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 
 
-function Collection ({products,title, isProducts, allProducts}){
+function Collection ({products,title, isProducts, allProducts,collections}){
 
   const [range,setRage] = useState({min:0, max:100})
   const filteredProducts = products.filter(product=>  product.price<=range.max && product.price>=range.min)
 
     return (
-      <Layout products={allProducts}>
+      <Layout products={allProducts} collections={collections}>
   <div className="container">
    <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionDesc">
    <h2>{title}</h2>
@@ -159,7 +159,8 @@ return {
         title:collectionName.toUpperCase().replace('-',' '),
         isProducts: isProducts,
         products:JSON.parse(JSON.stringify(products)),
-        allProducts:JSON.parse(JSON.stringify(allProducts))
+        allProducts:JSON.parse(JSON.stringify(allProducts)),
+        collections: JSON.parse(JSON.stringify(collections))
 
     }
 }

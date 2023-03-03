@@ -7,7 +7,7 @@ import Layout from "@/components/Layout"
 function Collections ({products,collections}){
 
 
-    return <Layout products={products}>
+    return <Layout products={products} collections={collections}>
     <CollectionList all={true}collections={collections} />
     </Layout>
  

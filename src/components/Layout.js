@@ -4,9 +4,9 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Search from "./Search";
 
-function Layout({children,products}){
+function Layout({children,products,collections}){
     return (
-       <>
+       <div className="layout">
          <Head>
         <title>YOGAWITHOLYNDA</title>
         <meta name="description" content="Yoga Shop" />
@@ -16,11 +16,11 @@ function Layout({children,products}){
         <link rel="icon" href="/logo.jpg" />
       </Head>
       <Announcement />
-        <Navbar/>
+        <Navbar collections={collections}/>
         <Search products={products} />
         {children}
         <Footer />
-        </>
+        </div>
     )
 }
 export default Layout

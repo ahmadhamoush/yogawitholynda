@@ -4,15 +4,17 @@ import { ProductsContext } from "@/components/ProductsContext"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClose } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons"
 import { findAllProducts } from "../api/products"
 import { useSession } from "next-auth/react"
-function Cart({products}){
+import { findAllCollections } from "../api/collections"
+function Cart({products,collections}){
     const session = useSession()
     const {selectedProducts,setSelectedProducts,setIsProfileChecked} = useContext(ProductsContext)
     const [cartInfo, setCartInfo] = useState([])
     const [user, setUser] = useState([])
     const [checkoutClicked, setCheckoutClicked] = useState(false)
+    const [editAddress, setEditAddress] = useState(false)
     const [showSummary, setShowSummary] = useState(true)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -32,6 +34,10 @@ function Cart({products}){
             body: JSON.stringify(order),
           })
     const response = await request.json()
+      if(response){
+        setSelectedProducts([])
+        setCartInfo([])
+      }
      }
     }
 
@@ -43,6 +49,11 @@ function Cart({products}){
           if(await user){
             setName(user.fName + " " + user.lName)
             setEmail(user.email)
+            setNumber(user?.number && user.number)
+            setAddress(user?.address && user.address.main)
+            setOptionalAddress(user?.address && user.address.secondary)
+            setCity(user?.address && user.address.city)
+            setEditAddress(user?.address && true)
           }       
           setCheckoutClicked(prev=>!prev)
           setShowSummary(false)
@@ -86,16 +97,15 @@ function Cart({products}){
     price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image}}),
     user,
     number,
-    address: address + " " + optionalAddress,
-    city,
+    address: {main:address, secondary:optionalAddress, city},
     total,
     subTotal
    }
    
     return(
-       <Layout products={products}>
-       <div  className="cart">
-            <div style={{display: checkoutClicked && "none"}} className="cartContainer">
+       <Layout products={products} collections={collections}>
+       <div className="cart">
+            <div style={{display: checkoutClicked && "none" ,borderRadius : !cartInfo?.length && "10px"}} className="cartContainer">
             <div className="cartHeader">
             <h1>Cart</h1>
             <p>{cartInfo.length ? cartInfo.length : '0'} items</p>
@@ -188,7 +198,7 @@ function Cart({products}){
                    <div>
                    <div>
                    <label htmlFor="name">Name:</label>
-                    <input disabled value={name} type="text" id="name"  placeholder="Name"  />
+                    <input  disabled value={name} type="text" id="name"  placeholder="Name"  />
                    </div>
                    <div>
                    <label htmlFor="email">Email:</label>
@@ -196,16 +206,16 @@ function Cart({products}){
                    </div>
                     <div>
                     <label htmlFor="number">Phone Number:</label>
-                    <input type="number" onChange={(e)=>setNumber(e.target.value)} placeholder="eg: 03456789"  id="number" />
+                    <input type="number" onChange={(e)=>setNumber(e.target.value)} disabled={user?.number && true} value={user?.number && number} placeholder="eg: 03456789"  id="number" />
                     </div>
                     <div>
-                    <label htmlFor="address">Address</label>
-                    <input onChange={(e)=>setAddress(e.target.value)} type="text" placeholder="Street Address"  id="address" />
-                    <input  onChange={(e)=>setOptionalAddress(e.target.value)} type="text" placeholder="Apartment, suite, unit, etc. (optional" id="firstName" />
+                    <label htmlFor="address">Address: {user?.address && <FontAwesomeIcon onClick={()=>setEditAddress(prev=>!prev)}  className="icon" icon={faEdit} />}</label>
+                    <input onChange={(e)=>setAddress(e.target.value)} disabled={editAddress && true} value={user?.address && address} type="text" placeholder="Street Address"  id="address" />
+                    <input  onChange={(e)=>setOptionalAddress(e.target.value)}  disabled={editAddress} type="text" value={user?.address && optionalAddress} placeholder="Apartment, suite, unit, etc. (optional" id="optional" />
                     </div>
                     <div>
-                    <label htmlFor="city">Town / City</label>
-                    <input onChange={(e)=>setCity(e.target.value)} type="text" placeholder="eg: Beirut"  id="city" />
+                    <label htmlFor="city">Town / City:</label>
+                    <input onChange={(e)=>setCity(e.target.value)} disabled={editAddress && true} value={user?.address && city} type="text" placeholder="eg: Beirut"  id="city" />
                     </div>
                    </div>
                     <hr />
@@ -222,9 +232,11 @@ export default Cart
 
 export async function getServerSideProps(){
     const products = await findAllProducts()
+    const collections = await findAllCollections()
     return{
         props:{
-            products: JSON.parse(JSON.stringify(products))
+            products: JSON.parse(JSON.stringify(products)),
+            collections:JSON.parse(JSON.stringify(collections))
         }
     }
 }

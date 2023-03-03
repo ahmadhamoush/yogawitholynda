@@ -4,9 +4,6 @@ const OrderSchema = new Schema({
     orderID : String,
     products: Object,
     user: Object,
-    number: Number,
-    address:String,
-    city: String,
     paid: { type: Boolean, default: false },
     total: Number,
     subtotal:Number

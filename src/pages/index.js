@@ -18,7 +18,7 @@ import ProductsCarousel from '@/components/ProductsCarousel'
 export default function Home({collections,products}) {
   return (
     <>  
-     <Layout products={products}>
+     <Layout collections={collections} products={products}>
       <Landing />
       <CollectionList all={false} collections={collections} />
       <ProductsCarousel products={products} />
