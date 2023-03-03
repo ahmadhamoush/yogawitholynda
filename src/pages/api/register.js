@@ -1,4 +1,3 @@
-import e from "express";
 import { initMongoose } from "lib/mongoose";
 import User from "models/User";
 
