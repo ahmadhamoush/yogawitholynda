@@ -8,14 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
-
 function ProductCard (props){
  
 const  {setSelectedProducts} = useContext(ProductsContext)
 const productAddedNoti = () => toast(`${props.name} added to cart!`)
 const router = useRouter()
-
-  function addProduct (){
+  async function addProduct (){
         setSelectedProducts(prev=> [...prev,props.id])
         productAddedNoti()
         router.push('/cart')

@@ -17,6 +17,7 @@ function Login (){
     const {isProfileChecked, setIsProfileChecked} = useContext(ProductsContext)
     const { register, handleSubmit } = useForm();
     const[isLogin,setIsLogin] = useState(true)
+    const[loading,setLoading] = useState(false)
     const[err,setErr] = useState({})
     const onSubmitSignUp = data=> fetch('/api/register',{method:'POST', headers:{
         'Content-Type': 'application/json'
@@ -31,7 +32,7 @@ function Login (){
     }
 
    async function login(loginData){
-  
+        setLoading(true)
         try {
             const data = await signIn('credentials',{
                 redirect:false,
@@ -41,6 +42,7 @@ function Login (){
             
             if(!data.error){
                 setIsProfileChecked(prev=>!prev)
+                setLoading(false)
             }
              else{
                 setErr(data)
@@ -52,6 +54,7 @@ function Login (){
     return(
         isProfileChecked && session.status==='unauthenticated' &&
         <div className={style.container}>
+            {loading && <Loader />}
             <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
           {isLogin && <form className={style.form} onSubmit={handleSubmit(onSubmitLogin,onError)}>
             <input style={{border : err.email || err.error && '1px solid red'}} type='email'  placeholder='Email' {...register('email', {required:true})} />

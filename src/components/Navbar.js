@@ -30,11 +30,10 @@ function Navbar({collections}){
 
 <div className={style.menuContainer}>
 <input defaultChecked={isMenuChecked} id={style.menu} type="checkbox" />
-<label  onClick={()=>setIsMenuChecked(!isMenuChecked)} className={style.hamburgerMenu} htmlFor="menu">
+<label htmlFor={style.menu}  onClick={()=>setIsMenuChecked(!isMenuChecked)} className={style.hamburgerMenu}>
   <span className={style.lines}></span>
   </label> 
 </div>
-
  <div className={style.navFlex}>
    <div>
    <Link href='/'>

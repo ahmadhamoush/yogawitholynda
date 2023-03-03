@@ -8,6 +8,8 @@ import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons"
 import { findAllProducts } from "../api/products"
 import { useSession } from "next-auth/react"
 import { findAllCollections } from "../api/collections"
+import Loader from "@/components/Loader"
+
 function Cart({products,collections}){
     const session = useSession()
     const {selectedProducts,setSelectedProducts,setIsProfileChecked} = useContext(ProductsContext)
@@ -104,6 +106,7 @@ function Cart({products,collections}){
    
     return(
        <Layout products={products} collections={collections}>
+        {!cartInfo.length && <Loader/>}
        <div className="cart">
             <div style={{display: checkoutClicked && "none" ,borderRadius : !cartInfo?.length && "10px"}} className="cartContainer">
             <div className="cartHeader">
