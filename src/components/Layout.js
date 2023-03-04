@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Announcement from "./Announcement";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Search from "./Search";
@@ -15,7 +14,6 @@ function Layout({children,products,collections}){
         <meta name="theme-color" content="#ffffff"/>
         <link rel="icon" href="/logo.jpg" />
       </Head>
-      <Announcement />
         <Navbar collections={collections}/>
         <Search products={products} />
         {children}

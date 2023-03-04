@@ -15,7 +15,7 @@ import Loader from './Loader'
 function Login (){
     const session = useSession()
     const {isProfileChecked, setIsProfileChecked} = useContext(ProductsContext)
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset } = useForm();
     const[isLogin,setIsLogin] = useState(true)
     const[loading,setLoading] = useState(false)
     const[err,setErr] = useState({})
@@ -28,7 +28,6 @@ function Login (){
 
     const onSubmitLogin = async loginData => {
        await login(loginData)
-       toast(`${loginData.email} succesffully`)
     }
 
    async function login(loginData){
@@ -43,17 +42,19 @@ function Login (){
             if(!data.error){
                 setIsProfileChecked(prev=>!prev)
                 setLoading(false)
+                toast('Login Success')
             }
              else{
                 setErr(data)
+                setLoading(false)
              }
         } catch (err) {
             console.log(err)
         }
     }
     return(
-        isProfileChecked && session.status==='unauthenticated' &&
-        <div className={style.container}>
+
+        <div style={{transform: isProfileChecked && session.status==='unauthenticated'  ? 'scale(1)' : 'scale(0)'}} className={style.container}>
             {loading && <Loader />}
             <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
           {isLogin && <form className={style.form} onSubmit={handleSubmit(onSubmitLogin,onError)}>
@@ -72,7 +73,7 @@ function Login (){
             <p className={style.err}>{err.length && err}</p>
             </form>}
             <FontAwesomeIcon onClick={()=>setIsProfileChecked(prev=>!prev)} icon={faClose} className={style.icon}/>
-            <button onClick={()=>setIsLogin(prev=>!prev)}>{isLogin ? "Don't Have An Account? Sign Up Right Now" : 'Already Have an Account? Login'}</button>
+            <button className={style.changeView} onClick={()=>{setIsLogin(prev=>!prev);reset({email:'',password:''})}}>{isLogin ? "Don't Have An Account? Sign Up Right Now" : 'Already Have an Account? Login'}</button>
         </div>
     )
 }

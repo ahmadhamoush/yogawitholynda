@@ -5,7 +5,7 @@
      background-repeat: no-repeat;
      background-position: center;
      background-size: cover;
-     height: 95vh;
+     height: 100vh;
  }
  
  .banner {
@@ -16,8 +16,6 @@
      align-items: center;
      margin: auto;
      line-height: 1.3;
-     /* border-top-left-radius: 20px;
-     border-top-right-radius: 20px; */
      text-align: left;
      padding: 20px;
  }

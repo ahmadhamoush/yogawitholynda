@@ -30,7 +30,7 @@ function Search ({products}){
       }
       
         return(
-            <div className={style.container} style={{width: isSearchChecked? '100%' : '0'}}>
+            <div className={style.container} style={{transform: isSearchChecked? 'scale(1)' : 'scale(0)'}}>
                 <FontAwesomeIcon onClick={()=>{setIsSearchChecked(!isSearchChecked);setIsMenuChecked(false)}} icon={faClose} className={style.closeIcon}  />
             <div className={style.search}>
         <input value={searchText} onChange={handleSearch} type="text" name="" placeholder='Search' id="" />

@@ -11,7 +11,7 @@ const {isSearchChecked, setIsSearchChecked} = useContext(ProductsContext)
 return (
   <div>
    
-    {<div className={style.container} style={{width: isMenuChecked ? '100%': '0'}}>
+    {<div className={style.container} style={{height: isMenuChecked ? 'auto': '0'}}>
         <ul>
             <li  onClick={()=>setIsMenuChecked(prev=>!prev)}>
             <Link className={style.link} href="/collections/yoga-mats">

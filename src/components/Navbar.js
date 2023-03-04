@@ -9,6 +9,7 @@ import { ProductsContext } from './ProductsContext';
 import { useRouter } from 'next/router';
 import ResponsiveNav from './ResponsiveNav';
 import { useSession, signOut } from 'next-auth/react';
+import Announcement from './Announcement';
 
 function Navbar({collections}){
 
@@ -22,9 +23,14 @@ function Navbar({collections}){
     return (
       
       
-       
-           <nav data-aos="fade-down" data-aos-once={true} data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
-             <ResponsiveNav />
+   
+          <div className={style.allNav}>
+          
+               <ResponsiveNav />
+               <div className={style.navAnnouncment}>
+               <Announcement />
+             <nav data-aos="fade-down" data-aos-once={true} data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>
+            
     
 <FontAwesomeIcon onClick={()=>setIsSearchChecked(!isSearchChecked)} icon={faSearch} className={style.searchIcon}  />
 
@@ -68,6 +74,8 @@ function Navbar({collections}){
 </div>
 
 </nav>
+               </div>
+          </div>
       
   
     )
