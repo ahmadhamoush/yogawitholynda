@@ -5,8 +5,10 @@ import logo from '../../public/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope ,faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons"
+import { useEffect, useState } from "react"
 
-function Footer(){
+function Footer({collections}){
+
     return (
         <div className={style.container}>
            
@@ -19,26 +21,22 @@ function Footer(){
           <div className={style.links}>
                 <h3>Links</h3>
                 <ul>
-                <Link href={'/about'}>
+              
                     <li>
-                      
+                    <Link className={style.link}  href={'/about'}>
                        About Us
+                       </Link>
                     </li>
-                    </Link>
+                  
+                   {collections.map(collection=>{
+                    return  <li key={collection._id}>
+                    <Link className={style.link}  href={collection.href}> 
+                        {collection.name}
+                        </Link>
+                        </li>
+                   })}
                     <li>
-                        Yoga Mats
-                    </li>
-                    <li>
-                        Yoga Socks
-                    </li>
-                    <li>
-                        Yoga Incense
-                    </li>
-                    <li>
-                        Yoga Accessories
-                    </li>
-                    <li>
-                        Shop All
+                       <Link className={style.link} href='/collections/all-products'>Shop All</Link>
                     </li>
                 </ul>
             </div>
@@ -46,16 +44,13 @@ function Footer(){
             <h3>Policies</h3>
                 <ul>
                     <li>
-                    Returns & Refund Policy
+                   <Link className={style.link}  href='/policies/refund'> Returns & Refund Policy</Link>
                     </li>
                     <li>
-                    Terms of Service
+                    <Link className={style.link}  href='/policies/terms'>Terms of Service</Link>
                     </li>
                     <li>
-                    Privacy Policy
-                    </li>
-                    <li>
-                    Shipping Policy
+                    <Link className={style.link}  href='/policies/privacy'>Privacy Policy</Link>
                     </li>
                 </ul>
             </div>
@@ -71,8 +66,10 @@ function Footer(){
                     <p>+961 3 456 789</p>
                     </li>
                   <li>
+                    <Link className ={style.insta} href="https://www.instagram.com/yogawitholynda/">
                     <FontAwesomeIcon icon={faInstagram} className={style.icon}  />
-                        <p>@user</p>  
+                        <p>@yogawitholynda</p>  
+                        </Link>
                     </li>
                     <li>
                     <FontAwesomeIcon icon={faFacebook} className={style.icon}  />

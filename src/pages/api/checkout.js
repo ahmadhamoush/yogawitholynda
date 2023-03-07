@@ -11,17 +11,19 @@ export default async function handler(req, res) {
 
     await initMongoose()
 
-    const foundUser = await User.updateOne({ _id: req.body.user._id }, {
+    const foundUser = await User.updateOne({ _id: req.body.userID }, {
         number: req.body.number,
         address: req.body.address,
     }, { multi: true })
 
-    res.status(200).json(await Order.create({
-        orderID: new Date().getFullYear().toString() + Math.floor(100000 + Math.random() * 900000).toString(),
+    const order = await Order.create({
+        orderID: req.body.orderID,
         products: req.body.products,
-        user: await User.findOne({ _id: req.body.user._id }),
+        user: await User.findOne({ _id: req.body.userID }),
         paid: false,
+        delivered: false,
         total: req.body.total,
         subtotal: req.body.subTotal
-    }))
+    })
+    res.status(201).json(order)
 }

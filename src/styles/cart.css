@@ -105,6 +105,13 @@
 
 .itemSummary {
     position: relative;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.price {
+    font-weight: bold;
 }
 
 .summaryImg {
@@ -130,7 +137,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 20px;
+    padding: 10px 20px;
     scroll-snap-align: start;
 }
 

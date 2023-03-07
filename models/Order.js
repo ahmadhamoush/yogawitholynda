@@ -5,6 +5,7 @@ const OrderSchema = new Schema({
     products: Object,
     user: Object,
     paid: { type: Boolean, default: false },
+    delivered: { type: Boolean, default: false },
     total: Number,
     subtotal:Number
 }, { timestamps: true });

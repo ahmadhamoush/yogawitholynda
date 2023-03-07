@@ -4,15 +4,46 @@ import { findAllProducts,listCollection } from "../api/products";
 import {findAllCollections } from "../api/collections";
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
+import CollectionList from '@/components/CollectionList'
 
 
-function Collection ({products,title, isProducts, allProducts,collections}){
-
+function Collection ({products,title, allProducts,collections}){
   const [range,setRage] = useState({min:0, max:100})
-  const filteredProducts = products.filter(product=>  product.price<=range.max && product.price>=range.min)
+  const [inStock, setInStock] = useState(false)
+  const [outStock, setOutStock] = useState(false)
+  const [filteredProducts,setFilteredProducts] = useState(products)
+ 
+ 
+  function clearFilters(){
+    setFilteredProducts(products.map(p=>p))
+    setInStock(false)
+    setOutStock(false)
+    }
 
+  function filterOutStock(){
+  setFilteredProducts(products.filter(product=>product.stock===0 && product.price<=range.max && product.price>=range.min))
+    setInStock(false)
+    setOutStock(true)
+  }
+  function filterInStock(){
+    setFilteredProducts(products.filter(product=>product.stock>0 && product.price<=range.max && product.price>=range.min ))
+      setOutStock(false)
+      setInStock(true)
+    }
+  function filterPrice(e){
+    setRage({min:e[0],max:e[1]})
+    if(inStock){
+      setFilteredProducts(products.filter(product=> product.stock>0 && product.price<=range.max && product.price>=range.min))
+    }
+    else if(outStock){
+      setFilteredProducts(products.filter(product=> product.stock===0 && product.price<=range.max && product.price>=range.min))
+    }
+    else{
+      setFilteredProducts(products.filter(product=> product.price<=range.max && product.price>=range.min))
+    }
+  }
     return (
       <Layout products={allProducts} collections={collections}>
   <div className="container">
@@ -22,7 +53,6 @@ function Collection ({products,title, isProducts, allProducts,collections}){
    </div>
    <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="collectionContainer">    <div className="collectionFlex">
 
-
       <div className="filterFlex">
       <div className="filters">
      
@@ -30,15 +60,15 @@ function Collection ({products,title, isProducts, allProducts,collections}){
            <p>Home / Collections / {title.charAt(0).toUpperCase() + title.toLowerCase().slice(1) } </p>
            <div className="filterHeading">
            <label  htmlFor="showStock">Availability</label>
-           <input type="checkbox" className='showFilter' id="showStock"></input>
+           <input onClick={()=>{setInStock(false);setOutStock(false);clearFilters()}} type="checkbox" className='showFilter' id="showStock"></input>
            <label htmlFor="showStock"></label>
            <div className="checkboxes">
              <div className="checkbox">
-             <input type="checkbox" id="inStock" />
+             <input onChange={filterInStock} checked={inStock} type="checkbox" id="inStock" />
                <label htmlFor="inStock">In Stock</label> 
                </div>    
              <div className="checkbox">
-             <input disabled type="checkbox" id="outOfStock" />
+             <input checked={outStock} onChange={filterOutStock} type="checkbox" id="outOfStock" />
                <label style={{opacity:0.5}} htmlFor="outOfStock">Out of Stock</label>
                </div>
           
@@ -51,68 +81,31 @@ function Collection ({products,title, isProducts, allProducts,collections}){
            <div className="filterContainer">
            <div className="filterHeading">
            <label  htmlFor="showPrice">Price</label>
-           <input type="checkbox" className='showFilter' id="showPrice"></input>
+           <input onClick={()=>{setRage({min:0,max:100});clearFilters()}} type="checkbox" className='showFilter' id="showPrice"></input>
            <label htmlFor="showPrice"></label>
                <div className='rangeContainer'>
                <div className='prices'>
                    <div className='priceContainer'>
                        <p>Min</p>
-                       <input type="text" disabled value ={range.min} />
+                       <input type="text"  readOnly value ={range.min} />
                    </div>
                    <div className='priceContainer'>
                        <p>Max</p>
-                       <input type="text" disabled value ={range.max} />
+                       <input type="text" readOnly value ={range.max} />
                    </div>
                </div>
-               <RangeSlider min={0} max={100} step={1}  id="range-slider-yellow" onInput ={(e)=>{
-               setRage({min:e[0],max:e[1]})
-               console.log('eveent: ',e)
-           }} />
+               <RangeSlider min={0} max={100} step={1}  id="range-slider-yellow" onInput ={filterPrice} />
                </div>
            </div>
 
                 <hr />
       
-           </div>
-           {isProducts && (
-      
-      <div className="filterContainer">
-      <div className="filterHeading">
-      <label  htmlFor="showCategories">Categories</label>
-      <input type="checkbox" className='showFilter' id="showCategories"></input>
-      <label htmlFor="showCategories"></label>
-      <div className="checkboxes">
-        <div className="checkbox">
-        <input type="checkbox" id="mats" />
-          <label htmlFor="mats">Yoga Mats</label> 
-          </div>    
-          <div className="checkbox">
-        <input type="checkbox" id="socks" />
-          <label htmlFor="socks">Yoga Socks</label> 
-          </div> 
-          <div className="checkbox">
-        <input type="checkbox" id="incense" />
-          <label htmlFor="incense">Yoga Incense</label> 
-          </div> 
-          <div className="checkbox">
-        <input type="checkbox" id="acc" />
-          <label htmlFor="acc">Accessories</label> 
-          </div> 
-     
-           </div> 
-      </div>
-
-           <hr />
- 
-      </div>
-     )
-}
-         
+           </div>         
        </div>
     
          <div className="products">
        {filteredProducts.map(product=>{
-         return <ProductCard key={product._id} id={product._id}  name={product.name} price={product.price} image={product.image} />
+         return <ProductCard key={product._id} id={product._id}  name={product.name} price={product.price} image={product.image} stock={product.stock}/>
        })}
        {!filteredProducts.length && <p>No Products Available</p>}
        </div>
@@ -120,6 +113,7 @@ function Collection ({products,title, isProducts, allProducts,collections}){
     </div>
 
    </div>
+   <CollectionList collections={collections} all={true}/>
 </div>
       </Layout>
       
@@ -132,12 +126,10 @@ export  async function getServerSideProps(context){
 const {query} = context;
 const collectionName = query.collectionName
 let products;
-let isProducts = false;
 const allProducts = await findAllProducts()
  products  = await listCollection(collectionName)
 if(collectionName === 'all-products'){
   products = allProducts
-   isProducts  = true
 }
 
 const collections = await findAllCollections()
@@ -157,7 +149,6 @@ const collections = await findAllCollections()
 return {
     props:{
         title:collectionName.toUpperCase().replace('-',' '),
-        isProducts: isProducts,
         products:JSON.parse(JSON.stringify(products)),
         allProducts:JSON.parse(JSON.stringify(allProducts)),
         collections: JSON.parse(JSON.stringify(collections))

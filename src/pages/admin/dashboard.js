@@ -88,11 +88,9 @@ function Dashboard(){
                 case "name":
                     product.name = name
                     setName('')
-                    console.log('logged')
                     break
                 case "price":
                     product.price = Number(price)
-                    console.log('logged')
                     setPrice('')
                     break
                 case "category":
@@ -111,7 +109,7 @@ function Dashboard(){
                      setStock('')
                       break
             }
-           fetch('/api/products', {method:'POST', headers:{'Content-Type': 'application/json'},body:JSON.stringify(product)}).then(res=>res.json()).then(json=>toast(`${json.productUpdated.name} updated successfully`))
+           fetch('/api/products', {method:'POST', headers:{'Content-Type': 'application/json'},body:JSON.stringify(product)}).then(res=>res.json()).then(json=>{toast(`${json.productUpdated.name} updated successfully`),setEditProduct(prev=>!prev)})
         }
        
     })

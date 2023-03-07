@@ -33,11 +33,24 @@
     align-items: flex-start;
     font-size: 13px;
     font-weight: 200;
+    color: white;
+}
+
+.link {
+    color: white
 }
 
 .container div ul li {
     margin: 5px 5px 5px 0;
     list-style: none;
+    cursor: pointer;
+    transition: 0.5s ease;
+    color: white;
+}
+
+.container li :hover {
+    color: #dcc295;
+    text-decoration: underline;
 }
 
 .container div h3 {
@@ -75,21 +88,11 @@
     margin: 10px 10px 10px 0;
 }
 
-.links ul li::after {
-    content: '';
-    position: absolute;
+.insta {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #001F3D;
-    width: 0;
-    height: 2px;
-    transition: 0.5s ease-in-out;
-}
-
-.links ul li:hover::after {
-    width: 100%;
+    color: white;
 }
 
 @media (max-width:674px) {

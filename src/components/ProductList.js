@@ -33,10 +33,10 @@ function ProductList({products,featured}){
                 {
                   products.map((product,index)=>{
                     if(featured){
-                      return product.featured &&  <ProductCard key={index} id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} />
+                      return product.featured &&  <ProductCard key={index} id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} stock ={product.stock} />
                     }
                     else{ 
-                      return  <ProductCard key={index} id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} />
+                      return  <ProductCard key={index} id={product._id} category={product.category} name={product.name} price={product.price} image={product.image} stock ={product.stock} />
                     }
                 
                   })

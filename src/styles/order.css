@@ -1,0 +1,102 @@
+.orderContainer {
+    padding: 20px;
+}
+
+.orderDetails {
+    margin: 20px;
+    padding: 20px;
+    line-height: 1.5;
+    border-radius: 10px;
+    box-shadow: 0 9px 25px 0 rgba(132, 128, 177, 0.28);
+}
+
+.orderFlex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderDetailsContainer {
+    flex: 1;
+}
+
+.orderSummary {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.orderSummary .orderDetails div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.err {
+    color: rgb(252, 47, 47);
+    background-color: rgba(254, 170, 170, 0.826);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+.success {
+    color: green;
+    background-color: #9efbaabe;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+
+/* .orderHistoryContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+} */
+
+.orderHistoryContainer table {
+    overflow-x: scroll;
+    padding: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    height: 100%;
+    margin: auto;
+}
+
+.orderHistoryContainer .tableResponsive {
+    width: 100%;
+    overflow: auto;
+    display: block;
+}
+
+.orderHistoryContainer table tr th {
+    background-color: #001F3D;
+    color: white;
+    padding: 10px;
+}
+
+.orderHistoryContainer tbody {
+    background-color: #eee;
+    color: #001F3D;
+}
+
+.orderHistoryContainer table tr td {
+    padding: 10px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.orderHistoryContainer .details p {
+    color: #001F3D;
+    text-decoration: underline;
+}
+
+@media (max-width:674px) {
+    .orderFlex {
+        flex-direction: column;
+    }
+}

@@ -17,7 +17,7 @@ function Layout({children,products,collections}){
         <Navbar collections={collections}/>
         <Search products={products} />
         {children}
-        <Footer />
+        <Footer collections={collections} />
         </div>
     )
 }

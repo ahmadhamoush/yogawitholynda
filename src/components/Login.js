@@ -11,7 +11,6 @@ import { toast } from 'react-toastify'
 import Loader from './Loader'
 
 
-
 function Login (){
     const session = useSession()
     const {isProfileChecked, setIsProfileChecked} = useContext(ProductsContext)

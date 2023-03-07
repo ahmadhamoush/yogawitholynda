@@ -8,6 +8,8 @@ import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons"
 import { findAllProducts } from "../api/products"
 import { useSession } from "next-auth/react"
 import { findAllCollections } from "../api/collections"
+import { initMongoose } from "lib/mongoose"
+import { toast } from "react-toastify"
 
 function Cart({products,collections}){
     const session = useSession()
@@ -38,6 +40,8 @@ function Cart({products,collections}){
       if(response){
         setSelectedProducts([])
         setCartInfo([])
+        toast(`Order #${response.orderID} created!`)
+        router.push(`/order/${response.orderID}`)
       }
      }
     }
@@ -70,7 +74,7 @@ function Cart({products,collections}){
         const uniqueIds = [... new Set(selectedProducts)]
         fetch('/api/cart/' + uniqueIds.join('-'))
         .then(response=> response.json())
-        .then(json=> setCartInfo(json))
+        .then(json=> setCartInfo(json)) 
     },[selectedProducts])
 
     function addProduct(id){
@@ -94,9 +98,10 @@ function Cart({products,collections}){
    let total = subTotal+delivery
 
    const order = {
+    orderID:new Date().getFullYear().toString() + Math.floor(1000000 + Math.random() * 900000).toString(),
     products: cartInfo.length && cartInfo.map(item=> {return {name:item.name,
     price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image}}),
-    user,
+    userID: user._id,
     number,
     address: {main:address, secondary:optionalAddress, city},
     total,
@@ -109,11 +114,11 @@ function Cart({products,collections}){
             <div style={{display: checkoutClicked && "none" ,borderRadius : !cartInfo?.length && "10px"}} className="cartContainer">
             <div className="cartHeader">
             <h1>Cart</h1>
-            <p>{cartInfo.length ? cartInfo.length : '0'} items</p>
+            <p>{cartInfo?.length ? cartInfo?.length : '0'} items</p>
             </div>
             <hr style={{color:'black'}} />
             <div className="cartDetails">
-            {cartInfo.length && !cartInfo.message ? cartInfo.map(product=>{
+            {cartInfo?.length && !cartInfo?.message ? cartInfo.map(product=>{
             const amount =selectedProducts.filter(id=>id===product._id).length
             if(amount ===0) return
                 return (
@@ -129,7 +134,7 @@ function Cart({products,collections}){
                         <p>{amount}</p>
                         <button onClick={()=>addProduct(product._id)}>+</button>   
                         </div>
-                        <p>${product.price}</p> 
+                        <p className="price">${product.price}</p> 
                  
                     </div>
                             <hr/></>
@@ -158,22 +163,22 @@ function Cart({products,collections}){
                            <p className="summaryQnty">{selectedProducts.filter(id=> id ===item._id).length}</p>
                            </div>
                         <p>{item.name}</p>
-                       <p>${item.price*selectedProducts.filter(id=> id ===item._id).length}</p>
+                       <p className="price">${item.price*selectedProducts.filter(id=> id ===item._id).length}</p>
                        </div>
                     })}
                   </div>
                     <div>
                     <p>subtotal:</p>  
-                    <p>{cartInfo.length ? "$" + subTotal : 'N/A'}</p>
+                    <p className="price">{cartInfo.length ? "$" + subTotal : 'N/A'}</p>
                     </div>
                    <div>
                    <p>delivery:</p>  
-                   <p>{cartInfo.length ? "$" + delivery : 'N/A'}</p>
+                   <p className="price">{cartInfo.length ? "$" + delivery : 'N/A'}</p>
                    </div>
                     <hr />
                 <div>
                 <p>total: </p> 
-                <p>{cartInfo.length ? "$" + total : 'N/A'}</p> 
+                <p className="price">{cartInfo.length ? "$" + total : 'N/A'}</p> 
                 </div>
                   </div>
                {!checkoutClicked && <div>
@@ -233,6 +238,7 @@ function Cart({products,collections}){
 export default Cart
 
 export async function getServerSideProps(){
+  await initMongoose()
     const products = await findAllProducts()
     const collections = await findAllCollections()
     return{

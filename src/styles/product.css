@@ -4,17 +4,16 @@
     align-items: center;
     background-color: #001F3D;
     color: white;
-    padding: 20px;
-    width: 100%;
+    border-radius: 50px;
+    margin: 10px 0;
+    box-shadow: 0 0 10px #001F3D;
 }
 
 .productImage {
     object-fit: contain;
     pointer-events: none !important;
     border-radius: 10px;
-    margin: 20px;
-    flex: 1;
-    /* background-image: linear-gradient(rgba(4, 42, 80, 1), rgba(220, 194, 149, 1)); */
+    margin: 0 20px;
 }
 
 .productBtns {
@@ -138,12 +137,8 @@
         flex-direction: column;
         padding: 0;
     }
-    .productDetails {
-        flex: 1;
-    }
     .productImage {
         margin: 0 0 20px 0;
-        width: 100%;
         border-radius: 0;
     }
 }

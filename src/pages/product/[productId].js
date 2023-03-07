@@ -16,11 +16,16 @@ function Product({products,product,similarProducts,collections}){
     const addedNotif = ()=>  toast(`${product.name} added to cart! x${quantity}`)
 
     function addProduct(){
-        for(let i =0; i<quantity;i++){
-            setSelectedProducts(prev=>[...prev, product._id])
+        if(product.stock === 0){
+            toast('Out of Stock')
         }
-        addedNotif()
-        router.push('/cart')
+        else{
+            for(let i =0; i<quantity;i++){
+                setSelectedProducts(prev=>[...prev, product._id])
+            }
+            addedNotif()
+            router.push('/cart')
+        }
     }
 
     useEffect(()=>{
@@ -36,7 +41,6 @@ function Product({products,product,similarProducts,collections}){
         <div>
         <h2>{product.name}</h2>
         <span>Yoga Mats</span>
-     
         <p>${price}</p>
         </div>
         <div className="quantityContainer">
@@ -47,6 +51,7 @@ function Product({products,product,similarProducts,collections}){
            <p> {quantity}</p>
             <button onClick={(e)=>{setQuantity(prev=>prev+1);setPrice(prev=>prev+product.price)}}>+</button>
         </div>
+        {product.stock === 0 && <p className="err">Out of Stock</p>}
         </div>
        <div className="productBtns">
        <button onClick={addProduct}>Add to Cart</button>

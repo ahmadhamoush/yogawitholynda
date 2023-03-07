@@ -35,7 +35,7 @@ function Navbar({collections}){
 <FontAwesomeIcon onClick={()=>setIsSearchChecked(!isSearchChecked)} icon={faSearch} className={style.searchIcon}  />
 
 <div className={style.menuContainer}>
-<input defaultChecked={isMenuChecked} id={style.menu} type="checkbox" />
+<input checked={isMenuChecked} onChange={()=>setIsMenuChecked(prev=>!prev)} id={style.menu} type="checkbox" />
 <label htmlFor={style.menu}  onClick={()=>setIsMenuChecked(!isMenuChecked)} className={style.hamburgerMenu}>
   <span className={style.lines}></span>
   </label> 
@@ -67,7 +67,7 @@ function Navbar({collections}){
 <FontAwesomeIcon onClick={()=>setIsProfileChecked(!isProfileChecked)} icon={faUser} className={style.icon}  />
  {isProfileChecked && session.status === 'authenticated' && <div className={style.dropdownContent}>
   <FontAwesomeIcon icon={faCaretUp} className={style.arrow}/>
- <p>View Orders</p>
+ <p onClick={()=>{router.push('/order/history'); setIsProfileChecked(prev=>!prev)}}>View Orders</p>
   <p onClick={()=>signOut()}>Logout</p>
  </div>}
 </div>

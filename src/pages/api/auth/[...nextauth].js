@@ -5,6 +5,22 @@ import bcrypt from 'bcryptjs'
 import { initMongoose } from "lib/mongoose";
 
 export default NextAuth({
+    callbacks: {
+        async redirect({ url, baseUrl }) {
+            return baseUrl
+        },
+        async session({ session, user, token }) {
+            session.user.id = token.id;
+            return session
+        },
+        async jwt({ token, user, account, profile, isNewUser }) {
+            if (user) {
+                token.id = user._id
+            }
+            return token
+        }
+
+    },
     session: {
         strategy: 'jwt'
     },
@@ -15,7 +31,6 @@ export default NextAuth({
                 const { email, password } = credentials
 
                 const user = await User.findOne({ email })
-
                 if (!user) {
                     throw new Error('Invalid Email or Password')
                 }

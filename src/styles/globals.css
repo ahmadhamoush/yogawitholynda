@@ -9,11 +9,29 @@
     font-family: sans-serif;
 }
 
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    margin: 10px;
+    line-height: 1.5;
+}
+
+.pageContainer h4 {
+    padding: 10px 0;
+}
+
+.pageContainer ul {
+    padding: 20px;
+}
+
 .layout {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: 100vh;
     width: 100%;
 }
 
