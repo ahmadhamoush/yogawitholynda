@@ -19,6 +19,9 @@ function Product({products,product,similarProducts,collections}){
         if(product.stock === 0){
             toast('Out of Stock')
         }
+        else if(quantity>product.stock){
+            toast(`Only ${product.stock} left`)
+        }
         else{
             for(let i =0; i<quantity;i++){
                 setSelectedProducts(prev=>[...prev, product._id])

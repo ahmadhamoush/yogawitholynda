@@ -46,6 +46,10 @@ function Cart({products,collections}){
      }
     }
 
+    function scrollTop(){
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop =0
+     }
     async function handleViewCheckout(){
       if(session.status === 'authenticated'){
         const req = await fetch(`/api/users?email=${session.data.user.email}`);
@@ -66,7 +70,7 @@ function Cart({products,collections}){
       else{
         setIsProfileChecked(prev=>!prev)
       }
-      
+      scrollTop()
     }
 
     const router = useRouter()
@@ -99,7 +103,7 @@ function Cart({products,collections}){
 
    const order = {
     orderID:new Date().getFullYear().toString() + Math.floor(1000000 + Math.random() * 900000).toString(),
-    products: cartInfo.length && cartInfo.map(item=> {return {name:item.name,
+    products: cartInfo.length && cartInfo.map(item=> {return {id:item._id, stock:item.stock, name:item.name,
     price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image}}),
     userID: user._id,
     number,
@@ -227,9 +231,9 @@ function Cart({products,collections}){
                    </div>
                     <hr />
                 <button className="btn" onClick={checkout} type="button">ORDER</button>
-
-                <button className="back" type="button" onClick={()=>{setCheckoutClicked(prev=>!prev);setShowSummary(true)}}>BACK TO CART DETAILS</button>
+                <button className="back" type="button" onClick={()=>{setCheckoutClicked(prev=>!prev);setShowSummary(true); scrollTop()}}>BACK TO CART DETAILS</button>
                  </div>
+
        </div>
   
        </Layout>

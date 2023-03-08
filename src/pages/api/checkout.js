@@ -1,5 +1,6 @@
 import { initMongoose } from "lib/mongoose";
 import Order from "models/Order";
+import Product from "models/Product";
 import User from "models/User";
 
 export default async function handler(req, res) {
@@ -11,11 +12,16 @@ export default async function handler(req, res) {
 
     await initMongoose()
 
-    const foundUser = await User.updateOne({ _id: req.body.userID }, {
+    await User.updateOne({ _id: req.body.userID }, {
         number: req.body.number,
         address: req.body.address,
     }, { multi: true })
 
+    req.body.products.map(async product => {
+        await Product.updateOne({ _id: product.id }, {
+            stock: product.stock - product.quantity,
+        })
+    })
     const order = await Order.create({
         orderID: req.body.orderID,
         products: req.body.products,

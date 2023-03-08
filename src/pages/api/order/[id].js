@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     const session = await getSession(({ req }))
     if (!session) {
-        return res.status(401).json('signin required')
+        return res.json({ message: 'signin required' })
     }
     await initMongoose()
     const order = await Order.findOne({ orderID: req.query.id })

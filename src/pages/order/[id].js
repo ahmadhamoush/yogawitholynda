@@ -44,8 +44,6 @@ function Order({products,collections}) {
     },[router.query.id])
     return(
       <Layout products={products} collections={collections}>
-
-       
             {loading ? <Loader /> :<div className="orderContainer">
             {!order ? <h2>No Order found</h2>:<div>
             <h2>ORDER #{order.orderID}</h2>

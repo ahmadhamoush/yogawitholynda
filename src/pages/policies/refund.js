@@ -8,7 +8,7 @@ export default function Refund({products,collections}){
         <Layout collections={collections} products={products}>
            <div className="pageContainer">
            <h2>Return and Refund Policy</h2>
-           <h4>Not Refund</h4>
+           <h4>No Refund</h4>
             <p>At yogawitholynda, we want you to be completely satisfied with your purchase. However, due to the nature of our products, we cannot accept returns or issue refunds.</p>
             <p>Once a product has been opened, we cannot accept it for return or refund, as it is no longer in its original condition. This policy is in place to ensure the safety and quality of our products for all customers.</p>
             <h4>

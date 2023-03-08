@@ -1,5 +1,6 @@
-import { faClose, faFileInvoice, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faFileInvoice, faPenToSquare, faTrash , faAdd} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import axios from "axios"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -7,54 +8,57 @@ import { toast } from "react-toastify"
 function Dashboard(){
    const [isOverview, setIsOverview] = useState(true)
    const [isCustomers, setIsCustomers] = useState(false)
-   const [isCollections, setIsCollections] = useState(false)
    const [isProducts, setIsProducts] = useState(false)
    const [isOrders, setIsOrders] = useState(false)
 
    const [customers,setCustomers] =  useState([])
-   const[collections,setCollections] = useState([])
    const [products,setProducts] = useState([])
    const [orders, setOrders] = useState([])
 
    const[name,setName] = useState('')
    const[price,setPrice] = useState('')
    const[category,setCategory] = useState('')
-   const[featured,setFeatured] = useState(false)
+   const[featured,setFeatured] = useState('')
    const[color,setColor] = useState('')
    const[stock,setStock] = useState('')
+
+   const[newName,setNewName] = useState('')
+   const[newPrice,setNewPrice] = useState('')
+   const[newCategory,setNewCategory] = useState('')
+   const[newFeatured,setNewFeatured] = useState('')
+   const[newColor,setNewColor] = useState('')
+   const[newStock,setNewStock] = useState('')
+   const[newDesc,setNewDesc] = useState('')
+   const[descArr,setDescArr] = useState([])
+   const[uploading,setUploading] = useState(false)
+   const[selectedImage,setSelectedImage] = useState('')
+   const[selectedFile,setSelectedFile] = useState('')
+
+
    const[selectedInput,setSelectedInput] = useState('')
    const[productId,setProductId] = useState('')
    const[viewProducts,setViewProducts]= useState({orderId : '', clicked:false})
    const[viewCustomer,setViewCustomer] = useState({orderId : '', clicked:false})
    const[search,setSearch] = useState('')
    const[editProduct,setEditProduct] = useState('')
+   const[addProduct, setAddProduct] = useState(false)
    
    function showOverview(){
     setIsOverview(true)
     setIsCustomers(false)
-    setIsCollections(false)
     setIsProducts(false)
     setIsOrders(false)
    }
    function showCustomers(){
     setIsOverview(false)
     setIsCustomers(true)
-    setIsCollections(false)
-    setIsCollections(false)
     setIsProducts(false)
     setIsOrders(false)
    }
-   function showCollections(){
-    setIsOverview(false)
-    setIsCustomers(false)
-    setIsCollections(true)
-    setIsProducts(false)
-    setIsOrders(false)
-   }
+
    function showProducts(){
     setIsOverview(false)
     setIsCustomers(false)
-    setIsCollections(false)
     setIsProducts(true)
     setIsOrders(false)
    }
@@ -62,7 +66,6 @@ function Dashboard(){
    function showOrders(){
     setIsOverview(false)
     setIsCustomers(false)
-    setIsCollections(false)
     setIsProducts(false)
     setIsOrders(true)
    }
@@ -72,6 +75,65 @@ function Dashboard(){
     fetch('/api/users').then(res=>res.json()).then(json=>setCustomers(json))
     fetch('/api/orders').then(res=>res.json()).then(json=>setOrders(json))
    },[])
+   const profit = () => {
+
+    let total_profit = 0;
+    for (let i = 0; i <orders.length; i++) {
+      total_profit+=orders[i].total
+    }
+    return total_profit
+}
+
+
+   const handleUpload = async ()=>{
+    try{
+        const formData = new FormData();
+        if(newName !== '' && newPrice !=='' && newCategory!=='' && newFeatured!=='' && newColor!=='' && newStock!== '' && descArr.length>0 && selectedFile!==''){
+            setUploading(true)
+            formData.append('name', newName);
+            formData.append('price', newPrice);
+            formData.append('category', newCategory);
+            formData.append('featured', newFeatured === 'true' ? true :false);
+            formData.append('color', newColor);
+            formData.append('stock', newStock);
+            formData.append('description', descArr);
+            formData.append('img', selectedFile);
+            const {data} = await axios.post('/api/add',formData);
+            if(data.done==='ok'){
+                toast('Product Added Successfully')
+                setNewName('')
+                setNewPrice('')
+                setNewCategory('')
+                setNewFeatured('')
+                setNewColor('')
+                setNewStock('')
+                setDescArr([])
+                setSelectedFile('')
+                setSelectedImage('')
+            }
+        }
+        else{
+            toast('Values should not be empty')
+        }
+       
+    }
+    catch(err){
+        console.log(err.response?.data)
+    }
+        setUploading(false)
+   }
+ 
+
+   async function deleteProduct(id){
+  const request= await fetch('/api/delete',
+   {method:'POST',
+   headers:{'Content-Type' : 'application/json'},
+   body:JSON.stringify({deleteID:id})
+    })
+    const response = await request.json()
+    console.log(response)
+   
+   }
 
     async function edit(e){
     const child =  await e.currentTarget.parentElement.firstChild
@@ -83,38 +145,67 @@ function Dashboard(){
      function saveEdit(){
      
     products.forEach(product=>{
+        let valid =false
         if(product._id === productId){
             switch(selectedInput){
                 case "name":
+                   if(name!==''){
                     product.name = name
                     setName('')
+                    valid=true
+                   }
                     break
                 case "price":
-                    product.price = Number(price)
-                    setPrice('')
+                    if(price!==''){
+                        product.price = Number(price)
+                        setPrice('')
+                        valid=true
+                    }
                     break
                 case "category":
+                   if(category!==''){
                     product.category = category
                     setCategory('') 
+                    valid=true
+                   }
                     break
                 case "featured":
-                      product.featured = featured === 'true' ? true : false
+                    if(featured!==''){
+                        product.featured = featured === 'true' ? true : false
+                        setFeatured('') 
+                        valid=true
+                       }
+                     
                       break
                 case "color":
-                     product.color = color
-                     setColor('')
+                    if(color!==''){
+                        product.color = color
+                        setColor('')
+                        valid=true
+                    }
                       break
                 case "stock":
-                    product.stock = Number(stock)
-                     setStock('')
+                    if(stock!==''){
+                        product.stock = Number(stock)
+                        valid=true
+                    }
                       break
             }
-           fetch('/api/products', {method:'POST', headers:{'Content-Type': 'application/json'},body:JSON.stringify(product)}).then(res=>res.json()).then(json=>{toast(`${json.productUpdated.name} updated successfully`),setEditProduct(prev=>!prev)})
+            if(valid){
+                fetch('/api/products', {method:'POST', headers:{'Content-Type': 'application/json'},body:JSON.stringify(product)}).then(res=>res.json()).then(json=>{toast(`${json.productUpdated.name} updated successfully`),setEditProduct(prev=>!prev)}) 
+            }
+            else{
+                toast('Value should not be empty')
+            } 
         }
        
     })
     setProductId('')
     console.log(products)
+   }
+   function scrollTop(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop =0
    }
     return(
       <div className="dashboard">
@@ -123,7 +214,6 @@ function Dashboard(){
         <ul>
           <li onClick={showOverview} className={isOverview ? 'selected' :'notSelected'}>Overview</li>
           <li  onClick={showCustomers} className={isCustomers ? 'selected' :'notSelected'}>Customers</li>
-          <li  onClick={showCollections} className={isCollections ? 'selected' :'notSelected'}>Collections</li>
           <li  onClick={showProducts} className={isProducts ? 'selected' :'notSelected'}>Products</li>
           <li  onClick={showOrders} className={isOrders ? 'selected' :'notSelected'}>Orders</li>
           </ul>
@@ -136,23 +226,25 @@ function Dashboard(){
             <div className="overviewFlex">
             <div className="card">
                 <h4>Total Customers</h4>
-                <p>30</p>
+                <p>{customers.length}</p>
             </div>
             <div className="card">
                 <h4>Total Orders</h4>
-                <p>100</p>
+                <p>{orders.length}</p>
             </div>
             <div className="card">
                 <h4>Revenue</h4>
-                <p>30</p>
+              <p>${profit()}</p>
             </div>
             </div>
          </div>}
 
          {isCustomers && 
-         <div className="tableContainer">
+         <div className="tableContainer">    
+               <div className="tableHeader">
                <h1>Customers ({customers.length})</h1>
-         
+               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+            </div>
                   <table>
                  <thead>
                  <tr>
@@ -164,6 +256,9 @@ function Dashboard(){
                     </th>
                     <th>
                         Email
+                    </th>
+                    <th>
+                        Number
                     </th>
                     <th>
                         Address
@@ -179,6 +274,9 @@ function Dashboard(){
                     <td>{customer.fName}</td>
                     <td>{customer.lName}</td>
                     <td>{customer.email}</td>
+                    <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.number ? customer.number : 'N/A'}</td>
+                    <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.main + ' ' + customer.address.secondary: 'N/A'}</td>
+                    <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.city : 'N/A'}</td>
                 </tr>
                 
                      })}
@@ -196,7 +294,7 @@ function Dashboard(){
                 <input type='text' onChange={(e)=>{setSearch(e.target.value);setEditProduct('')}} value={search} className="search" placeholder="Search"/>
          </div>
             {productId &&  <div className="editContainer">
-                <FontAwesomeIcon icon={faClose} className='close' onClick={()=>setProductId('')}/>
+                <FontAwesomeIcon icon={faClose} className='closeIcon' onClick={()=>setProductId('')}/>
                 <h1>edit</h1>
                 {products.map(product=>{
                    return product._id === productId && 
@@ -222,15 +320,24 @@ function Dashboard(){
              <input type="number"  placeholder="price" onChange={(e)=>setPrice(e.target.value)} value={price} /></div>
              }  
                {selectedInput === 'category' &&
-               <div>
-              <label htmlFor="">Category</label>
-             <input type="text"  placeholder="category" onChange={(e)=>setCategory(e.target.value)} value={category} /></div>
+               <div className="categoryContainer">
+              <label htmlFor="category">Category</label>
+              <select onChange={(e)=>setCategory(e.target.value)} name="" id="category">
+              <option value="">Select</option>
+                <option value="yoga-mats-bags">Yoga Bags</option>
+                <option value="yoga-mats-kits">Yoga Kits</option>
+                <option value="yoga-socks">Yoga Socks</option>
+                <option value="yoga-incense-burners">Incense Burners</option>
+                <option value="yoga-incense-holders">Incense Holders</option>
+              </select>
+             </div>
              } 
 
             {selectedInput === 'featured' &&
                <div>
               <label htmlFor="">Featured</label>
-             <select value={featured} onChange={(e)=>setFeatured(e.target.value)}>
+             <select className="featured" value={featured} onChange={(e)=>setFeatured(e.target.value)}>
+             <option value=''>Select</option>
                 <option value='true'>Yes</option>
                 <option value='false'>No</option>
              </select>
@@ -254,7 +361,7 @@ function Dashboard(){
              <div className="productsScroll">
              {products.filter(product=>product.name.toLowerCase().includes(search)).map(product=>{
                 return <div style={{display: product._id!==editProduct.id && editProduct && 'none' ,width: product._id!==editProduct.id && editProduct && '100%'}} className="productCard" id={product._id}  key={product._id}>
-                   <div className="icons">  <FontAwesomeIcon icon={faTrash} className='trash' /></div>
+                   <div className="icons">  <FontAwesomeIcon onClick={()=>deleteProduct(product._id)} icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
                    <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
           {product._id===editProduct.id && <div>
@@ -306,9 +413,88 @@ function Dashboard(){
                 </div>
                      })}
              </div>
-                    
+            <h1 className="addHeader" onClick={()=>setAddProduct(prev=>!prev)}>Add Product</h1>
+           {addProduct && <div className="addProduct">
+          <div className="editNewDetails">
+          <h1>Add Product</h1>
+           <div>
+           <label htmlFor="newName">Name</label>
+           <input onChange={(e)=>setNewName(e.target.value)} value={newName} type="text" placeholder="Name" />
+           </div>
+           <div>
+           <label htmlFor="newPrice">Price</label>
+           <input onChange={(e)=>setNewPrice(e.target.value)}  value={newPrice} type="number" placeholder="Price" />
+           </div>
+            <div className="categoryContainer">
+              <label htmlFor="newCategory">Category</label>
+              <select value={newCategory} onChange={(e)=>setNewCategory(e.target.value)} name="" id="newCategory">
+              <option value="">Select</option>
+                <option value="yoga-mats-bags">Yoga Bags</option>
+                <option value="yoga-mats-kits">Yoga Kits</option>
+                <option value="yoga-socks">Yoga Socks</option>
+                <option value="yoga-incense-burners">Incense Burners</option>
+                <option value="yoga-incense-holders">Incense Holders</option>
+              </select>
+             </div>
+             <div className="categoryContainer">
+              <label htmlFor="newFeatured">Featured</label>
+              <select  value={newFeatured} onChange={(e)=>setNewFeatured(e.target.value)} name="" id="newFeatured">
+              <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+             </div>
+             <div>
+           <label htmlFor="newColor">Color</label>
+           <input onChange={(e)=>setNewColor(e.target.value)} value={newColor} type="text" placeholder="Color" />
+           </div>
+           <div>
+           <label htmlFor="newStock">Stock</label>
+           <input onChange={(e)=>setNewStock(e.target.value)} value={newStock} type="number" placeholder="Stock" />
+           </div>
+           <div>
+           <label htmlFor="newDesc">Description</label>
+           <input onChange={(e)=>setNewDesc(e.target.value)} value={newDesc} type="text" placeholder="Description" />
+           <button onClick={()=>{newDesc !== '' ? setDescArr(prev=>[...prev, newDesc]):toast('Value should not be empty');setNewDesc('')}}><FontAwesomeIcon icon={faAdd}/></button>
+           </div>   
+           <label>
+            <input type="file" hidden onChange={({target})=>{
+                const types = ['image/jpeg','image/jpg','image/png','image/webp']
+                if(target.files){
+                    const file =target.files[0];
+                    if(types.includes(file.type)){
+                        setSelectedImage(window.URL.createObjectURL(file));
+                        setSelectedFile(file)
+                    }
+                    else{
+                        toast('File Type Not Accepted')
+                    }
+                }
+            }} />
+            <div>
+                {selectedImage ? (
+                 <Image className="productImg" src={selectedImage} alt='' width={120} height={120} />
+                ):<p className="selectImage">Select Image <FontAwesomeIcon icon={faAdd} /></p>}
+            </div>
+           </label>
+           <button onClick={handleUpload} disabled={uploading} style={{opacity:uploading ? '.5' : '1'}}>
+            {uploading ? 'Uploading...' : 'Add Product'}
+           </button>
+          </div>
+          <div className="newDetails">
+          <p>Name: {newName}</p>
+            <p>Price: ${newPrice}</p>
+            <p>Category: {newCategory}</p>
+            <p>Color: {newColor}</p>
+            <p>Featured: {newFeatured}</p>
+            <p>Stock: {newStock}</p>
+            <p>Description:</p>
+            {descArr.map((desc,i)=><ul key={i}><li><p>{desc}</p></li></ul>)}
+          </div>
+            </div>} 
+           
             </div>}
-
+        
             {isOrders && 
          <div className="tableContainer">
             <div className="tableHeader">
@@ -347,13 +533,16 @@ function Dashboard(){
                    {orders.map(order=>{
                 return <tr key={order._id}>
                     <td>{order.orderID}</td>
-                    <td className="tableLink"  onClick={()=>setViewCustomer({orderId: order._id, clicked:true})}>{orders.filter(orderSearch=>orderSearch._id == order._id).map(filteredProduct=>{ return filteredProduct.user.fName + " " +filteredProduct.user.lName})}</td>
-                    <td className="tableLink" onClick={()=>setViewProducts({orderId: order._id, clicked:true})}>View Products</td>
-                    <td style={{color:order.paid?'green' : 'red'} }>{order.paid ? 'Yes' : 'No'}</td>
+                    <td className="tableLink"  onClick={()=>{setViewCustomer({orderId: order._id, clicked:true});scrollTop()}}>{orders.filter(orderSearch=>orderSearch._id == order._id).map(filteredProduct=>{ return filteredProduct.user.fName + " " +filteredProduct.user.lName})}</td>
+                    <td className="tableLink" onClick={()=>{setViewProducts({orderId: order._id, clicked:true}); scrollTop()}}>View Products</td>
+                    <td style={{color:order.paid?'green' : 'rgb(255, 92, 100)'} }>{order.paid ? 'Yes' : 'No'}</td>
                     <td>{order.createdAt.split('T')}</td>
                     <td>${order.total}</td>
                     <td><FontAwesomeIcon icon={faFileInvoice} className='invoice'/></td>
-                    <td> <button className="orderBtn">{order.paid ? 'Mark as unpaid' : 'Mark as paid'}</button></td>
+                    <td className="actions"> <button className="orderBtn">{order.paid ? 'Mark as unpaid' : 'Mark as paid'}</button>
+                    <button className="orderBtn">{order.paid ? 'Mark as undelivered' : 'Mark as delivered'}</button>
+                    </td>
+                
                 </tr>
                 
                      })}
