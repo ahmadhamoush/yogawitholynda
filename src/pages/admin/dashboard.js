@@ -121,6 +121,7 @@ function Dashboard(){
         console.log(err.response?.data)
     }
         setUploading(false)
+        setAddProduct(prev=>!prev)
    }
  
 

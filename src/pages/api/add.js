@@ -1,27 +1,49 @@
 import formidable from "formidable"
-import path from "path"
+import streamifier from "streamifier";
+import { v2 as cloudinary } from 'cloudinary'
 import Product from "models/Product"
 import { initMongoose } from "lib/mongoose"
+import path from "path";
+const fs = require("fs");
 export const config = {
     api: {
         bodyParser: false
     }
 }
 
-const readFile = (req, saveLocally) => {
-    const options = {}
-    if (saveLocally) {
-        options.uploadDir = path.join(process.cwd(), '/public/products')
-        options.filename = (name, ext, path, form) => {
-            return path.originalFilename
-        }
-    }
-    const form = formidable(options)
-    const types = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp']
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure: true,
+});
+const readFile = (req) => {
+    // const options = {}
+    // if (saveLocally) {
+    //     options.uploadDir = path.join(process.cwd(), '/public/products')
+    //     options.filename = (name, ext, path, form) => {
+    //         return path.originalFilename
+    //     }
+    // }
+
+
     return new Promise((resolve, reject) => {
+        const form = formidable()
         form.parse(req, async(err, fields, files) => {
             if (err) reject(err)
             resolve({ fields, files })
+            var oldPath = files.img.filepath
+            var rawData = fs.readFileSync(oldPath)
+            const stream = cloudinary.uploader.upload_stream({
+                    folder: "yogawitholynda",
+                    public_id: path.parse(files.img.originalFilename).name
+                },
+                (error, result) => {
+                    if (error)
+                        return console.error(error);
+                }
+            );
+            streamifier.createReadStream(rawData).pipe(stream);
             await initMongoose()
             const newProduct = await Product.create({
                 name: fields.name,
@@ -31,12 +53,12 @@ const readFile = (req, saveLocally) => {
                 color: fields.color,
                 stock: Number(fields.stock),
                 description: [fields.description.split(',')],
-                image: `/products/${files.img.newFilename}`
+                image: `https://res.cloudinary.com/hamoush/image/upload/v1678284450/yogawitholynda/${files.img.originalFilename}`
             })
         })
     })
 }
 export default async function handler(req, res) {
-    await readFile(req, true)
+    await readFile(req)
     res.json({ done: 'ok' })
 }
