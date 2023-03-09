@@ -131,11 +131,12 @@
 .tableContainer table {
     margin: auto;
     border-radius: 10px;
-    border: 2px ridge #001F3D;
+    box-shadow: 0 9px 25px 0 #001F3D;
     background-color: #001F3D;
     overflow: scroll;
     position: relative;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .tableContainer h1 {
@@ -260,6 +261,17 @@
 
 .addHeader {
     margin-top: 10px;
+}
+
+.deleteProduct {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    background-color: #eee;
+    color: #1e1e1e;
+    z-index: 1;
+    padding: 10px;
 }
 
 .addProduct {
@@ -501,9 +513,10 @@
     cursor: pointer;
 }
 
-.invoice {
+.invoiceIcon {
     font-size: 20px;
     cursor: pointer;
+    color: #001F3D;
 }
 
 .orderBtn {

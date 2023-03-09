@@ -3,6 +3,7 @@ import '@/styles/collectionPage.css'
 import '@/styles/cart.css'
 import '@/styles/order.css'
 import '@/styles/admin.css'
+import '@/styles/invoice.css'
 import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.css';

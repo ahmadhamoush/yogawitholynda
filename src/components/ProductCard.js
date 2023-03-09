@@ -29,7 +29,8 @@ const router = useRouter()
            <div style={{position:'relative'}}>
            <Link href='/product/[productId]' as={`/product/${encodeURIComponent(props.name)}`}>
              <div className={style.imgContainer}>
-                <Image src={props.image} alt={`${props.name}`} fill sizes="100%"  className={style.image}  />
+                <Image style={{opacity : props.stock === 0 ? '0.5' : '1'}} src={props.image} alt={`${props.name}`} fill sizes="100%"  className={style.image}  />
+                {props.stock === 0 && <p className={style.outOfStock}>Out of Stock</p>}
             </div>
             </Link>    
             <button onClick={addProduct} className={style.add}>
@@ -41,7 +42,6 @@ const router = useRouter()
             <div className={style.details}>
             <p>{props.name.toUpperCase()}</p>
             <p>${props.price}</p>
-            {props.stock === 0 && <p className='err'>Out of Stock</p>}
             </div>   
         </div>
     

@@ -1,7 +1,9 @@
+import Loader from "@/components/Loader"
 import { faClose, faFileInvoice, faPenToSquare, faTrash , faAdd} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
@@ -42,6 +44,7 @@ function Dashboard(){
    const[search,setSearch] = useState('')
    const[editProduct,setEditProduct] = useState('')
    const[addProduct, setAddProduct] = useState(false)
+   const[confirmDeleteProduct, setConfirmDeleteProduct] = useState({id:'',clicked:false})
    
    function showOverview(){
     setIsOverview(true)
@@ -122,9 +125,48 @@ function Dashboard(){
     }
         setUploading(false)
         setAddProduct(prev=>!prev)
+        setTimeout(()=>{
+            window.location.reload()
+         },500)
    }
  
 
+   const markAsPaid = async (order) =>{
+    const request= await fetch('/api/paid',
+     {method:'POST',
+     headers:{'Content-Type' : 'application/json'},
+     body:JSON.stringify({orderID:order.orderID, currentValue :order.paid})
+      })
+      const response = await request.json()
+      if(response){
+          toast(`Order ${order.orderID} updated`)
+           setTimeout(()=>{
+              window.location.reload()
+           },500)
+      }
+      else{
+          toast('error')
+      }
+     }
+   
+     const markAsDelivered = async (order) =>{
+        const request= await fetch('/api/delivered',
+         {method:'POST',
+         headers:{'Content-Type' : 'application/json'},
+         body:JSON.stringify({orderID:order.orderID, currentValue :order.paid})
+          })
+          const response = await request.json()
+          if(response){
+            toast(`Order ${order.orderID} updated`)
+               setTimeout(()=>{
+                  window.location.reload()
+               },500)
+          }
+          else{
+              toast('error')
+          }
+         }
+     
    async function deleteProduct(id){
   const request= await fetch('/api/delete',
    {method:'POST',
@@ -132,9 +174,18 @@ function Dashboard(){
    body:JSON.stringify({deleteID:id})
     })
     const response = await request.json()
-    console.log(response)
-   
+    if(response){
+        toast('Deleted Product with id: ' + id)
+         setTimeout(()=>{
+            window.location.reload()
+         },500)
+    }
+    else{
+        toast('error')
+    }
    }
+   
+   
 
     async function edit(e){
     const child =  await e.currentTarget.parentElement.firstChild
@@ -223,6 +274,7 @@ function Dashboard(){
         
         {isOverview && 
         <div className="overview"> 
+           {!customers.length>0 && !orders.length>0  && <Loader />}
             <h1>Overview</h1>
             <div className="overviewFlex">
             <div className="card">
@@ -242,6 +294,7 @@ function Dashboard(){
 
          {isCustomers && 
          <div className="tableContainer">    
+         {!customers.length>0 && <Loader />}
                <div className="tableHeader">
                <h1>Customers ({customers.length})</h1>
                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
@@ -290,6 +343,7 @@ function Dashboard(){
 
             {isProducts && 
          <div className="productsContainer">
+         {!products.length>0 && <Loader />}
          <div style={{opacity: editProduct && '0.5'}}className="tableHeader">
          <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
                 <input type='text' onChange={(e)=>{setSearch(e.target.value);setEditProduct('')}} value={search} className="search" placeholder="Search"/>
@@ -360,9 +414,15 @@ function Dashboard(){
              </div>}
 
              <div className="productsScroll">
+
              {products.filter(product=>product.name.toLowerCase().includes(search)).map(product=>{
                 return <div style={{display: product._id!==editProduct.id && editProduct && 'none' ,width: product._id!==editProduct.id && editProduct && '100%'}} className="productCard" id={product._id}  key={product._id}>
-                   <div className="icons">  <FontAwesomeIcon onClick={()=>deleteProduct(product._id)} icon={faTrash} className='trash' /></div>
+                               {confirmDeleteProduct.id === product._id &&confirmDeleteProduct.clicked &&  ( <div className="deleteProduct">
+                                <p>Are you sure you want to delete this product?</p>
+                                <button onClick={()=>{deleteProduct(confirmDeleteProduct.id)}}>YES</button>
+                                <button onClick={()=>setConfirmDeleteProduct({id:'',clicked:false})}>NO</button>
+                                </div>)}
+                   <div className="icons">  <FontAwesomeIcon onClick={()=>setConfirmDeleteProduct({id:product._id, clicked:true})} icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
                    <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
           {product._id===editProduct.id && <div>
@@ -498,6 +558,7 @@ function Dashboard(){
         
             {isOrders && 
          <div className="tableContainer">
+            {!orders.length>0 && <Loader />}
             <div className="tableHeader">
             <h1>Orders ({orders.length})</h1>
                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
@@ -518,6 +579,9 @@ function Dashboard(){
                     Paid
                     </th>
                     <th>
+                    Delivered
+                    </th>
+                    <th>
                     Created at
                     </th>
                     <th>
@@ -536,13 +600,11 @@ function Dashboard(){
                     <td>{order.orderID}</td>
                     <td className="tableLink"  onClick={()=>{setViewCustomer({orderId: order._id, clicked:true});scrollTop()}}>{orders.filter(orderSearch=>orderSearch._id == order._id).map(filteredProduct=>{ return filteredProduct.user.fName + " " +filteredProduct.user.lName})}</td>
                     <td className="tableLink" onClick={()=>{setViewProducts({orderId: order._id, clicked:true}); scrollTop()}}>View Products</td>
-                    <td style={{color:order.paid?'green' : 'rgb(255, 92, 100)'} }>{order.paid ? 'Yes' : 'No'}</td>
+                    <td className="tableLink" style={{color:order.paid?'green' : 'rgb(255, 92, 100)'} } onClick={()=>markAsPaid(order)}>{order.paid ? 'Yes' : 'No'}</td>
+                    <td className="tableLink" style={{color:order.delivered?'green' : 'rgb(255, 92, 100)'}} onClick={()=>markAsDelivered(order)}>{order.delivered ? 'Yes' : 'No'}</td>
                     <td>{order.createdAt.split('T')}</td>
                     <td>${order.total}</td>
-                    <td><FontAwesomeIcon icon={faFileInvoice} className='invoice'/></td>
-                    <td className="actions"> <button className="orderBtn">{order.paid ? 'Mark as unpaid' : 'Mark as paid'}</button>
-                    <button className="orderBtn">{order.paid ? 'Mark as undelivered' : 'Mark as delivered'}</button>
-                    </td>
+                    <td><Link className='invoiceIcon' href={`/admin/invoice/${order.orderID}`}><FontAwesomeIcon icon={faFileInvoice}/></Link></td>
                 
                 </tr>
                 

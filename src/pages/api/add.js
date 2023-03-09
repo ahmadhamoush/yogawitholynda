@@ -52,7 +52,7 @@ const readFile = (req) => {
                 featured: fields.featured === 'true' ? true : false,
                 color: fields.color,
                 stock: Number(fields.stock),
-                description: [fields.description.split(',')],
+                description: fields.description.split(',').map(d => d),
                 image: `https://res.cloudinary.com/hamoush/image/upload/v1678284450/yogawitholynda/${files.img.originalFilename}`
             })
         })

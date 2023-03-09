@@ -1,0 +1,152 @@
+.page {
+    position: relative;
+    background-image: url('/invoice.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: auto;
+    width: 21cm;
+    min-height: 25.7cm;
+    padding: 2cm;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-size: contain;
+    text-transform: capitalize;
+}
+
+.subpage {
+    width: 100%;
+    height: 100%;
+}
+
+.invoiceHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.invoiceHeader h4 {
+    color: #001F3D;
+    font-weight: bold;
+}
+
+.invoiceHeader div {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.invoiceHeader div p {
+    padding: 10px 0;
+    color: #045174;
+}
+
+.invoiceHeader h1 {
+    color: #045174;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.invoiceDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.invoiceDetails h4 {
+    color: #001F3D;
+    font-weight: light;
+    font-size: 16px;
+}
+
+.invoiceDetails p {
+    padding: 7px 0;
+    color: #045174;
+}
+
+.invoiceDetails div div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 10px;
+}
+
+.invoiceTotal td {
+    font-size: 20px;
+    color: #001F3D;
+    font-weight: bold;
+}
+
+.invoiceTable {
+    margin: 20px 0;
+}
+
+.invoiceProductName {
+    font-size: 12px;
+}
+
+.invoiceTable table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.invoiceTable tbody tr td,
+.invoiceTable thead tr th {
+    padding: 10px;
+}
+
+.invoiceTable tbody tr td {
+    color: #045174;
+}
+
+.invoiceTable thead tr th {
+    color: #001F3D;
+    font-weight: bold;
+}
+
+.invoiceTable table thead th {
+    border-bottom: 1px solid #045174;
+    border-top: 1px solid #045174;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.footer tr td {
+    padding: 10px;
+}
+
+.footer:not(.invoiceTotal) {
+    color: #045174;
+}
+
+.footer tr:first-child {
+    border-top: 1px solid #045174;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        box-shadow: initial;
+        page-break-after: always;
+    }
+}
