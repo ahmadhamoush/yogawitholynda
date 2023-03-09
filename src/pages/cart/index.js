@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react"
 import { findAllCollections } from "../api/collections"
 import { initMongoose } from "lib/mongoose"
 import { toast } from "react-toastify"
+import Loader from "@/components/Loader"
 
 function Cart({products,collections}){
     const session = useSession()
@@ -25,9 +26,10 @@ function Cart({products,collections}){
     const [address, setAddress] = useState('')
     const [optionalAddress, setOptionalAddress] = useState('')
     const [city, setCity] = useState('')
-
+    const[orderLoading,setOrderLoading] = useState(false)
 
     async function checkout(){
+      setOrderLoading(true)
      if(session.status === 'authenticated'){
         const request = await fetch('/api/checkout', {
             method: 'POST',
@@ -43,6 +45,7 @@ function Cart({products,collections}){
         toast(`Order #${response.orderID} created!`)
         router.push(`/order/${response.orderID}`)
       }
+      setOrderLoading(false)
      }
     }
 
@@ -114,6 +117,7 @@ function Cart({products,collections}){
    
     return(
        <Layout products={products} collections={collections}>
+        {orderLoading && <Loader />}
        <div className="cart">
             <div style={{display: checkoutClicked && "none" ,borderRadius : !cartInfo?.length && "10px"}} className="cartContainer">
             <div className="cartHeader">
@@ -126,7 +130,7 @@ function Cart({products,collections}){
             const amount =selectedProducts.filter(id=>id===product._id).length
             if(amount ===0) return
                 return (
-             <>
+             <div key={product._id}>
                    <div className="cartItem" key={product._id}>
                     <FontAwesomeIcon onClick={()=>{setSelectedProducts(selectedProducts.filter(id=> id!== product._id))}} className="close" icon={faClose} />
                      <Image className="summaryImg" alt={product.name} src={product.image} width={100} height={100}/>
@@ -141,7 +145,8 @@ function Cart({products,collections}){
                         <p className="price">${product.price}</p> 
                  
                     </div>
-                            <hr/></>
+                            <hr/>
+                            </div>
            
                 )
                 
@@ -230,7 +235,7 @@ function Cart({products,collections}){
                     </div>
                    </div>
                     <hr />
-                <button className="btn" onClick={checkout} type="button">ORDER</button>
+                <button className="btn"  onClick={checkout} type="button">{orderLoading ? 'Ordering' : 'Order'}</button>
                 <button className="back" type="button" onClick={()=>{setCheckoutClicked(prev=>!prev);setShowSummary(true); scrollTop()}}>BACK TO CART DETAILS</button>
                  </div>
 

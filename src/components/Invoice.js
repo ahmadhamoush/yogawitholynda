@@ -10,6 +10,8 @@ export function Invoice({order}){
           <p>Beirut, Lebanon</p>
             </div>
           </div>
+
+       
             <div className="invoiceDetails">
           <div>
             <h4>BILL TO</h4>
@@ -75,6 +77,7 @@ export function Invoice({order}){
                 </tfoot>
             </table>
         </div>
+
         </div>
     </div>
        

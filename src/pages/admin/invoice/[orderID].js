@@ -14,6 +14,7 @@ import { renderToString } from 'react-dom/server'
         .then(res=>res.json())
         .then(json=>setOrder(json))
     },[router.query.orderID])
+    
     async function convertInvoice(){
         setDownloading(true)
         const element =  document.querySelector('.page')

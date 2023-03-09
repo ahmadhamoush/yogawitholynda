@@ -2,6 +2,10 @@ import { initMongoose } from "lib/mongoose";
 import Order from "models/Order";
 import Product from "models/Product";
 import User from "models/User";
+import { render } from "@react-email/render";
+import OrderEamil from "@/components/OrderEmail";
+import { sendEmail } from "lib/email";
+
 
 export default async function handler(req, res) {
 
@@ -31,5 +35,11 @@ export default async function handler(req, res) {
         total: req.body.total,
         subtotal: req.body.subTotal
     })
+    await sendEmail({
+        to: "hamoush20@gmail.com",
+        subject: "Order Confirmation",
+        html: render(OrderEamil(order)),
+    });
+
     res.status(201).json(order)
 }

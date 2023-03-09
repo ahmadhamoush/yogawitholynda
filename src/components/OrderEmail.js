@@ -3,13 +3,26 @@ import { Text } from "@react-email/text";
 import { Section } from "@react-email/section";
 import { Container } from "@react-email/container";
 
-export default function OrderEamil() {
+export default function OrderEamil(order) {
   return (
     <Html>
       <Section style={main}>
         <Container style={container}>
           <Text style={heading}>Your Order has been Confirmed!</Text>
-          <Text style={paragraph}>test</Text>
+          <Text style={paragraph}>Order ID: {order.orderID}</Text>
+          <Text style={paragraph}>Buyer: {order.user.fName + ' ' + order.user.lName}</Text>
+          <Text style={paragraph}>Address: {order.user.address.main + ', ' + order.user.address.secondary + ', ' + order.user.address.city}</Text>
+          <Text style={paragraph}>Products:</Text>
+          {order.products.map(product=>{
+            return <>
+             <Text style={paragraph}>Name: {product.name}</Text>
+             <Text style={paragraph}>Price: ${product.price}</Text>
+             <Text style={paragraph}>Quantity: ${product.quantity}</Text>
+             </>
+          })}
+           <Text style={paragraph}>Subtotal: ${order.subtotal}</Text>
+           <Text style={paragraph}>Delivery: ${order.total - order.subtotal}</Text>
+           <Text style={paragraph}>Total: ${order.total}</Text>
         </Container>
       </Section>
     </Html>
