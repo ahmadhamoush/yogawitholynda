@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { renderToString } from 'react-dom/server'
 
- export default function DownloadInvoice(){
+ export default function DonwloadInvoice(){
     const router = useRouter() 
     const [order,setOrder] =useState({})
     const[downloading,setDownloading] = useState(false)
@@ -34,7 +34,7 @@ import { renderToString } from 'react-dom/server'
     return(
         <div className="invoiceDownloadContainer">
         <button className="invoiceBtn" onClick={convertInvoice}>{downloading ? 'Downloading...(it may take a few seconds)' : 'Download'}</button>
-        {order?.orderID ? (<div className="invoiceDownload" dangerouslySetInnerHTML={{__html: renderToString( <Invoice  order={order} />)}} />):<Loader />}
+        {order?.orderID && (<div className="invoiceDownload" dangerouslySetInnerHTML={{__html: renderToString( <Invoice  order={order} />)}} />)}
          </div> )
    }
    
