@@ -17,9 +17,12 @@ function Collection ({products,title, allProducts,collections,desc}){
   const [filteredProducts,setFilteredProducts] = useState(products)
  
  useEffect(()=>{
-  clearFilters()
+  setFilteredProducts(products.map(p=>p))
+    setInStock(false)
+    setOutStock(false)
+
  },[products])
-  function clearFilters(){
+  const clearFilters =() =>{
     setFilteredProducts(products.map(p=>p))
     setInStock(false)
     setOutStock(false)

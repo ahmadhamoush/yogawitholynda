@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { renderToString } from 'react-dom/server'
 
- export default function downloadInvoice(){
+ export default function DownloadInvoice(){
     const router = useRouter() 
     const [order,setOrder] =useState({})
     const[downloading,setDownloading] = useState(false)
