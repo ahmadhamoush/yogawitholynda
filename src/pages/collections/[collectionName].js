@@ -132,11 +132,16 @@ export  async function getServerSideProps(context){
 const {query} = context;
 const collectionName = query.collectionName
 const collection = await findCollection(collectionName)
+let desc
 let products;
 const allProducts = await findAllProducts()
  products  = await listCollection(collectionName)
 if(collectionName === 'all-products'){
   products = allProducts
+  desc= ''
+}
+else{
+  desc = collection.description 
 }
 
 const collections = await findAllCollections()
@@ -159,7 +164,7 @@ return {
         products:JSON.parse(JSON.stringify(products)),
         allProducts:JSON.parse(JSON.stringify(allProducts)),
         collections: JSON.parse(JSON.stringify(collections)),
-        desc: collection.description
+        desc: desc
 
     }
 }
