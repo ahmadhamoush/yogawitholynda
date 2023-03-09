@@ -214,7 +214,7 @@ function Cart({products,collections}){
                    <div>
                    <div>
                    <label htmlFor="name">Name:</label>
-                    <input  disabled value={name} type="text" id="name"  placeholder="Name"  />
+                    <input disabled value={name} type="text" id="name"  placeholder="Name"  />
                    </div>
                    <div>
                    <label htmlFor="email">Email:</label>
@@ -222,16 +222,16 @@ function Cart({products,collections}){
                    </div>
                     <div>
                     <label htmlFor="number">Phone Number:</label>
-                    <input type="number" onChange={(e)=>setNumber(e.target.value)} disabled={user?.number && true} value={user?.number && number} placeholder="eg: 03456789"  id="number" />
+                    <input required type="number" onChange={(e)=>setNumber(e.target.value)} disabled={user?.number && true} value={user?.number && number} placeholder="eg: 03456789"  id="number" />
                     </div>
                     <div>
                     <label htmlFor="address">Address: {user?.address && <FontAwesomeIcon onClick={()=>setEditAddress(prev=>!prev)}  className="icon" icon={faEdit} />}</label>
-                    <input onChange={(e)=>setAddress(e.target.value)} disabled={editAddress && true} value={user?.address && address} type="text" placeholder="Street Address"  id="address" />
-                    <input  onChange={(e)=>setOptionalAddress(e.target.value)}  disabled={editAddress} type="text" value={user?.address && optionalAddress} placeholder="Apartment, suite, unit, etc. (optional" id="optional" />
+                    <input required onChange={(e)=>setAddress(e.target.value)} disabled={editAddress && true} value={user?.address && address} type="text" placeholder="Street Address"  id="address" />
+                    <input  required onChange={(e)=>setOptionalAddress(e.target.value)}  disabled={editAddress} type="text" value={user?.address && optionalAddress} placeholder="Apartment, suite, unit, etc. (optional" id="optional" />
                     </div>
                     <div>
                     <label htmlFor="city">Town / City:</label>
-                    <input onChange={(e)=>setCity(e.target.value)} disabled={editAddress && true} value={user?.address && city} type="text" placeholder="eg: Beirut"  id="city" />
+                    <input  required onChange={(e)=>setCity(e.target.value)} disabled={editAddress && true} value={user?.address && city} type="text" placeholder="eg: Beirut"  id="city" />
                     </div>
                    </div>
                     <hr />
