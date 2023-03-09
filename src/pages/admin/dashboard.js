@@ -333,8 +333,8 @@ function Dashboard(){
                     <td>{customer.lName}</td>
                     <td>{customer.email}</td>
                     <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.number ? customer.number : 'N/A'}</td>
-                    <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.main + ' ' + customer.address.secondary: 'N/A'}</td>
-                    <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.city : 'N/A'}</td>
+                    <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.main + ' ' + customer.address.secondary: 'N/A'}</td>
+                    <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.city : 'N/A'}</td>
                 </tr>
                 
                      })}

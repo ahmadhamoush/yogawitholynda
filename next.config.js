@@ -6,7 +6,10 @@ module.exports = {
         NEXTAUTH_SECRET: 'oLyNdA213$',
         CLOUD_NAME: 'hamoush',
         API_KEY: '488517389455474',
-        API_SECRET: 'VsUVFBY3gMzop8U8wpx64CAP5bI'
+        API_SECRET: 'VsUVFBY3gMzop8U8wpx64CAP5bI',
+        EMAIL_SERVICE: 'gmail',
+        EMAIL_USERNAME: 'yogawitholynda@gmail.com',
+        EMAIL_PASSWORD: 'xuafexkbrabncjmp'
     },
     images: {
         domains: [
