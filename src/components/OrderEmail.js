@@ -8,8 +8,8 @@ export default function OrderEamil() {
     <Html>
       <Section style={main}>
         <Container style={container}>
-          <Text style={heading}>Hi there!</Text>
-          <Text style={paragraph}>Welcome to our app!</Text>
+          <Text style={heading}>Your Order has been Confirmed!</Text>
+          <Text style={paragraph}>test</Text>
         </Container>
       </Section>
     </Html>

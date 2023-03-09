@@ -5,7 +5,7 @@ import { sendEmail } from "lib/email";
 export default async function handler(req, res) {
     await sendEmail({
         to: "hamoush20@gmail.com",
-        subject: "Welcome to NextAPI",
+        subject: "Order Confirmation",
         html: render(OrderEamil()),
     });
 
