@@ -26,17 +26,18 @@ export default async function handler(req, res) {
             stock: product.stock - product.quantity,
         })
     })
+    const foundUser = await User.findOne({ _id: req.body.userID })
     const order = await Order.create({
         orderID: req.body.orderID,
         products: req.body.products,
-        user: await User.findOne({ _id: req.body.userID }),
+        user: foundUser,
         paid: false,
         delivered: false,
         total: req.body.total,
         subtotal: req.body.subTotal
     })
     await sendEmail({
-        to: "hamoush20@gmail.com",
+        to: foundUser.email,
         subject: "Order Confirmation",
         html: render(OrderEamil(order)),
     });
