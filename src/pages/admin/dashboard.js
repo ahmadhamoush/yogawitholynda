@@ -57,6 +57,7 @@ function Dashboard(){
     setIsCustomers(true)
     setIsProducts(false)
     setIsOrders(false)
+    setSearch('')
    }
 
    function showProducts(){
@@ -64,6 +65,7 @@ function Dashboard(){
     setIsCustomers(false)
     setIsProducts(true)
     setIsOrders(false)
+    setSearch('')
    }
 
    function showOrders(){
@@ -71,6 +73,7 @@ function Dashboard(){
     setIsCustomers(false)
     setIsProducts(false)
     setIsOrders(true)
+    setSearch('')
    }
 
    useEffect(()=>{
@@ -113,6 +116,11 @@ function Dashboard(){
                 setDescArr([])
                 setSelectedFile('')
                 setSelectedImage('')
+                setUploading(false)
+                setAddProduct(prev=>!prev)
+                setTimeout(()=>{
+                    window.location.reload()
+                 },500)
             }
         }
         else{
@@ -123,11 +131,7 @@ function Dashboard(){
     catch(err){
         console.log(err.response?.data)
     }
-        setUploading(false)
-        setAddProduct(prev=>!prev)
-        setTimeout(()=>{
-            window.location.reload()
-         },500)
+      
    }
  
 
@@ -323,8 +327,8 @@ function Dashboard(){
                    </tr>
                  </thead>
                  <tbody>
-                   {customers.map(customer=>{
-                return  <tr key={customer.fName}>
+                   {customers.filter(customer=>(customer.fName.toLowerCase() + ' ' + customer.lName.toLowerCase()).includes(search)).map(customer=>{
+                return  <tr key={customer._id}>
                     <td>{customer.fName}</td>
                     <td>{customer.lName}</td>
                     <td>{customer.email}</td>
@@ -477,17 +481,13 @@ function Dashboard(){
             <h1 className="addHeader" onClick={()=>setAddProduct(prev=>!prev)}>Add Product</h1>
            {addProduct && <div className="addProduct">
           <div className="editNewDetails">
-          <h1>Add Product</h1>
            <div>
-           <label htmlFor="newName">Name</label>
            <input onChange={(e)=>setNewName(e.target.value)} value={newName} type="text" placeholder="Name" />
            </div>
            <div>
-           <label htmlFor="newPrice">Price</label>
            <input onChange={(e)=>setNewPrice(e.target.value)}  value={newPrice} type="number" placeholder="Price" />
            </div>
             <div className="categoryContainer">
-              <label htmlFor="newCategory">Category</label>
               <select value={newCategory} onChange={(e)=>setNewCategory(e.target.value)} name="" id="newCategory">
               <option value="">Select</option>
                 <option value="yoga-mats-bags">Yoga Bags</option>
@@ -498,7 +498,6 @@ function Dashboard(){
               </select>
              </div>
              <div className="categoryContainer">
-              <label htmlFor="newFeatured">Featured</label>
               <select  value={newFeatured} onChange={(e)=>setNewFeatured(e.target.value)} name="" id="newFeatured">
               <option value="">Select</option>
                 <option value="true">Yes</option>
@@ -506,15 +505,12 @@ function Dashboard(){
               </select>
              </div>
              <div>
-           <label htmlFor="newColor">Color</label>
            <input onChange={(e)=>setNewColor(e.target.value)} value={newColor} type="text" placeholder="Color" />
            </div>
            <div>
-           <label htmlFor="newStock">Stock</label>
            <input onChange={(e)=>setNewStock(e.target.value)} value={newStock} type="number" placeholder="Stock" />
            </div>
-           <div>
-           <label htmlFor="newDesc">Description</label>
+           <div className="descContainer"> 
            <input onChange={(e)=>setNewDesc(e.target.value)} value={newDesc} type="text" placeholder="Description" />
            <button onClick={()=>{newDesc !== '' ? setDescArr(prev=>[...prev, newDesc]):toast('Value should not be empty');setNewDesc('')}}><FontAwesomeIcon icon={faAdd}/></button>
            </div>   
@@ -538,9 +534,6 @@ function Dashboard(){
                 ):<p className="selectImage">Select Image <FontAwesomeIcon icon={faAdd} /></p>}
             </div>
            </label>
-           <button onClick={handleUpload} disabled={uploading} style={{opacity:uploading ? '.5' : '1'}}>
-            {uploading ? 'Uploading...' : 'Add Product'}
-           </button>
           </div>
           <div className="newDetails">
           <p>Name: {newName}</p>
@@ -550,8 +543,12 @@ function Dashboard(){
             <p>Featured: {newFeatured}</p>
             <p>Stock: {newStock}</p>
             <p>Description:</p>
-            {descArr.map((desc,i)=><ul key={i}><li><p>{desc}</p></li></ul>)}
+             {descArr.map((desc,i)=><p key={i}> {desc}</p>)}
+            <button className="addProductBtn" onClick={handleUpload} disabled={uploading} style={{opacity:uploading ? '.5' : '1'}}>
+            {uploading ? 'Uploading...' : 'Add Product'}
+           </button>
           </div>
+          
             </div>} 
            
             </div>}
@@ -594,8 +591,7 @@ function Dashboard(){
                    </tr>
                     </thead>
                     <tbody>
-                
-                   {orders.map(order=>{
+                   {orders.filter(order=>order.orderID.toString().includes(search)).map(order=>{
                 return <tr key={order._id}>
                     <td>{order.orderID}</td>
                     <td className="tableLink"  onClick={()=>{setViewCustomer({orderId: order._id, clicked:true});scrollTop()}}>{orders.filter(orderSearch=>orderSearch._id == order._id).map(filteredProduct=>{ return filteredProduct.user.fName + " " +filteredProduct.user.lName})}</td>
@@ -646,8 +642,14 @@ function Dashboard(){
                     <span> {orderDetails.user.fName + " " +  orderDetails.user.lName}</span></div>
                     <div><p>Email:</p>
                     <span> {orderDetails.user.email}</span></div>  
-                    {/* <div><p>Product Quantitiy:</p>
-                    <span> {product.quantity}</span></div> */}
+                    <div><p>Number:</p>
+                    <span> {orderDetails.user?.number ? orderDetails.user.number : 'N/A'}</span></div>  
+                    <div><p>Main Address:</p>
+                    <span> {orderDetails.user?.address.main ? orderDetails.user?.address.main : 'N/A'}</span></div>  
+                    <div><p>Secondary Address:</p>
+                    <span> {orderDetails.user?.address.secondary ? orderDetails.user?.address.secondary : 'N/A'}</span></div>  
+                    <div><p>City:</p>
+                    <span> {orderDetails.user?.address.city ? orderDetails.user?.address.city : 'N/A'}</span></div>  
                     </div>
                     </div>
                  })        

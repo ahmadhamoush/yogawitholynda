@@ -73,11 +73,10 @@ h3 {
 }
 
 .viewAll {
-    background-color: white;
+    background-color: #001f3d;
     padding: 20px;
     border: none;
     color: #DCC295;
-    border: 2px solid #DCC295;
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
@@ -88,7 +87,7 @@ h3 {
 .viewAll:hover,
 .viewAll:active {
     background-color: #DCC295;
-    color: white;
+    color: #001f3d;
 }
 
 hr {
