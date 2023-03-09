@@ -1,102 +1,41 @@
+import { Invoice } from "@/components/Invoice"
 import Loader from "@/components/Loader"
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { renderToString } from 'react-dom/server'
 
-function Invoice(){
-    const router = useRouter()
-    const [order,setOrder] = useState({})
+ export default function downloadInvoice(){
+    const router = useRouter() 
+    const [order,setOrder] =useState({})
+    const[downloading,setDownloading] = useState(false)
     useEffect(()=>{
-        const fetchOrder = async () =>{
-            await fetch(`/api/order/${router.query.orderID}`)
-            .then(res=>res.json())
-            .then(json=>setOrder(json))
-        }
-        fetchOrder()
- 
-    },[router.query.orderID])
+        fetch('/api/order/' + router.query.orderID)
+        .then(res=>res.json())
+        .then(json=>setOrder(json))
+    })
+    async function convertInvoice(){
+        setDownloading(true)
+        const element =  document.querySelector('.page')
+        html2canvas(element, { onclone: (document) => {
+            setDownloading(false)
+          }})
+          .then((canvas)=>{
+            const imgData = canvas.toDataURL('image/png')
+            const pdf = new jsPDF('p', 'mm', [297, 210]);
+            var width = pdf.internal.pageSize.getWidth();
+            var height = pdf.internal.pageSize.getHeight();
+            pdf.addImage(imgData, 'JPEG', 0, 0, width, height)
+            pdf.save(`${order.orderID}.pdf`)
+          })
+    }
+    
     return(
-        
-        <div className="page">
-            <div className="subpage">
-              <div className="invoiceHeader">
-              <h1>INVOICE</h1>
-                <div>
-                <h4>YOGAWITHOLYNDA</h4>
-              <p>Beirut, Lebanon</p>
-                </div>
-              </div>
-
-            {!order?.orderID ?<Loader />:(
-                <>
-                <div className="invoiceDetails">
-              <div>
-                <h4>BILL TO</h4>
-                <p>{order.user.fName + ' ' + order.user.lName}</p>
-                <p>{order.user.address.secondary}</p>
-                <p>{order.user.address.city + ', ' + order.user.address.main}</p>
-              </div>
-              <div>
-                <div>
-                    <h4>INVOICE #</h4>
-                    <p>{order.orderID}</p>
-                </div>
-                <div>
-                    <h4>INVOICE DATE</h4>
-                    <p>{order.createdAt.split('T')[0]}</p>
-                </div>
-              </div>
-              </div>
-         
-            <div className="invoiceTable">
-          
-                <table>
-                    <thead>    
-                        <tr>
-                            <th>QTY</th>
-                            <th>ITEM</th>
-                            <th>PRICE</th>
-                            <th>AMOUNT</th>
-                        </tr>          
-             
-                    </thead>
-                    <tbody>
-                        {order.products.map(product=>{
-                            return(
-                                <tr key={product.name}>
-                                <td>{product.quantity}</td>
-                                <td className="invoiceProductName">{product.name}</td>
-                                <td>${product.price}</td>
-                                <td>${product.price * product.quantity}</td>
-                            </tr>
-                            )
-                        })}
-                    </tbody>
-                    <tfoot className="footer">
-                    <tr >
-                            <td></td>
-                            <td></td>
-                            <td>Subtotal</td>
-                            <td>${order.subtotal}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>Delivery</td>
-                            <td>${order.total -order.subtotal}</td>
-                        </tr>
-                        <tr className="invoiceTotal">
-                            <td></td>
-                            <td></td>
-                            <td>Total</td>
-                            <td>${order.total}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            </>
-            ) }
-            </div>
-        </div>
-    )
-}
-export default Invoice
+        <div className="invoiceDownloadContainer">
+        <button className="invoiceBtn" onClick={convertInvoice}>{downloading ? 'Downloading...(it may take a few seconds)' : 'Download'}</button>
+        {order?.orderID ? (<div className="invoiceDownload" dangerouslySetInnerHTML={{__html: renderToString( <Invoice  order={order} />)}} />):<Loader />}
+         </div> )
+   }
+   
+    
