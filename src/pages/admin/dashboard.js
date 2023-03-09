@@ -602,7 +602,7 @@ function Dashboard(){
                     <td className="tableLink" onClick={()=>{setViewProducts({orderId: order._id, clicked:true}); scrollTop()}}>View Products</td>
                     <td className="tableLink" style={{color:order.paid?'green' : 'rgb(255, 92, 100)'} } onClick={()=>markAsPaid(order)}>{order.paid ? 'Yes' : 'No'}</td>
                     <td className="tableLink" style={{color:order.delivered?'green' : 'rgb(255, 92, 100)'}} onClick={()=>markAsDelivered(order)}>{order.delivered ? 'Yes' : 'No'}</td>
-                    <td>{order.createdAt.split('T')}</td>
+                    <td>{order.createdAt.split('T')[0]}</td>
                     <td>${order.total}</td>
                     <td><Link className='invoiceIcon' href={`/admin/invoice/${order.orderID}`}><FontAwesomeIcon icon={faFileInvoice}/></Link></td>
                 

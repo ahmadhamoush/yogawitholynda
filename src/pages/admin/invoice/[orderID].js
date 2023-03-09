@@ -1,5 +1,4 @@
 import { Invoice } from "@/components/Invoice"
-import Loader from "@/components/Loader"
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import { useRouter } from "next/router"

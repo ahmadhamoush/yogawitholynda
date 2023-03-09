@@ -138,7 +138,7 @@ const allProducts = await findAllProducts()
  products  = await listCollection(collectionName)
 if(collectionName === 'all-products'){
   products = allProducts
-  desc= ''
+  desc= 'Our yoga products are designed to help you find balance, strength, and relaxation in your practice. Our yoga mats are made from eco-friendly materials, providing a non-slip surface for optimal grip and stability during your poses. Our incense burners and holders create a calming and soothing atmosphere during your practice, promoting mindfulness and relaxation. Our bolsters and blankets provide extra support and comfort during meditation and relaxation, while our range of yoga-inspired jewelry and clothing allow you to express your love for yoga even off the mat. Whether you are a beginner or an experienced yogi, our range of yoga products will help you achieve your goals and enhance your practice.'
 }
 else{
   desc = collection.description 
