@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     password:String,
     number: Number,
     address:Object,
+    isAdmin:Boolean
 })
 
 UserSchema.pre('save', async function(next){

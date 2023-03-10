@@ -4,7 +4,7 @@
     padding: 8px 20px;
     justify-content: space-between;
     background-color: white;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .allNav {
@@ -57,6 +57,7 @@
     justify-content: center;
     align-items: center;
     margin: 5px;
+    padding-top: 10px;
 }
 
 .links .link,
@@ -238,7 +239,7 @@
     }
 }
 
-@media (max-width:390px) {
+@media (max-width:414px) {
     .nav h3 {
         font-size: 18px;
     }

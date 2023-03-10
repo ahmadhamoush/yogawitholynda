@@ -1,6 +1,6 @@
  .container {
      position: relative;
-     background-image: linear-gradient(rgb(4, 42, 80), rgba(220, 194, 149, 0.5), rgb(4, 42, 80)), url('../../public/aerial-yoga_751986172.jpg');
+     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../public/banner.webp');
      background-blend-mode: multiply;
      background-repeat: no-repeat;
      background-position: center;
@@ -26,6 +26,7 @@
      letter-spacing: 2px;
      font-style: oblique;
      color: white;
+     font-family: serif;
  }
  
  .banner h1 span {
@@ -42,6 +43,12 @@
      border-radius: 5px;
      margin: 5px;
      cursor: pointer;
+ }
+ 
+ @media (max-width:674px) {
+     .container {
+         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../public/banner-mobile.webp');
+     }
  }
  
  @media (max-width:390px) {

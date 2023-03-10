@@ -6,8 +6,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import { signOut } from "next-auth/react"
 
 function Dashboard(){
+    const session = useSession()
+    const router = useRouter()
+
    const [isOverview, setIsOverview] = useState(true)
    const [isCustomers, setIsCustomers] = useState(false)
    const [isProducts, setIsProducts] = useState(false)
@@ -45,6 +51,8 @@ function Dashboard(){
    const[editProduct,setEditProduct] = useState('')
    const[addProduct, setAddProduct] = useState(false)
    const[confirmDeleteProduct, setConfirmDeleteProduct] = useState({id:'',clicked:false})
+
+   const[editing,setEditing] = useState(false)
    
    function showOverview(){
     setIsOverview(true)
@@ -77,10 +85,37 @@ function Dashboard(){
    }
 
    useEffect(()=>{
-    fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))
-    fetch('/api/users').then(res=>res.json()).then(json=>setCustomers(json))
-    fetch('/api/orders').then(res=>res.json()).then(json=>setOrders(json))
-   },[])
+    if(session?.status==="unauthenticated" || !session.data?.user.isAdmin){
+        router.push('/admin')
+    }
+   },[session])
+
+//    useEffect(()=>{
+//     fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))
+//     fetch('/api/users').then(res=>res.json()).then(json=>setCustomers(json))
+//     fetch('/api/orders').then(res=>res.json()).then(json=>setOrders(json))
+//    },[])
+
+   useEffect(()=>{
+    const fetchProducts = async () =>{
+        await fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))
+    }
+    fetchProducts()
+   },[editing])
+
+   useEffect(()=>{
+    const fetchUsers = async () =>{
+        await fetch('/api/users').then(res=>res.json()).then(json=>setCustomers(json))
+    }
+    fetchUsers()
+   },[editing])
+
+   useEffect(()=>{
+    const fetchOrders = async () =>{
+        await fetch('/api/orders').then(res=>res.json()).then(json=>setOrders(json))
+    }
+    fetchOrders()
+   },[editing])
    const profit = () => {
 
     let total_profit = 0;
@@ -108,7 +143,7 @@ function Dashboard(){
             formData.append('img', selectedFile);
             const {data} = await axios.post('/api/add',formData);
             if(data.done==='ok'){
-                toast('Product Added Successfully')
+                toast('Product Added Successfully.')
                 setNewName('')
                 setNewPrice('')
                 setNewCategory('')
@@ -120,15 +155,12 @@ function Dashboard(){
                 setSelectedImage('')
                 setUploading(false)
                 setAddProduct(prev=>!prev)
-                setTimeout(()=>{
-                    window.location.reload()
-                 },500)
             }
         }
         else{
             toast('Values should not be empty')
         }
-       
+        setEditing(prev=>!prev)
     }
     catch(err){
         console.log(err.response?.data)
@@ -146,13 +178,11 @@ function Dashboard(){
       const response = await request.json()
       if(response){
           toast(`Order ${order.orderID} updated`)
-           setTimeout(()=>{
-              window.location.reload()
-           },500)
       }
       else{
           toast('error')
       }
+      setEditing(prev=>!prev)
      }
    
      const markAsDelivered = async (order) =>{
@@ -163,14 +193,12 @@ function Dashboard(){
           })
           const response = await request.json()
           if(response){
-            toast(`Order ${order.orderID} updated`)
-               setTimeout(()=>{
-                  window.location.reload()
-               },500)
+            toast(`Order ${order.orderID} updated.`)
           }
           else{
               toast('error')
           }
+          setEditing(prev=>!prev)
          }
      
    async function deleteProduct(id){
@@ -182,22 +210,18 @@ function Dashboard(){
     const response = await request.json()
     if(response){
         toast('Deleted Product with id: ' + id)
-         setTimeout(()=>{
-            window.location.reload()
-         },500)
     }
     else{
         toast('error')
     }
+    setEditing(prev=>!prev)
    }
-   
    
 
     async function edit(e){
     const child =  await e.currentTarget.parentElement.firstChild
     setSelectedInput(child.name)
     setProductId(child.classList.value)
-    console.log(child)
    }
 
      function saveEdit(){
@@ -259,7 +283,7 @@ function Dashboard(){
        
     })
     setProductId('')
-    console.log(products)
+    setEditing(prev=>!prev)
    }
    function scrollTop(){
     document.body.scrollTop = 0;
@@ -267,6 +291,7 @@ function Dashboard(){
    }
     return(
       <div className="dashboard">
+        {session.status==="unauthenticated" || !session.data?.user.isAdmin && <Loader />}
         <div className="dashboardHeader">
             <Image alt="logo" className="img" width={100} height={100} src="/logo.png"/>
         <ul>
@@ -274,6 +299,7 @@ function Dashboard(){
           <li  onClick={showCustomers} className={isCustomers ? 'selected' :'notSelected'}>Customers</li>
           <li  onClick={showProducts} className={isProducts ? 'selected' :'notSelected'}>Products</li>
           <li  onClick={showOrders} className={isOrders ? 'selected' :'notSelected'}>Orders</li>
+          <li className="logoutAdmin" onClick={()=>signOut()}>Logout</li>
           </ul>
         </div>
     
@@ -302,16 +328,16 @@ function Dashboard(){
          <div className="tableContainer">    
                <div className="tableHeader">
                <h1>Customers ({customers.length})</h1>
-               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search by Name"/>
             </div>
                   <table>
                  <thead>
                  <tr>
                     <th>
-                        First Name
+                        Fname
                     </th>
                     <th>
-                        Last Name
+                        Lname
                     </th>
                     <th>
                         Email
@@ -320,7 +346,10 @@ function Dashboard(){
                         Number
                     </th>
                     <th>
-                        Address
+                     Address1
+                    </th>
+                    <th>
+                     Address2
                     </th>
                     <th>
                         City
@@ -335,7 +364,8 @@ function Dashboard(){
                     <td>{customer.lName}</td>
                     <td>{customer.email}</td>
                     <td style={{color:  !customer?.number && 'rgb(255, 92, 100)' }}>{customer?.number ? customer.number : 'N/A'}</td>
-                    <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.main + ' ' + customer.address.secondary: 'N/A'}</td>
+                    <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.main: 'N/A'}</td>
+                    <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.secondary : 'N/A'}</td>
                     <td style={{color:  !customer?.address && 'rgb(255, 92, 100)' }}>{customer?.address ? customer.address.city : 'N/A'}</td>
                 </tr>
                 
@@ -352,7 +382,7 @@ function Dashboard(){
          {!products.length>0 && <Loader />}
          <div style={{opacity: editProduct && '0.5'}}className="tableHeader">
          <h1>Products ({products.filter(product=>product.name.toLowerCase().includes(search)).length})</h1>
-                <input type='text' onChange={(e)=>{setSearch(e.target.value);setEditProduct('')}} value={search} className="search" placeholder="Search"/>
+                <input type='text' onChange={(e)=>{setSearch(e.target.value);setEditProduct('')}} value={search} className="search" placeholder="Search by Name"/>
          </div>
             {productId &&  <div className="editContainer">
                 <FontAwesomeIcon icon={faClose} className='closeIcon' onClick={()=>setProductId('')}/>
@@ -430,7 +460,7 @@ function Dashboard(){
                                 </div>)}
                    <div className="icons">  <FontAwesomeIcon onClick={()=>setConfirmDeleteProduct({id:product._id, clicked:true})} icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
-                   <span className="id">sold: {product.count}</span>
+                   <span className="sold">sold: {product.count}</span>
                    <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
           {product._id===editProduct.id && <div>
             <FontAwesomeIcon icon={faClose} className='closeIcon' onClick={()=>setEditProduct('')}/>
@@ -559,7 +589,7 @@ function Dashboard(){
          <div className="tableContainer">
             <div className="tableHeader">
             <h1>Orders ({orders.length})</h1>
-               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
+               <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search by Order ID"/>
             </div>
                   <table>
                     <thead>

@@ -14,6 +14,7 @@ export default async function handler(req, res) {
                 lName,
                 email,
                 password,
+                isAdmin: false
             })
             res.status(201).json({ user })
         }

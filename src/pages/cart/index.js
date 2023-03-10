@@ -91,11 +91,23 @@ function Cart({products,collections}){
         .then(json=> setCartInfo(json)) 
     },[selectedProducts])
 
-    function addProduct(id){
-        setSelectedProducts(prev=>[...prev, id])
+    function addProduct(product){
+      const quantity = selectedProducts.filter(id=>id===product._id).length
+      console.log(quantity)
+      console.log(product)
+        if(product.stock === 0){
+          toast('Out of Stock')
+      }
+      else if(quantity>=product.stock){
+          toast(`Only ${product.stock} left`)
+      }
+      else{
+        setSelectedProducts(prev=>[...prev, product._id])
+          router.push('/cart')
+      }
     }
-    function removeProduct(id){
-        const pos = selectedProducts.indexOf(id)
+    function removeProduct(product){
+        const pos = selectedProducts.indexOf(product._id)
         if(pos!==-1){
             setSelectedProducts(prev=>{return prev.filter((value,index)=>index!==pos)})
         }
@@ -145,9 +157,9 @@ function Cart({products,collections}){
                 
                     <div className="cartQuantity"> 
 
-                    <button onClick={()=>removeProduct(product._id)}>-</button>
+                    <button onClick={()=>removeProduct(product)}>-</button>
                         <p>{amount}</p>
-                        <button onClick={()=>addProduct(product._id)}>+</button>   
+                        <button onClick={()=>addProduct(product)}>+</button>   
                         </div>
                         <p className="price">${product.price}</p> 
                  
