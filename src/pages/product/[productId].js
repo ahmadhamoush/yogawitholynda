@@ -7,6 +7,7 @@ import { toast } from "react-toastify"
 import Layout from "@/components/Layout"
 import { useRouter } from "next/router"
 import { findAllCollections } from "../api/collections"
+import { initMongoose } from "lib/mongoose"
 
 function Product({products,product,similarProducts,collections}){
     const [quantity, setQuantity] = useState(1);
@@ -75,6 +76,7 @@ function Product({products,product,similarProducts,collections}){
 }
 export default Product
 export async function getServerSideProps(context){
+    await initMongoose()
     const {query} = context;
     const productId = query.productId
     const products = await findAllProducts()
