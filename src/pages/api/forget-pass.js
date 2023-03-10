@@ -15,17 +15,18 @@ export default async function handler(req, res) {
         const token = jwt.sign({
             data: req.body.email,
             key,
-        }, 'yoga@123', { expiresIn: 60 * 15 })
-        const user = {
-            name: foundUser.fName,
-            key,
-            reset: `http://yogawitholynda.com/api/change-pass/${token}`
-        }
-        await sendEmail({
-            to: req.body.email,
-            subject: "Password Reset",
-            html: render(ForgetPassEmail(user)),
-        });
+        }, 'yoga@123', { expiresIn: 60 * 1 })
+        res.json(`http://localhost:3000/api/change-pass/${token}`)
+            // const user = {
+            //     name: foundUser.fName,
+            //     key,
+            //     reset: `http://localhost:3000.com/api/change-pass/${token}`
+            // }
+            // await sendEmail({
+            //     to: req.body.email,
+            //     subject: "Password Reset",
+            //     html: render(ForgetPassEmail(user)),
+            // });
     }
 
 

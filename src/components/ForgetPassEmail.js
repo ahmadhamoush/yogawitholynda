@@ -8,7 +8,6 @@ export default function ForgetPassEmail(user) {
     <Html>
       <Section style={main}>
         <Container style={container}>
-          <Text style={heading}>Password Reset</Text>
           <Text style={paragraph}>Dear {user.name.toUpperCase()},</Text>
           <Text style={paragraph}>We have received a request to reset your password for your Your Account on our website. To reset your password, please use the following token:</Text>
           <Text style={paragraph}>Token: {user.key}</Text>
@@ -27,8 +26,6 @@ export default function ForgetPassEmail(user) {
 // Styles for the email template
 const main = {
   backgroundColor: "#ffffff",
-  width: '100%' ,
-  height:'100%'
 };
 
 const container = {
