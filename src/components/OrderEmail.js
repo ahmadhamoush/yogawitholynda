@@ -9,12 +9,14 @@ export default function OrderEamil(order) {
       <Section style={main}>
         <Container style={container}>
           <Text style={heading}>Your Order has been Confirmed!</Text>
-          <Text style={paragraph}>Order ID: {order.orderID}</Text>
-          <Text style={paragraph}>Buyer: {order.user.fName + ' ' + order.user.lName}</Text>
-          <Text style={paragraph}>Address: {order.user.address.main + ', ' + order.user.address.secondary + ', ' + order.user.address.city}</Text>
-          <Text style={paragraph}>Products:</Text>
-          {order.products.map(product=>{
+          <Text style={paragraph}><Text style={subHeader}>Order ID: </Text>{order.orderID}</Text>
+          <Text style={paragraph}><Text style={subHeader}>Buyer: </Text>{order.user.fName + ' ' + order.user.lName}</Text>
+          <Text style={paragraph}><Text style={subHeader}>Address: </Text>{order.user.address.main + ', ' + order.user.address.secondary + ', ' + order.user.address.city}</Text>
+          <Text style={heading}>Products:</Text>
+          {order.products.map((product,index)=>{
             return <>
+            {index++}
+            <Text style={subHeader}>#{index}</Text>
              <Text style={paragraph}><Text style={subHeader}>Name: </Text>{product.name}</Text>
              <Text style={paragraph}><Text style={subHeader}>Price: </Text>${product.price}</Text>
              <Text style={paragraph}><Text style={subHeader}>Quantity: </Text> {product.quantity}</Text>

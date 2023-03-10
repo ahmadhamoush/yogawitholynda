@@ -81,20 +81,23 @@ function Login (){
 
         <div style={{transform: isProfileChecked && session.status==='unauthenticated'  ? 'scale(1)' : 'scale(0)'}} className={style.container}>
             {loading && <Loader />}
+            <div className={style.formHeader}>
             <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
+            <FontAwesomeIcon onClick={()=>setIsProfileChecked(prev=>!prev)} icon={faClose} className={style.icon}/>
+            </div>
           {isLogin && !resetPass && <form className={style.form} onSubmit={handleSubmit(onSubmitLogin,onError)}>
             <input style={{border : err.email || err.error && '1px solid red'}} type='email'  placeholder='Email' {...register('email', {required:true})} />
             <input style={{border : err.password || err.error && '1px solid red'}}type='password' placeholder='Password' {...register("password", { required: true })}/>
             <input type="submit" placeholder='Login'/>
             <p className={style.err}>{err?.error && err.error}</p>
-            <button className={style.changeView} onClick={()=>setIsResetPass(prev=>!prev)}>{!resetPass ? 'Forgot Password? Reset Now!' : 'Back to Login'} </button>
+            <button className={style.changeView} onClick={()=>setIsResetPass(true)}>Forgot Password? Reset Now!</button>
             </form>}
             {isLogin && resetPass && <form className={style.form} onSubmit={handleSubmit(onSubmitReset,onError)}>
             <h2>Enter email to reset</h2>
             <input style={{border : err.email || err.error && '1px solid red'}} type='email'  placeholder='Email' {...register('email', {required:true})} />
             <input type="submit" placeholder='Login'/>
             <p className={style.err}>{err?.error && err.error}</p>
-            <button className={style.changeView} onClick={()=>setIsResetPass(prev=>!prev)}>Forgot Password? Reset Now!</button>
+            <button className={style.changeView} onClick={()=>setIsResetPass(false)}>Back to Login</button>
             <p style={{padding:'20px'}} className={style.err}>{resetMessage ==='email not found' && resetMessage}</p>
             <p style={{color:'green', padding:'20px'}}>{resetMessage ==='email sent' && 'We have sent you an email to reset the password. Press the link in the provided email to reset. If email is not found, make sure to check the spam/junk emails. Link will expire in 10 minutes'}</p>
             </form>}
@@ -107,7 +110,6 @@ function Login (){
             <input type="submit" placeholder='Signup'/>
             <p className={style.err}>{err.length && err}</p>
             </form>}
-            <FontAwesomeIcon onClick={()=>setIsProfileChecked(prev=>!prev)} icon={faClose} className={style.icon}/>
             <button className={style.changeView} onClick={()=>{setIsLogin(prev=>!prev);reset({email:'',password:''})}}>{isLogin ? "Don't Have An Account? Sign Up Right Now" : 'Already Have an Account? Login'}</button>
         </div>
     )

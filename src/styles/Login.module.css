@@ -25,6 +25,7 @@
 }
 
 .form {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,10 +76,15 @@
     font-size: 30px;
     cursor: pointer;
     color: #001F3D;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    color: white;
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: #eee;
 }
 
 .changeView {
