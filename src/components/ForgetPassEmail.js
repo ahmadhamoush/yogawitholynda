@@ -8,10 +8,11 @@ export default function ForgetPassEmail(user) {
     <Html>
       <Section style={main}>
         <Container style={container}>
+        <Text style={heading}>Password Reset Link</Text>
           <Text style={paragraph}>Dear {user.name.toUpperCase()},</Text>
           <Text style={paragraph}>We have received a request to reset your password for your Your Account on our website. To reset your password, please use the following 6 digits:</Text>
           <Text style={paragraph}>Key: {user.key}</Text>
-          <Text style={paragraph}>Please click on the following link to reset your password:</Text>
+          <Text style={link}>Please click on the following link to reset your password:</Text>
           <Text style={paragraph}>{user.reset}</Text>
           <Text style={paragraph}>The link will expire in 10 minutes.</Text>
         </Container>
@@ -44,3 +45,10 @@ const paragraph = {
   lineHeight: "1.4",
   color: "#484848",
 };
+const link={
+    fontSize: "18px",
+    lineHeight: "1.4",
+    color: "#484848",
+    width:'50%'
+
+}
