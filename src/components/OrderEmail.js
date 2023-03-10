@@ -15,14 +15,14 @@ export default function OrderEamil(order) {
           <Text style={paragraph}>Products:</Text>
           {order.products.map(product=>{
             return <>
-             <Text style={paragraph}>Name: {product.name}</Text>
-             <Text style={paragraph}>Price: ${product.price}</Text>
-             <Text style={paragraph}>Quantity: ${product.quantity}</Text>
+             <Text style={paragraph}><Text style={subHeader}>Name: </Text>{product.name}</Text>
+             <Text style={paragraph}><Text style={subHeader}>Price: </Text>${product.price}</Text>
+             <Text style={paragraph}><Text style={subHeader}>Quantity: </Text> {product.quantity}</Text>
              </>
           })}
-           <Text style={paragraph}>Subtotal: ${order.subtotal}</Text>
-           <Text style={paragraph}>Delivery: ${order.total - order.subtotal}</Text>
-           <Text style={paragraph}>Total: ${order.total}</Text>
+           <Text style={paragraph}><Text style={subHeader}>Subtotal: </Text>${order.subtotal}</Text>
+           <Text style={paragraph}><Text style={subHeader}>Delivery: </Text>${order.total - order.subtotal}</Text>
+           <Text style={paragraph}><Text style={subHeader}>Total: </Text>${order.total}</Text>
         </Container>
         <Text style={paragraph}>YOGAWITHOLYNDA</Text>
       </Section>
@@ -53,3 +53,9 @@ const paragraph = {
   lineHeight: "1.4",
   color: "#484848",
 };
+const subHeader={
+    fontSize: "22px",
+    lineHeight: "1.3",
+    fontWeight: "700",
+    color: "#484848",
+}
