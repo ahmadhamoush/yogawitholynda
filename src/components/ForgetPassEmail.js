@@ -30,7 +30,7 @@ const main = {
 const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
-  width: window.innerWidth,
+  width: "100vw",
 };
 
 const heading = {
