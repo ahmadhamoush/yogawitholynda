@@ -40,7 +40,7 @@ function Login (){
        await login(loginData)
     }
     const onSubmitReset = async resetData => {
-   
+            setLoading(true)
             const request = await fetch('/api/forget-pass', {
                 method: 'POST',
                 headers: {
@@ -49,6 +49,7 @@ function Login (){
                 body: JSON.stringify(resetData),
               })
         const response = await request.json()
+        setLoading(false)
        toast(response.message)
        setResetMessage(response.message)
        

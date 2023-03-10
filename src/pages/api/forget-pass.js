@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         const token = jwt.sign({
             data: req.body.email,
             key,
-        }, process.eenv.JWT_SECRET, { expiresIn: 60 * 10 })
+        }, process.env.JWT_SECRET, { expiresIn: 60 * 10 })
         console.log(`http://localhost:3000/change-pass/${token}`)
         console.log(key)
         const user = {
