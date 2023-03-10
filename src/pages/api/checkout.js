@@ -24,6 +24,7 @@ export default async function handler(req, res) {
     req.body.products.map(async product => {
         await Product.updateOne({ _id: product.id }, {
             stock: product.stock - product.quantity,
+            count: product.count + product.quantity
         })
     })
     const foundUser = await User.findOne({ _id: req.body.userID })

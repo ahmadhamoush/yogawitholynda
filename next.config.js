@@ -9,7 +9,8 @@ module.exports = {
         API_SECRET: 'VsUVFBY3gMzop8U8wpx64CAP5bI',
         EMAIL_SERVICE: 'gmail',
         EMAIL_USERNAME: 'yogawitholynda@gmail.com',
-        EMAIL_PASSWORD: 'xuafexkbrabncjmp'
+        EMAIL_PASSWORD: 'xuafexkbrabncjmp',
+        JWT_SECRET: 'yoga@1234'
     },
     images: {
         domains: [

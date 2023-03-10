@@ -49,13 +49,9 @@
     border-radius: 10px;
 }
 
-
-/* .orderHistoryContainer {
-    display: flex;
-    flex-direction: column;
+.orderHistoryContainer {
     position: relative;
-    width: 100%;
-} */
+}
 
 .orderHistoryContainer table {
     overflow-x: scroll;

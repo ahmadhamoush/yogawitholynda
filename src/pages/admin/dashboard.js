@@ -85,7 +85,9 @@ function Dashboard(){
 
     let total_profit = 0;
     for (let i = 0; i <orders.length; i++) {
-      total_profit+=orders[i].total
+        if(orders[i].paid){
+            total_profit+=orders[i].total
+        }
     }
     return total_profit
 }
@@ -298,7 +300,6 @@ function Dashboard(){
 
          {isCustomers && 
          <div className="tableContainer">    
-         {!customers.length>0 && <Loader />}
                <div className="tableHeader">
                <h1>Customers ({customers.length})</h1>
                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
@@ -327,6 +328,7 @@ function Dashboard(){
                    </tr>
                  </thead>
                  <tbody>
+                 {!customers.length>0 && <div className="notFound"><p>No customers</p></div>}
                    {customers.filter(customer=>(customer.fName.toLowerCase() + ' ' + customer.lName.toLowerCase()).includes(search)).map(customer=>{
                 return  <tr key={customer._id}>
                     <td>{customer.fName}</td>
@@ -423,11 +425,12 @@ function Dashboard(){
                 return <div style={{display: product._id!==editProduct.id && editProduct && 'none' ,width: product._id!==editProduct.id && editProduct && '100%'}} className="productCard" id={product._id}  key={product._id}>
                                {confirmDeleteProduct.id === product._id &&confirmDeleteProduct.clicked &&  ( <div className="deleteProduct">
                                 <p>Are you sure you want to delete this product?</p>
-                                <button onClick={()=>{deleteProduct(confirmDeleteProduct.id)}}>YES</button>
-                                <button onClick={()=>setConfirmDeleteProduct({id:'',clicked:false})}>NO</button>
+                                <button  className="success" onClick={()=>{deleteProduct(confirmDeleteProduct.id)}}>YES</button>
+                                <button className="err" onClick={()=>setConfirmDeleteProduct({id:'',clicked:false})}>NO</button>
                                 </div>)}
                    <div className="icons">  <FontAwesomeIcon onClick={()=>setConfirmDeleteProduct({id:product._id, clicked:true})} icon={faTrash} className='trash' /></div>
                    <span className="id">id: {product._id}</span>
+                   <span className="id">sold: {product.count}</span>
                    <Image className="productImg" onClick={()=>setEditProduct({id:product._id})} src={product.image} alt={product.name} width={120} height={120} />
           {product._id===editProduct.id && <div>
             <FontAwesomeIcon icon={faClose} className='closeIcon' onClick={()=>setEditProduct('')}/>
@@ -512,7 +515,7 @@ function Dashboard(){
            </div>
            <div className="descContainer"> 
            <input onChange={(e)=>setNewDesc(e.target.value)} value={newDesc} type="text" placeholder="Description" />
-           <button onClick={()=>{newDesc !== '' ? setDescArr(prev=>[...prev, newDesc]):toast('Value should not be empty');setNewDesc('')}}><FontAwesomeIcon icon={faAdd}/></button>
+           <button className="descBtn" onClick={()=>{newDesc !== '' ? setDescArr(prev=>[...prev, newDesc]):toast('Value should not be empty');setNewDesc('')}}><FontAwesomeIcon icon={faAdd}/></button>
            </div>   
            <label>
             <input type="file" hidden onChange={({target})=>{
@@ -542,8 +545,7 @@ function Dashboard(){
             <p>Color: {newColor}</p>
             <p>Featured: {newFeatured}</p>
             <p>Stock: {newStock}</p>
-            <p>Description:</p>
-             {descArr.map((desc,i)=><p key={i}> {desc}</p>)}
+            <p>Description:{descArr.map((desc,i)=><p key={i}> {desc}</p>)}</p>
             <button className="addProductBtn" onClick={handleUpload} disabled={uploading} style={{opacity:uploading ? '.5' : '1'}}>
             {uploading ? 'Uploading...' : 'Add Product'}
            </button>
@@ -555,7 +557,6 @@ function Dashboard(){
         
             {isOrders && 
          <div className="tableContainer">
-            {!orders.length>0 && <Loader />}
             <div className="tableHeader">
             <h1>Orders ({orders.length})</h1>
                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={search} className="search" placeholder="Search"/>
@@ -591,6 +592,7 @@ function Dashboard(){
                    </tr>
                     </thead>
                     <tbody>
+                    {!orders.length>0 && <div className="notFound"><p>No orders</p></div>}
                    {orders.filter(order=>order.orderID.toString().includes(search)).map(order=>{
                 return <tr key={order._id}>
                     <td>{order.orderID}</td>
@@ -606,7 +608,9 @@ function Dashboard(){
                 
                      })}
                      </tbody>
-                     {viewProducts.clicked &&
+                    
+                  </table>
+                  {viewProducts.clicked &&
                    <div style={{height:viewProducts ? "100%" : '0'}} className="orderedProductsContainer">
                     <FontAwesomeIcon onClick={()=>setViewProducts({clicked:false})} icon={faClose} className='closeIcon' />
                     <h2>Ordered Products</h2>
@@ -657,8 +661,6 @@ function Dashboard(){
 
                         
                       </div>  </div>    }  
-                  </table>
-                      
                 </div>
                 }
       </div>

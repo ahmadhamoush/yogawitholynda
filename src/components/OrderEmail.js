@@ -24,6 +24,7 @@ export default function OrderEamil(order) {
            <Text style={paragraph}>Delivery: ${order.total - order.subtotal}</Text>
            <Text style={paragraph}>Total: ${order.total}</Text>
         </Container>
+        <Text style={paragraph}>YOGAWITHOLYNDA</Text>
       </Section>
     </Html>
   );

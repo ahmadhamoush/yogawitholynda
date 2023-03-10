@@ -8,7 +8,8 @@ const ProductSchema = new Schema({
     price: Number,
     category: String,
     featured:Boolean, 
-    stock: Number   
+    stock: Number,
+    count :Number   
 })
 const Product = models ?.Product || model('Product', ProductSchema)
 

@@ -30,23 +30,30 @@ function Cart({products,collections}){
 
     async function checkout(){
       setOrderLoading(true)
-     if(session.status === 'authenticated'){
-        const request = await fetch('/api/checkout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order),
-          })
-    const response = await request.json()
-      if(response){
-        setSelectedProducts([])
-        setCartInfo([])
-        toast(`Order #${response.orderID} created!`)
-        router.push(`/order/${response.orderID}`)
+      
+      if(!order.number || !order.address.main || !order.address.secondary  || !order.address.city){
+        toast('Check empty inputs..')
       }
-      setOrderLoading(false)
+      else{
+        if(session.status === 'authenticated'){
+          const request = await fetch('/api/checkout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(order),
+            })
+      const response = await request.json()
+        if(response){
+          setSelectedProducts([])
+          setCartInfo([])
+          toast(`Order #${response.orderID} created!`)
+          router.push(`/order/${response.orderID}`)
+        }
+      }
+ 
      }
+     setOrderLoading(false)
     }
 
     function scrollTop(){
@@ -107,7 +114,7 @@ function Cart({products,collections}){
    const order = {
     orderID:new Date().getFullYear().toString() + Math.floor(1000000 + Math.random() * 900000).toString(),
     products: cartInfo.length && cartInfo.map(item=> {return {id:item._id, stock:item.stock, name:item.name,
-    price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image}}),
+    price:item.price, quantity:selectedProducts.filter(id=>id===item._id).length,image:item.image,count:item.count}}),
     userID: user._id,
     number,
     address: {main:address, secondary:optionalAddress, city},

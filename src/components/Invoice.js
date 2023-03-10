@@ -1,4 +1,3 @@
-
 export function Invoice({order}){ 
     return(
         <div className="page">

@@ -67,6 +67,7 @@ export default function OrderHistory({collections,products}){
                     </tr>
                    </thead>
                    <tbody>
+                    {!orders.length && <div style={{borderRadius:'0'}} className="notFound"><h2>No Order found</h2></div>}
             {orders.map(order=>{
                 return (
                     <tr key={order._id}>

@@ -9,15 +9,13 @@ export default function ForgetPassEmail(user) {
       <Section style={main}>
         <Container style={container}>
           <Text style={paragraph}>Dear {user.name.toUpperCase()},</Text>
-          <Text style={paragraph}>We have received a request to reset your password for your Your Account on our website. To reset your password, please use the following token:</Text>
-          <Text style={paragraph}>Token: {user.key}</Text>
-          <Text style={paragraph}>Please click on the following link to reset your password: {user.reset}</Text>
-           <Text style={paragraph}>If you did not request to reset your password, please ignore this email and your account will remain secure.</Text>
-           <Text style={paragraph}>If you have any questions or concerns, please do not hesitate to contact our customer support team. They are available 24/7 to assist you with any queries you may have.</Text>
-           <Text style={paragraph}>Thank you for choosing YOGAWITHOLYNDA as your preferred online platform. We are committed to providing you with the best user experience possible.</Text>
-           <Text style={paragraph}>Best regards,</Text>
-           <Text style={paragraph}>YOGAWITHOLYNDA</Text>
+          <Text style={paragraph}>We have received a request to reset your password for your Your Account on our website. To reset your password, please use the following 6 digits:</Text>
+          <Text style={paragraph}>Key: {user.key}</Text>
+          <Text style={paragraph}>Please click on the following link to reset your password:</Text>
+          <Text style={paragraph}>{user.reset}</Text>
+          <Text style={paragraph}>The link will expire in 10 minutes.</Text>
         </Container>
+        <Text style={paragraph}>YOGAWITHOLYNDA</Text>
       </Section>
     </Html>
   );

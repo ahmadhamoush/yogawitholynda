@@ -18,15 +18,6 @@ cloudinary.config({
     secure: true,
 });
 const readFile = (req) => {
-    // const options = {}
-    // if (saveLocally) {
-    //     options.uploadDir = path.join(process.cwd(), '/public/products')
-    //     options.filename = (name, ext, path, form) => {
-    //         return path.originalFilename
-    //     }
-    // }
-
-
     return new Promise((resolve, reject) => {
         const form = formidable()
         form.parse(req, async(err, fields, files) => {
@@ -53,6 +44,7 @@ const readFile = (req) => {
                 color: fields.color,
                 stock: Number(fields.stock),
                 description: fields.description.split(',').map(d => d),
+                count: 0,
                 image: `https://res.cloudinary.com/hamoush/image/upload/v1678284450/yogawitholynda/${files.img.originalFilename}`
             })
         })
