@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 import { sendEmail } from "lib/email";
 import { render } from "@react-email/render";
 import ForgetPassEmail from "@/components/ForgetPassEmail";
+import { initMongoose } from "lib/mongoose";
 
 export default async function handler(req, res) {
-
+    await initMongoose()
     const foundUser = await User.findOne({ email: req.body.email })
     if (!foundUser) {
         res.json({ message: "email not found" })

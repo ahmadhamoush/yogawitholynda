@@ -86,7 +86,7 @@ function Login (){
             <input style={{border : err.password || err.error && '1px solid red'}}type='password' placeholder='Password' {...register("password", { required: true })}/>
             <input type="submit" placeholder='Login'/>
             <p className={style.err}>{err?.error && err.error}</p>
-            <button className={style.changeView} onClick={()=>setIsResetPass(prev=>!prev)}>Forgot Password? Reset Now!</button>
+            <button className={style.changeView} onClick={()=>setIsResetPass(prev=>!prev)}>{resetPass ? 'Forgot Password? Reset Now!' : 'Back to Login'} </button>
             </form>}
             {isLogin && resetPass && <form className={style.form} onSubmit={handleSubmit(onSubmitReset,onError)}>
             <h2>Enter email to reset</h2>
