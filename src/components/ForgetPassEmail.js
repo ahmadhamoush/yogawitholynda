@@ -30,7 +30,7 @@ const main = {
 const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
-  width: "100%",
+  width: window.innerWidth,
 };
 
 const heading = {
@@ -49,6 +49,4 @@ const link={
     fontSize: "18px",
     lineHeight: "1.4",
     color: "#484848",
-    width:'50%'
-
 }
