@@ -115,12 +115,12 @@ function Profile ({products,collections}){
         {editData?.city && <p>City Address : {editData.city}</p>}
         <button className="saveBtn" onClick={saveEdit}>Save</button>
         <div className="editRes">
-            {profileRes.updated && <div className="profileSuccess">
+            {profileRes?.updated && <div className="profileSuccess">
                  <h5>Updated:</h5>
                 {profileRes.updated.map((res,i)=>{
                    return <p key={i}>{res}</p>
                 })}</div>}
-            {profileRes.err.length>0 && <div className="profileErr">
+            {profileRes?.err.length>0 && <div className="profileErr">
             <h5>Errors:</h5>
               {profileRes.err.map((err,i)=>{
                 return  <p key={i}>{err}</p>
