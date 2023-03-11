@@ -42,7 +42,24 @@ function Profile ({products,collections}){
         console.log(response)
         setProfileRes(response)
         setEditing(prev=>!prev)
+        setEditFname('')
+        setEditLname('')
+        setEditEmail('')
+        setEditNumber('')
+        setEditAddress('')
+        setEditPassword('')
+        toast('Updated...')
         }
+    }
+    function clearData(){
+        setEditData({})
+        setEditFname('')
+        setEditLname('')
+        setEditEmail('')
+        setEditNumber('')
+        setEditAddress('')
+        setEditPassword('')
+        setProfileRes({})
     }
 
     useEffect(()=>{
@@ -61,7 +78,7 @@ function Profile ({products,collections}){
             fetchUser()         
         }
       
-    },[session.status,session.data.user.id,editing])
+    },[session.status,session.data?.user.id,editing])
     
     return <Layout products={products} collections={collections}>
    <div className="profileContainer">
@@ -120,12 +137,13 @@ function Profile ({products,collections}){
                 {profileRes.updated.map((res,i)=>{
                    return <p key={i}>{res}</p>
                 })}</div>}
-            {profileRes?.err.length>0 && <div className="profileErr">
+            {profileRes.err?.length>0 && <div className="profileErr">
             <h5>Errors:</h5>
               {profileRes.err.map((err,i)=>{
                 return  <p key={i}>{err}</p>
                 })}</div>}
         </div>
+        <button onClick={clearData}>Clear</button>
     </div>
 }
 
