@@ -61,7 +61,7 @@ function Profile ({products,collections}){
             fetchUser()         
         }
       
-    },[session.status,editing])
+    },[session.status,session.data.user.id,editing])
     
     return <Layout products={products} collections={collections}>
    <div className="profileContainer">
@@ -117,13 +117,13 @@ function Profile ({products,collections}){
         <div className="editRes">
             {profileRes.updated && <div className="profileSuccess">
                  <h5>Updated:</h5>
-                {profileRes.updated.map(res=>{
-                   return <p>{res}</p>
+                {profileRes.updated.map((res,i)=>{
+                   return <p key={i}>{res}</p>
                 })}</div>}
             {profileRes.err.length>0 && <div className="profileErr">
             <h5>Errors:</h5>
-              {profileRes.err.map(err=>{
-                return  <p>{err}</p>
+              {profileRes.err.map((err,i)=>{
+                return  <p key={i}>{err}</p>
                 })}</div>}
         </div>
     </div>

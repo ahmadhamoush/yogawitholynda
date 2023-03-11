@@ -88,7 +88,7 @@ function Dashboard(){
     if(session?.status==="unauthenticated" || !session.data?.user.isAdmin){
         router.push('/admin')
     }
-   },[session])
+   },[session,router])
 
 //    useEffect(()=>{
 //     fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))
