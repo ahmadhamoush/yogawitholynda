@@ -67,6 +67,7 @@ function Navbar({collections}){
 <FontAwesomeIcon onClick={()=>setIsProfileChecked(!isProfileChecked)} icon={faUser} className={style.icon}  />
  {isProfileChecked && session.status === 'authenticated' && <div className={style.dropdownContent}>
   <FontAwesomeIcon icon={faCaretUp} className={style.arrow}/>
+  <p onClick={()=>{router.push('/profile'); setIsProfileChecked(prev=>!prev)}}>Profile</p>
  <p onClick={()=>{router.push('/order/history'); setIsProfileChecked(prev=>!prev)}}>View Orders</p>
   <p onClick={()=>signOut()}>Logout</p>
  </div>}

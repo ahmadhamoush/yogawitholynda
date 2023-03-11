@@ -1,0 +1,89 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profileDetails {
+    color: #001F3D;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #eee;
+    width: 100%;
+}
+
+.saveBtn {
+    margin-top: 10px;
+}
+
+.profileDetails input {
+    margin: 10px 0;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #eee;
+    background-color: #1e1e1e;
+}
+
+.profileDetails p {
+    font-weight: light;
+}
+
+.profileDetails button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background-color: #1e1e1e;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    color: #d1d1d1;
+    cursor: pointer;
+}
+
+.profileDetails h4 {
+    letter-spacing: 2px;
+    line-height: 2;
+    font-size: 20px;
+}
+
+.profileDetails div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.profileDetails div p {
+    margin: 5px 0;
+}
+
+.profileIcon {
+    margin: 0 10px;
+    cursor: pointer;
+    color: #001F3D;
+}
+
+.editRes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.editRes .profileSuccess {
+    color: green
+}
+
+.editRes .profileErr {
+    color: red
+}

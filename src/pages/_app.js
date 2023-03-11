@@ -4,22 +4,19 @@ import '@/styles/cart.css'
 import '@/styles/order.css'
 import '@/styles/admin.css'
 import '@/styles/invoice.css'
+import '@/styles/profile.css'
 import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos'
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
 import Login from '@/components/Login'
 import { SessionProvider } from "next-auth/react";
 
-export function reportWebVitals(metric) {
-    console.log(metric)
-  }
-  
-export default function App({ Component, pageProps, products }) {
+export default function App({ Component, pageProps}) {
 
 
     useEffect(() => {

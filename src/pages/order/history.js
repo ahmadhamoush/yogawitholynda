@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useReducer } from "react"
 import { findAllCollections } from "../api/collections"
 import { findAllProducts } from "../api/products"
+import { useSession } from "next-auth/react"
 
 
 function reducer(state,action){
@@ -19,7 +20,7 @@ function reducer(state,action){
     }
 }
 export default function OrderHistory({collections,products}){
-
+    const session = useSession()
     const [{loading,error,orders}, dispatch] = useReducer(reducer,{
         loading:true,
         orders:[],
@@ -43,7 +44,7 @@ export default function OrderHistory({collections,products}){
           <h2>Order History</h2>
             {!orders ? <h2>No Orders found</h2>:<div className="tableResponsive">
 
-            <table>
+           {session.status ==='authenticated' ?( <table>
                    <thead>
                     <tr>
                         <th>
@@ -86,7 +87,7 @@ export default function OrderHistory({collections,products}){
                 )
             })}
                </tbody>
-                    </table>
+                    </table>):<p>You should be authenticated to view order history</p>}
             </div>
             
             }
