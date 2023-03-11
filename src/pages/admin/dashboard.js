@@ -90,12 +90,6 @@ function Dashboard(){
     }
    },[session,router])
 
-//    useEffect(()=>{
-//     fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))
-//     fetch('/api/users').then(res=>res.json()).then(json=>setCustomers(json))
-//     fetch('/api/orders').then(res=>res.json()).then(json=>setOrders(json))
-//    },[])
-
    useEffect(()=>{
     const fetchProducts = async () =>{
         await fetch('/api/products').then(res=>res.json()).then(json=>setProducts(json))

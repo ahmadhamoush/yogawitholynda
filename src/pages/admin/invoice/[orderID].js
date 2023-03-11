@@ -1,19 +1,13 @@
 import { Invoice } from "@/components/Invoice"
+import { findOrder } from "@/pages/api/order/[id]"
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { initMongoose } from "lib/mongoose"
+import { useState } from "react"
 import { renderToString } from 'react-dom/server'
 
- export default function DonwloadInvoice(){
-    const router = useRouter() 
-    const [order,setOrder] =useState({})
+ export default function DonwloadInvoice({order}){
     const[downloading,setDownloading] = useState(false)
-    useEffect(()=>{
-        fetch('/api/order/' + router.query.orderID)
-        .then(res=>res.json())
-        .then(json=>setOrder(json))
-    },[router.query.orderID])
     
     async function convertInvoice(){
         setDownloading(true)
@@ -38,4 +32,11 @@ import { renderToString } from 'react-dom/server'
          </div> )
    }
    
-        
+   export async function getServerSideProps(context){
+    await initMongoose()
+    return {
+      props:{
+       order: JSON.parse(JSON.stringify(await findOrder(context.query.orderID))),
+      }
+    }
+  }
