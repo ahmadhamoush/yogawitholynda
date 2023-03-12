@@ -4,6 +4,7 @@ module.exports = {
         env: {
             MONGODB_URL: 'mongodb+srv://hamoush:hmtGSXL1qPtgLijl@cluster0.jy0bral.mongodb.net/yogawitholynda?retryWrites=true&w=majority',
             NEXT_PUBLIC_SECRET: 'oLyNdA213$',
+            NEXTAUTH_URL: 'http://127.0.0.1:3000',
             CLOUD_NAME: 'hamoush',
             API_KEY: '488517389455474',
             API_SECRET: 'VsUVFBY3gMzop8U8wpx64CAP5bI',

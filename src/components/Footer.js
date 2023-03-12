@@ -13,7 +13,7 @@ function Footer({collections}){
           <div className={style.linksContainer}>
                   
           <Link  href='/'>
-            <Image className={style.logo} src='/logo.png' width={100} height={100} alt="logo" placeholder='blur'/>
+            <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/>
             </Link>
             
           <div className={style.links}>
