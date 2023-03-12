@@ -90,6 +90,7 @@
 .link {
     text-decoration: none;
     margin: 0 10px;
+    text-transform: capitalize;
 }
 
 .selected::after {

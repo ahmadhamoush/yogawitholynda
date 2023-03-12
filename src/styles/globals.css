@@ -103,6 +103,10 @@ button:active {
     transform: scale(1.09);
 }
 
+li {
+    text-transform: capitalize;
+}
+
 @media (max-width:390px) {
     h1 {
         font-size: 25px;

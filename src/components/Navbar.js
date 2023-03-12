@@ -24,7 +24,7 @@ function Navbar({collections}){
    
           <div className={style.allNav}>
           
-               <ResponsiveNav />
+               <ResponsiveNav collections={collections} />
                <div className={style.navAnnouncment}>
                <Announcement />
              <nav data-aos="fade-down" data-aos-once={true} data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className={style.nav}>

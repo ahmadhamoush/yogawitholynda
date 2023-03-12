@@ -31,7 +31,7 @@ function Cart({products,collections}){
     async function checkout(){
       setOrderLoading(true)
       
-      if(!order.number || !order.address.main || !order.address.secondary  || !order.address.city){
+      if(!order.number || !order.address.main  || !order.address.city){
         toast('Check empty inputs..')
       }
       else{
@@ -249,7 +249,7 @@ function Cart({products,collections}){
                     <div>
                     <label htmlFor="address">Address: {user?.address && <FontAwesomeIcon onClick={()=>setEditAddress(prev=>!prev)}  className="icon" icon={faEdit} />}</label>
                     <input required onChange={(e)=>setAddress(e.target.value)} disabled={editAddress && true} value={user?.address && address} type="text" placeholder="Street Address"  id="address" />
-                    <input  required onChange={(e)=>setOptionalAddress(e.target.value)}  disabled={editAddress} type="text" value={user?.address && optionalAddress} placeholder="Apartment, suite, unit, etc. (optional" id="optional" />
+                    <input  onChange={(e)=>setOptionalAddress(e.target.value)}  disabled={editAddress} type="text" value={user?.address && optionalAddress} placeholder="Apartment, suite, unit, etc. (optional" id="optional" />
                     </div>
                     <div>
                     <label htmlFor="city">Town / City:</label>
