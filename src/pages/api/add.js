@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import Product from "models/Product"
 import { initMongoose } from "lib/mongoose"
 import path from "path";
+import { getSession } from "next-auth/react";
 const fs = require("fs");
 export const config = {
     api: {
@@ -51,6 +52,10 @@ const readFile = (req) => {
     })
 }
 export default async function handler(req, res) {
+    const session = await getSession({ req })
+    if (!session?.user.isAdmin) {
+        return res.status(401).send({ message: 'Not Authorized' })
+    } 
     await readFile(req)
     res.json({ done: 'ok' })
 }
