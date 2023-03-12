@@ -12,6 +12,7 @@ export function ProductsContextProvider({children}){
     const [isSearchChecked, setIsSearchChecked] = useState(false)
     const [isProfileChecked, setIsProfileChecked] = useState(false)
     const [searchedProducts, setSearchedProducts] = useState('')
+    const[editing,setEditing] = useState(false)
 
     if (typeof window !== 'undefined') {
         if(isMenuChecked || isSearchChecked){
@@ -34,6 +35,6 @@ export function ProductsContextProvider({children}){
     
     
     return(
-       <ProductsContext.Provider value={{selectedProducts, setSelectedProducts,searchedProducts,setSearchedProducts,isMenuChecked,setIsMenuChecked,isSearchChecked,setIsSearchChecked,searchText,setSearchText,isProfileChecked,setIsProfileChecked}}>{children}</ProductsContext.Provider>
+       <ProductsContext.Provider value={{selectedProducts, setSelectedProducts,searchedProducts,setSearchedProducts,isMenuChecked,setIsMenuChecked,isSearchChecked,setIsSearchChecked,searchText,setSearchText,isProfileChecked,setIsProfileChecked,editing,setEditing}}>{children}</ProductsContext.Provider>
     )
 }

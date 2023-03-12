@@ -1,29 +1,34 @@
 import { Invoice } from "@/components/Invoice"
 import { findOrder } from "@/pages/api/order/[id]"
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
 import { initMongoose } from "lib/mongoose"
 import { useState } from "react"
 import { renderToString } from 'react-dom/server'
 
- export default function DonwloadInvoice({order}){
+ export default function DownloadInvoice({order}){
     const[downloading,setDownloading] = useState(false)
     
     async function convertInvoice(){
         setDownloading(true)
         const element =  document.querySelector('.page')
-        html2canvas(element, { onclone: (document) => {
-            setDownloading(false)
-          }})
-          .then((canvas)=>{
+      
+        import('html2canvas').then(html2canvas => {
+          html2canvas.default(element).then(canvas => 
+           {
             const imgData = canvas.toDataURL('image/png')
-            const pdf = new jsPDF('p', 'mm', [297, 210]);
-            var width = pdf.internal.pageSize.getWidth();
-            var height = pdf.internal.pageSize.getHeight();
-            pdf.addImage(imgData, 'JPEG', 0, 0, width, height)
-            pdf.save(`${order.orderID}.pdf`)
-          })
+            import("jspdf").then(({ jsPDF }) => {
+              const pdf = new jsPDF('p', 'mm', [297, 210]);
+              var width = pdf.internal.pageSize.getWidth();
+              var height = pdf.internal.pageSize.getHeight();
+              pdf.addImage(imgData, 'JPEG', 0, 0, width, height)
+              pdf.save(`${order.orderID}.pdf`)
+               setDownloading(false)
+           }
+          )
+        }).catch(e => {console("load failed")})})
+       
     }
+
+
     
     return(
         <div className="invoiceDownloadContainer">

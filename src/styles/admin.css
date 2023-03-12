@@ -1,3 +1,19 @@
+.adminWelcome {
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #045174;
+    overflow: hidden !important;
+    text-align: center;
+}
+
+.adminWelcome h4 {
+    font-size: 50px;
+    margin-top: 150px;
+}
+
 .admiinContainer h1 {
     color: #1e1e1e;
 }
@@ -83,7 +99,6 @@
 }
 
 .dashboardHeader {
-    position: sticky;
     display: flex;
     flex-direction: row;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))

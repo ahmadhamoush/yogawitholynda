@@ -86,9 +86,12 @@ function Cart({products,collections}){
     const router = useRouter()
     useEffect(()=>{
         const uniqueIds = [... new Set(selectedProducts)]
-        fetch('/api/cart/' + uniqueIds.join('-'))
+        const fetchCart = async ()=>{
+          await fetch('/api/cart/' + uniqueIds.join('-'))
         .then(response=> response.json())
         .then(json=> setCartInfo(json)) 
+        }
+        fetchCart()
     },[selectedProducts])
 
     function addProduct(product){

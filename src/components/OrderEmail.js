@@ -14,8 +14,8 @@ export default function OrderEamil(order) {
           <Text style={paragraph}><Text style={subHeader}>Address: </Text>{order.user.address.main + ', ' + order.user.address.secondary + ', ' + order.user.address.city}</Text>
           <Text style={heading}>Products:</Text>
           {order.products.map((product,index)=>{
+            index++
             return <>
-            {index++}
             <Text style={subHeader}>#{index}</Text>
              <Text style={paragraph}><Text style={subHeader}>Name: </Text>{product.name}</Text>
              <Text style={paragraph}><Text style={subHeader}>Price: </Text>${product.price}</Text>
