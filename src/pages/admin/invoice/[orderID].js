@@ -1,7 +1,6 @@
 import { Invoice } from "@/components/Invoice"
 import { findOrder } from "@/pages/api/order/[id]"
 import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
 import { initMongoose } from "lib/mongoose"
 import { useState } from "react"
 import { renderToString } from 'react-dom/server'
