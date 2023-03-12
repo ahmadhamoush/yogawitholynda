@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { faEdit } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { toast } from "react-toastify"
-import Loader from "@/components/Loader"
 
 function Profile ({products,collections}){
 
@@ -64,13 +63,7 @@ function Profile ({products,collections}){
 
     useEffect(()=>{
         const fetchUser = async () =>{
-            await fetch('/api/user', {
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify(session.data.user.id)
-            })
+            await fetch(`/api/user?id=${session.data.user.id}`)
             .then(res=>res.json())
             .then(json=>setUser(json))
         }

@@ -62,7 +62,7 @@ function Cart({products,collections}){
      }
     async function handleViewCheckout(){
       if(session.status === 'authenticated'){
-        const req = await fetch(`/api/users?email=${session.data.user.email}`);
+        const req = await fetch(`/api/user?id=${session.data.user.id}`);
         const user = await req.json()
         setUser(await user)
           if(await user){
