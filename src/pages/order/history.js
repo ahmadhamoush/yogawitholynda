@@ -37,7 +37,7 @@ export default function OrderHistory({collections,products}){
              }
         }
         fetchOrders()
-    },[])
+    },[session])
     return(
        <Layout collections={collections} products={products}>
           {loading ? <Loader /> :<div className="orderHistoryContainer">
@@ -69,7 +69,7 @@ export default function OrderHistory({collections,products}){
                    </thead>
                    <tbody>
                     {!orders.length && <div style={{borderRadius:'0'}} className="notFound"><h2>No Order found</h2></div>}
-            {orders.map(order=>{
+            {orders.length && orders.map(order=>{
                 return (
                     <tr key={order._id}>
                  <td>{order.orderID} </td>
