@@ -14,7 +14,7 @@ function PreFooter(){
             </Link>
             </div>
             <div data-aos="fade-up"  data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600" className="benefits">
-                <Image src={img2} className={style.image} placeholder='blur'  alt='yoga benefits'  fill  sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw,33vw"></Image>
+                <Image src='/benefits.png' className={style.image}   alt='yoga benefits'  fill  sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw,33vw"></Image>
             </div>
         </div>
     )
