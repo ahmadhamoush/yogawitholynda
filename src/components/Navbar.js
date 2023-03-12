@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 import style from '@/styles/Nav.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faSearch,faCartShopping ,faUser} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
 import { ProductsContext } from './ProductsContext';
 import { useRouter } from 'next/router';

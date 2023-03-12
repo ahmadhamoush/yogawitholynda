@@ -9,7 +9,6 @@ import '@/styles/product.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'aos/dist/aos.css';
-import AOS from 'aos'
 import { useEffect} from 'react';
 import { ProductsContextProvider } from '@/components/ProductsContext'
 import { ToastContainer } from 'react-toastify'
@@ -24,7 +23,10 @@ export default function App({ Component, pageProps}) {
             const loader = document.getElementById('globalLoader');
             if (loader)
                 loader.style.display = 'none';
-                AOS.init();
+                import('aos').then(AOS => {
+                    AOS.init();
+                })
+               
         }
     }, []);
 

@@ -1,8 +1,6 @@
 import ProductCard from './ProductCard'
 import style from '@/styles/Product.module.css'
 
-
-
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 670 },

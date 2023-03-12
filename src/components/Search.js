@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useReducer } from "react"
+import { useContext, useReducer } from "react"
 import { ProductsContext } from "./ProductsContext"
 import ProductCard from "./ProductCard"
 import style from '@/styles/Search.module.css'

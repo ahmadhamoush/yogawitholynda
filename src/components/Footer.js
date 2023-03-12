@@ -1,11 +1,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import style from '@/styles/Footer.module.css'
-import logo from '../../public/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope ,faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons"
-import { useEffect, useState } from "react"
 
 function Footer({collections}){
 
@@ -15,7 +13,7 @@ function Footer({collections}){
           <div className={style.linksContainer}>
                   
           <Link  href='/'>
-            <Image className={style.logo} src={logo} width={100} height={100} alt="logo" placeholder='blur'/>
+            <Image className={style.logo} src='/logo.png' width={100} height={100} alt="logo" placeholder='blur'/>
             </Link>
             
           <div className={style.links}>
