@@ -11,5 +11,5 @@ export default async function handler(req, res) {
     const { user } = session
     await initMongoose()
     console.log(req.query)
-    res.json(await Order.find({ 'user.email': user.email }))
+    res.json(await Order.find({ 'user._id': user.id }))
 }
