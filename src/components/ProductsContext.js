@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 import { useSession } from "next-auth/react";
+import useSessionStorageState from 'use-session-storage-state'
 
 export const ProductsContext = createContext({})
 
 export function ProductsContextProvider({children}){
     const session = useSession()
-    const [selectedProducts, setSelectedProducts] = useLocalStorageState('cart', {defaultValue :[]})
+    const [selectedProducts, setSelectedProducts] = useSessionStorageState('cart', {defaultValue :[]})
     const [searchText, setSearchText] = useState('')
     const [isMenuChecked, setIsMenuChecked] = useState(false)
     const [isSearchChecked, setIsSearchChecked] = useState(false)
