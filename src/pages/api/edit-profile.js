@@ -26,10 +26,9 @@ export default async function handler(req, res) {
     if (req.body.email) {
         if (validateEmail(req.body.email)) {
             const foundUser = await User.findOne({ email: req.body.email })
-            if (foundUser) {
+            if (!foundUser) {
                 await User.updateOne({ _id: req.body.id }, { email: req.body.email })
-                const orders = await Order.updateMany({ 'user.email': session.user.email }, { 'user.email': req.body.email })
-                console.log(await Order.find())
+                await Order.updateMany({ 'user.email': session.user.email }, { 'user.email': req.body.email })
                 updated.push('Email')
             } else {
                 err.push('Email Taken')
