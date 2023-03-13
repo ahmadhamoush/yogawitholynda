@@ -1,8 +1,16 @@
 import { initMongoose } from "lib/mongoose"
 import User from "models/User"
 import bcrypt from 'bcryptjs'
+import { getSession } from "next-auth/react"
+import Order from "models/Order"
 
 export default async function handler(req, res) {
+
+    const session = await getSession({ req })
+    if (!session) {
+        return res.status(401).send({ message: 'Not Authorized' })
+    }
+
     await initMongoose()
     let err = []
     let updated = []
@@ -18,6 +26,8 @@ export default async function handler(req, res) {
     if (req.body.email) {
         if (validateEmail(req.body.email)) {
             await User.updateOne({ _id: req.body.id }, { email: req.body.email })
+            const orders = await Order.updateMany({ 'user.email': session.user.email }, { 'user.email': req.body.email })
+            console.log(await Order.find())
             updated.push('Email')
         } else {
             err.push('Email Not Valid')
